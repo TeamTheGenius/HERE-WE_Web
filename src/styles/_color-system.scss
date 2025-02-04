@@ -1,0 +1,97 @@
+@use './color-value' as colorValue;
+@use 'sass:map';
+
+@function color($color, $shade) {
+  @return map.get(map.get(colorValue.$colors, $color), $shade);
+}
+
+// Light mode colors
+$text-light: (
+  'default': color('gray', 50),
+  'primary': color('gray', 900),
+  'secondary': color('gray', 700),
+  'tertiary': color('gray', 500),
+  'placeholder': color('gray', 400),
+  'disabled': color('gray', 300),
+  'brand': color('blue', 500),
+  'link': color('blue', 600),
+  'link-hover': color('blue', 700),
+  'notice': #dc2626,
+);
+
+$background-light: (
+  'default': color('gray', 0),
+  'primary': color('gray', 100),
+  'secondary': color('blue', 50),
+  'tertiary': color('gray', 200),
+  'black': color('gray', 900),
+  'disabled': color('gray', 300),
+  'brand': color('blue', 500),
+  'brand-hover': color('blue', 600),
+  'notice': #fee2e2,
+);
+
+$border-light: (
+  'default': color('gray', 200),
+  'strong': color('gray', 300),
+  'hover': color('gray', 400),
+  'disabled': color('gray', 300),
+  'brand': color('blue', 500),
+  'brand-hover': color('blue', 600),
+);
+
+// Dark mode colors
+$text-dark: (
+  'default': color('gray', 0),
+  'primary': color('gray', 50),
+  'secondary': color('gray', 300),
+  'tertiary': color('gray', 400),
+  'placeholder': color('gray', 600),
+  'disabled': color('gray', 700),
+  'brand': color('blue', 400),
+  'link': color('blue', 400),
+  'link-hover': color('blue', 300),
+  'notice': #ef4444,
+);
+
+$background-dark: (
+  'default': color('gray', 900),
+  'primary': color('gray', 800),
+  'secondary': color('blue', 900),
+  'tertiary': color('gray', 700),
+  'black': color('gray', 950),
+  'disabled': color('gray', 800),
+  'brand': color('blue', 600),
+  'brand-hover': color('blue', 700),
+  'notice': #7f1d1d,
+);
+
+$border-dark: (
+  'default': color('gray', 700),
+  'strong': color('gray', 600),
+  'hover': color('gray', 500),
+  'disabled': color('gray', 800),
+  'brand': color('blue', 500),
+  'brand-hover': color('blue', 400),
+);
+
+@mixin text($variant: 'default') {
+  color: map.get($text-light, $variant);
+  .dark & {
+    color: map.get($text-dark, $variant);
+  }
+}
+
+@mixin bg($variant: 'default') {
+  background-color: map.get($background-light, $variant);
+  .dark & {
+    background-color: map.get($background-dark, $variant);
+  }
+}
+
+@mixin border($variant: 'default') {
+  border-color: map.get($border-light, $variant);
+  .dark & {
+    border-color: map.get($border-dark, $variant);
+  }
+}
