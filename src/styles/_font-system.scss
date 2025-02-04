@@ -1,0 +1,29 @@
+@use './font-value' as fontValue;
+@use 'sass:map';
+
+@function font($size, $weight: 'regular') {
+  @return ('size': map.get(fontValue.$font-sizes, $size), 'weight': map.get(fontValue.$font-weights, $weight));
+}
+
+$text: (
+  'display-large': font('32', 'bold'),
+  'display-small': font('24', 'bold'),
+  'heading-large': font('20', 'bold'),
+  'heading-medium': font('20', 'medium'),
+  'heading-small': font('16', 'medium'),
+  'body-large': font('16', 'regular'),
+  'body-medium': font('14', 'regular'),
+  'body-small': font('12', 'regular'),
+  'label-large': font('16', 'medium'),
+  'label-medium': font('14', 'medium'),
+  'label-small': font('12', 'medium'),
+  'caption-medium': font('14', 'regular'),
+  'caption-small': font('12', 'regular'),
+);
+
+@mixin text($variant) {
+  $style: map.get($text, $variant);
+  font-size: map.get($style, 'size');
+  font-weight: map.get($style, 'weight');
+  font-family: fontValue.$font-family;
+}

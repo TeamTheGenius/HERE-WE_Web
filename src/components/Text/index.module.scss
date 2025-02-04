@@ -1,0 +1,14 @@
+@use '../../styles/global' as *;
+@use 'sass:map';
+
+@each $key, $value in $font-text {
+  .font-#{$key} {
+    @include font-text($key);
+  }
+}
+
+@each $key, $value in $color-text-light {
+  .color-#{$key} {
+    @include color-text($key);
+  }
+}
