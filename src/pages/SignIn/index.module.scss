@@ -1,0 +1,74 @@
+@use '../../styles/global' as *;
+
+@mixin signin-button-size {
+  width: 100%;
+  max-width: 40rem;
+  height: 6rem;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-col-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper {
+  height: 100%;
+  @include flex-center;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.service-information-container {
+  @include flex-col-center;
+  gap: 2rem;
+}
+
+.signin-container {
+  @include flex-col-center;
+  gap: 1.4rem;
+}
+
+.signin-button {
+  @include flex-center;
+  gap: 1.6rem;
+}
+
+.gooogle-signin-button {
+  background-color: #ffffff;
+  color: #767676;
+  border-radius: 10px;
+  box-shadow:
+    0 0 3px 0 rgba(0, 0, 0, 0.084),
+    0 2px 3px 0 rgba(0, 0, 0, 0.168);
+  @include signin-button-size;
+  @include font-text('heading-large');
+}
+
+.naver-signin-button {
+  background-color: #03c75a;
+  color: #ffffff;
+  border-radius: 4px;
+  @include signin-button-size;
+  @include font-text('heading-large');
+}
+
+.kakao-signin-button {
+  background-color: #fee500;
+  color: #000000;
+  border-radius: 12px;
+  @include signin-button-size;
+  @include font-text('heading-large');
+}
