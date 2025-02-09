@@ -1,0 +1,24 @@
+@use 'sass:map';
+
+$flex-map: (
+  start: flex-start,
+  end: flex-end,
+  between: space-between,
+  around: space-around,
+  stretch: stretch,
+  center: center,
+);
+
+@mixin row($justify-content: center, $align-items: center) {
+  display: flex;
+  flex-direction: row;
+  justify-content: map.get($flex-map, $justify-content);
+  align-items: map.get($flex-map, $align-items);
+}
+
+@mixin column($justify-content: center, $align-items: center) {
+  display: flex;
+  flex-direction: column;
+  justify-content: map.get($flex-map, $justify-content);
+  align-items: map.get($flex-map, $align-items);
+}
