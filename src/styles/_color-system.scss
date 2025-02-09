@@ -82,6 +82,13 @@ $border-dark: (
   }
 }
 
+@mixin fill($variant: 'default') {
+  fill: map.get($text-light, $variant);
+  .dark & {
+    fill: map.get($text-dark, $variant);
+  }
+}
+
 @mixin bg($variant: 'default') {
   background-color: map.get($background-light, $variant);
   .dark & {
