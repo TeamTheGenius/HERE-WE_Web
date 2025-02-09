@@ -1,0 +1,33 @@
+@use '../../styles/global' as *;
+
+.button {
+  border-radius: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: $space-xs;
+}
+
+.button--primary {
+  @include color-bg('brand');
+  @include color-text('default');
+}
+
+.button--secondary {
+  @include color-bg('default');
+  @include color-border('strong');
+  @include color-text('tertiary');
+}
+
+.button--lg {
+  @include font-text('label-large');
+  max-width: 36rem;
+  height: 4.8rem;
+  width: 100%;
+}
+
+.button--md {
+  @include font-text('label-medium');
+  width: 8rem;
+  height: 3.2rem;
+}

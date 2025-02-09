@@ -13,11 +13,6 @@ body {
   @include color-bg('default');
 }
 
-#root {
-  width: 100vw;
-  height: 100vh;
-}
-
 button {
   cursor: pointer;
 }
