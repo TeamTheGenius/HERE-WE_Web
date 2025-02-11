@@ -1,0 +1,8 @@
+@use '../../../shared/styles/global' as *;
+@use 'sass:map';
+
+@each $key, $value in $color-light-text {
+  .icon--#{$key} {
+    fill: var(--#{$key});
+  }
+}

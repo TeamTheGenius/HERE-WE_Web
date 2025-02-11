@@ -1,15 +1,15 @@
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
-import SignIn from './pages/SignIn';
-import GlobalSvgSprite from './components/GlobalSvgSprite';
+import GlobalSvgSprite from './shared/ui/GlobalSvgSprite';
+import { useTheme } from './shared/hooks/useTheme';
+import { Routing } from './app/routes';
+import { ThemeProvider } from './app/providers/ThemeProvider';
 
 function App() {
+  useTheme();
   return (
-    <BrowserRouter>
+    <ThemeProvider>
       <GlobalSvgSprite />
-      <Routes>
-        <Route path="/" element={<SignIn />} />
-      </Routes>
-    </BrowserRouter>
+      <Routing />
+    </ThemeProvider>
   );
 }
 
