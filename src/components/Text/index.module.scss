@@ -7,8 +7,8 @@
   }
 }
 
-@each $key, $value in $color-text-light {
+@each $key, $value in $color-light-text {
   .color-#{$key} {
-    @include color-text($key);
+    color: var(--#{$key});
   }
 }
