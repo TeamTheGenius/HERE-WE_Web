@@ -5,100 +5,90 @@
   @return map.get(map.get(colorValue.$colors, $color), $shade);
 }
 
-// Light mode colors
-$text-light: (
-  'default': color('gray', 50),
-  'primary': color('gray', 900),
-  'secondary': color('gray', 700),
-  'tertiary': color('gray', 500),
-  'placeholder': color('gray', 400),
-  'disabled': color('gray', 300),
-  'brand': color('blue', 500),
-  'link': color('blue', 600),
-  'link-hover': color('blue', 700),
-  'notice': #dc2626,
+// Light mode colors (unchanged)
+$light-text: (
+  'text-default': color('gray', 50),
+  'text-primary': color('gray', 900),
+  'text-secondary': color('gray', 700),
+  'text-tertiary': color('gray', 500),
+  'text-placeholder': color('gray', 400),
+  'text-disabled': color('gray', 300),
+  'text-brand': color('blue', 500),
+  'text-link': color('blue', 600),
+  'text-link-hover': color('blue', 700),
+  'text-notice': #dc2626,
 );
 
-$background-light: (
-  'default': color('gray', 0),
-  'primary': color('gray', 100),
-  'secondary': color('blue', 50),
-  'tertiary': color('gray', 200),
-  'black': color('gray', 900),
-  'disabled': color('gray', 300),
-  'brand': color('blue', 500),
-  'brand-hover': color('blue', 600),
-  'notice': #fee2e2,
+$light-surface: (
+  'surface-default': color('gray', 0),
+  'surface-primary': color('gray', 100),
+  'surface-secondary': color('blue', 50),
+  'surface-tertiary': color('gray', 200),
+  'surface-black': color('gray', 900),
+  'surface-disabled': color('gray', 300),
+  'surface-brand': color('blue', 500),
+  'surface-brand-hover': color('blue', 600),
+  'surface-notice': #fee2e2,
 );
 
-$border-light: (
-  'default': color('gray', 200),
-  'strong': color('gray', 300),
-  'hover': color('gray', 400),
-  'disabled': color('gray', 300),
-  'brand': color('blue', 500),
-  'brand-hover': color('blue', 600),
+$light-border: (
+  'border-default': color('gray', 200),
+  'border-strong': color('gray', 300),
+  'border-hover': color('gray', 400),
+  'border-disabled': color('gray', 300),
+  'border-brand': color('blue', 500),
+  'border-brand-hover': color('blue', 600),
 );
 
-// Dark mode colors
-$text-dark: (
-  'default': color('gray', 0),
-  'primary': color('gray', 50),
-  'secondary': color('gray', 300),
-  'tertiary': color('gray', 400),
-  'placeholder': color('gray', 600),
-  'disabled': color('gray', 700),
-  'brand': color('blue', 400),
-  'link': color('blue', 400),
-  'link-hover': color('blue', 300),
-  'notice': #ef4444,
+// Dark mode colors (unchanged)
+$dark-text: (
+  'text-default': color('gray', 0),
+  'text-primary': color('gray', 50),
+  'text-secondary': color('gray', 300),
+  'text-tertiary': color('gray', 400),
+  'text-placeholder': color('gray', 600),
+  'text-disabled': color('gray', 700),
+  'text-brand': color('blue', 400),
+  'text-link': color('blue', 400),
+  'text-link-hover': color('blue', 300),
+  'text-notice': #ef4444,
 );
 
-$background-dark: (
-  'default': color('gray', 900),
-  'primary': color('gray', 800),
-  'secondary': color('blue', 900),
-  'tertiary': color('gray', 700),
-  'black': color('gray', 950),
-  'disabled': color('gray', 800),
-  'brand': color('blue', 600),
-  'brand-hover': color('blue', 700),
-  'notice': #7f1d1d,
+$dark-surface: (
+  'surface-default': color('gray', 900),
+  'surface-primary': color('gray', 800),
+  'surface-secondary': color('blue', 900),
+  'surface-tertiary': color('gray', 700),
+  'surface-black': color('gray', 900),
+  'surface-disabled': color('gray', 800),
+  'surface-brand': color('blue', 600),
+  'surface-brand-hover': color('blue', 700),
+  'surface-notice': #7f1d1d,
 );
 
-$border-dark: (
-  'default': color('gray', 700),
-  'strong': color('gray', 600),
-  'hover': color('gray', 500),
-  'disabled': color('gray', 800),
-  'brand': color('blue', 500),
-  'brand-hover': color('blue', 400),
+$dark-border: (
+  'border-default': color('gray', 700),
+  'border-strong': color('gray', 600),
+  'border-hover': color('gray', 500),
+  'border-disabled': color('gray', 800),
+  'border-brand': color('blue', 500),
+  'border-brand-hover': color('blue', 400),
 );
 
-@mixin text($variant: 'default') {
-  color: map.get($text-light, $variant);
-  .dark & {
-    color: map.get($text-dark, $variant);
+// Merging the light and dark themes
+$light: map.merge(map.merge($light-text, $light-surface), $light-border);
+$dark: map.merge(map.merge($dark-text, $dark-surface), $dark-border);
+
+@mixin theme($theme-name) {
+  @each $key, $value in $theme-name {
+    --#{$key}: #{$value};
   }
 }
 
-@mixin fill($variant: 'default') {
-  fill: map.get($text-light, $variant);
-  .dark & {
-    fill: map.get($text-dark, $variant);
-  }
+:root[data-theme='light'] {
+  @include theme($light);
 }
 
-@mixin bg($variant: 'default') {
-  background-color: map.get($background-light, $variant);
-  .dark & {
-    background-color: map.get($background-dark, $variant);
-  }
-}
-
-@mixin border($variant: 'default') {
-  border-color: map.get($border-light, $variant);
-  .dark & {
-    border-color: map.get($border-dark, $variant);
-  }
+:root[data-theme='dark'] {
+  @include theme($dark);
 }
