@@ -1,0 +1,7 @@
+@use '../../../shared/styles/global' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
