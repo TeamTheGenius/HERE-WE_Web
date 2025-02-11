@@ -8,25 +8,25 @@
   gap: $space-xs;
 }
 
-.button--primary {
-  @include color-bg('brand');
-  @include color-text('default');
+.primary-button {
+  background-color: var(--surface-brand);
+  color: var(--text-default);
 }
 
-.button--secondary {
-  @include color-bg('default');
-  @include color-border('strong');
+.secondary-button {
+  background-color: var(--surface-default);
+  color: var(--text-strong);
   @include color-text('tertiary');
 }
 
-.button--lg {
+.large-button {
   @include font-text('label-large');
   max-width: 36rem;
   height: 4.8rem;
   width: 100%;
 }
 
-.button--md {
+.medium-button {
   @include font-text('label-medium');
   width: 8rem;
   height: 3.2rem;
