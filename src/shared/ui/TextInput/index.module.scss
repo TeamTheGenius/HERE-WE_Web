@@ -1,0 +1,64 @@
+@use '../../../shared/styles/global' as *;
+
+.label {
+  color: var(--text-primary);
+  @include font-text(heading-small);
+  margin-bottom: $space-sm;
+}
+
+.blind {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}
+
+.wrapper {
+  width: 100%;
+  min-height: 5.4rem;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  gap: $space-xs;
+  margin-bottom: $space-xs;
+}
+
+.message {
+  @include font-text(caption-small);
+  display: flex;
+  justify-content: end;
+  width: 100%;
+}
+
+.warning-message {
+  color: var(--text-notice);
+}
+
+.information-message {
+  color: var(--text-tertiary);
+}
+
+.success-message {
+  color: var(--text-brand);
+}
+
+.input {
+  @include font-text(caption-medium);
+  width: 100%;
+  height: 3.2rem;
+  border-bottom: 1px solid var(--border-strong);
+  color: var(--text-primary);
+  padding: 0 $space-xs;
+}
+
+.input::placeholder {
+  color: var(--text-placeholder);
+}
+
+.button {
+  flex-shrink: 0;
+}
