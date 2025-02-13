@@ -5,17 +5,22 @@ import styles from './index.module.scss';
 
 interface UserInfoFormProps {
   image: string;
-  handleImageChange: (file: File) => void;
-  handleNicknameChange: (nickname: string) => void;
+  onImageChange: (file: File) => void;
+  onNicknameChange: (nickname: string) => void;
   onSubmit: () => void;
 }
 
-function UserInfoForm({ image, handleImageChange, handleNicknameChange, onSubmit }: UserInfoFormProps) {
+function UserInfoForm({ image, onImageChange, onNicknameChange, onSubmit }: UserInfoFormProps) {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onSubmit();
+  };
+
   return (
-    <form className={styles.wrapper}>
-      <ProfileImageInput image={image} handleImageChange={handleImageChange} size="large" />
-      <NicknameInput handleNicknameChange={handleNicknameChange} />
-      <Button variant="primary" size="large" text="가입하기" onClick={onSubmit} />
+    <form className={styles.wrapper} onSubmit={handleSubmit}>
+      <ProfileImageInput image={image} onImageChange={onImageChange} size="large" />
+      <NicknameInput onNicknameChange={onNicknameChange} />
+      <Button variant="primary" size="large" text="가입하기" type="submit" />
     </form>
   );
 }

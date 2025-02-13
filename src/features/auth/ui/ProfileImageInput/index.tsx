@@ -4,7 +4,7 @@ import Icon from '../../../../shared/ui/Icon';
 import styles from './index.module.scss';
 import type { EditableProfileImageProps } from '../../model/types';
 
-function ProfileImageInput({ handleImageChange, ...profileImageProps }: EditableProfileImageProps) {
+function ProfileImageInput({ onImageChange, ...profileImageProps }: EditableProfileImageProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleClickFileInput = () => {
@@ -14,7 +14,7 @@ function ProfileImageInput({ handleImageChange, ...profileImageProps }: Editable
   const handleChangeFile = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    handleImageChange(file);
+    onImageChange(file);
   };
 
   return (

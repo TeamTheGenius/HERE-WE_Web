@@ -1,22 +1,17 @@
-import Button from '../../../../shared/ui/Button';
-import styles from './index.module.scss';
+import { TextInput } from '../../../../shared/ui/TextInput';
 
 interface NicknameInputProps {
-  handleNicknameChange: (nickname: string) => void;
+  onNicknameChange: (nickname: string) => void;
 }
 
-function NicknameInput({ handleNicknameChange }: NicknameInputProps) {
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleNicknameChange(e.target.value);
-  };
+function NicknameInput({ onNicknameChange }: NicknameInputProps) {
   return (
-    <div className={styles.container}>
-      <div className={styles.wrapper}>
-        <input type="text" placeholder="닉네임(2~20)" onChange={handleInputChange} className={styles.input} />
-        <Button variant="secondary" text="중복확인" size="medium" />
-      </div>
-      <span className={styles.message}>중복된 닉네임입니다.</span>
-    </div>
+    <TextInput>
+      <TextInput.Label isVisible={false}>닉네임</TextInput.Label>
+      <TextInput.Input placeholder="닉네임 입력 (2-20자 이내)" onChange={onNicknameChange} />
+      <TextInput.Button text="중복 확인" onClick={() => {}} />
+      <TextInput.Message variant="warning">메시지</TextInput.Message>
+    </TextInput>
   );
 }
 
