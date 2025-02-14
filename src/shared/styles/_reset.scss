@@ -130,11 +130,14 @@ table {
 
 //custom
 button {
-  background: none; /* 배경 초기화 */
-  border: none; /* 테두리 초기화 */
-  padding: 0; /* 기본 패딩 제거 */
+  background: none;
+  border: none;
+  padding: 0;
 }
 
 input {
-  all: unset;
+  background: none;
+  border: none;
+  padding: 0;
+  outline: none;
 }

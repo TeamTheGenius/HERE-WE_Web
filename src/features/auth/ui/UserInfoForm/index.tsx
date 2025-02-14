@@ -1,16 +1,17 @@
+import type { UseFormReturn } from 'react-hook-form';
 import Button from '../../../../shared/ui/Button';
 import NicknameInput from '../NicknameInput';
 import ProfileImageInput from '../ProfileImageInput';
 import styles from './index.module.scss';
+import { UserInfoType } from '../../../../entities/user/model/types';
 
 interface UserInfoFormProps {
-  image: string;
-  onImageChange: (file: File) => void;
-  onNicknameChange: (nickname: string) => void;
+  submitButtonText: string;
   onSubmit: () => void;
+  formMethods: UseFormReturn<UserInfoType>;
 }
 
-function UserInfoForm({ image, onImageChange, onNicknameChange, onSubmit }: UserInfoFormProps) {
+function UserInfoForm({ onSubmit, formMethods, submitButtonText }: UserInfoFormProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit();
@@ -18,9 +19,9 @@ function UserInfoForm({ image, onImageChange, onNicknameChange, onSubmit }: User
 
   return (
     <form className={styles.wrapper} onSubmit={handleSubmit}>
-      <ProfileImageInput image={image} onImageChange={onImageChange} size="large" />
-      <NicknameInput onNicknameChange={onNicknameChange} />
-      <Button variant="primary" size="large" text="가입하기" type="submit" />
+      <ProfileImageInput size="large" formMethods={formMethods} />
+      <NicknameInput formMethods={formMethods} />
+      <Button variant="primary" size="large" text={submitButtonText} type="submit" />
     </form>
   );
 }

@@ -1,5 +1,12 @@
 @use '../../../shared/styles/global' as *;
 
+@mixin disable {
+  &:disabled {
+    color: var(--text-disabled);
+    cursor: default;
+  }
+}
+
 .button {
   border-radius: 0.8rem;
   display: flex;
@@ -11,12 +18,14 @@
 .primary-button {
   background-color: var(--surface-brand);
   color: var(--text-default);
+  @include disable;
 }
 
 .secondary-button {
   background-color: var(--surface-default);
   border: 1px solid var(--border-strong);
   color: var(--text-tertiary);
+  @include disable;
 }
 
 .large-button {

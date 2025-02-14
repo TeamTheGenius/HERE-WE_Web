@@ -1,9 +1,17 @@
 @use '../../../shared/styles/global' as *;
 
-.label {
-  color: var(--text-primary);
+.label-container {
+  display: block;
   @include font-text(heading-small);
   margin-bottom: $space-sm;
+}
+
+.label {
+  color: var(--text-primary);
+}
+
+.required-input-label {
+  color: var(--text-notice);
 }
 
 .blind {
@@ -17,7 +25,7 @@
 
 .wrapper {
   width: 100%;
-  min-height: 5.4rem;
+  min-height: 8.5rem;
 }
 
 .container {
@@ -53,10 +61,22 @@
   border-bottom: 1px solid var(--border-strong);
   color: var(--text-primary);
   padding: 0 $space-xs;
+
+  &::placeholder {
+    color: var(--text-placeholder);
+  }
+
+  &:focus {
+    border-bottom-color: var(--border-brand);
+  }
 }
 
-.input::placeholder {
-  color: var(--text-placeholder);
+.input-error {
+  border-bottom-color: var(--text-notice);
+
+  &:focus {
+    border-bottom-color: var(--text-notice);
+  }
 }
 
 .button {

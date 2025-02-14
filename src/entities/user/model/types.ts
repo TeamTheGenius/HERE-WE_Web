@@ -1,6 +1,11 @@
 export interface ProfileImageProps {
   size: 'small' | 'medium' | 'large';
-  image: string;
+  src?: string;
   alt?: string;
   className?: string;
+}
+
+export interface UserInfoType {
+  image: FileList | undefined;
+  nickname: string;
 }
