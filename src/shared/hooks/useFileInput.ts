@@ -51,7 +51,7 @@ export const useFileInput = <T extends FieldValues>(register: UseFormRegister<T>
   const validateFirstFileSize = (files: FileList | undefined) => {
     const file = files?.[0];
     if (!file) return true;
-    return validateFileSize(file, 12, 'KB');
+    return validateFileSize(file, 5, 'MB');
   };
 
   const fileRegister = register(fieldName, {
