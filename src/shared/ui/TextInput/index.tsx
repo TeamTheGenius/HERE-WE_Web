@@ -1,5 +1,4 @@
 import {
-  ChangeEvent,
   createContext,
   PropsWithChildren,
   useContext,
@@ -7,6 +6,9 @@ import {
   Children,
   ReactNode,
   isValidElement,
+  InputHTMLAttributes,
+  forwardRef,
+  ForwardedRef,
 } from 'react';
 import styles from './index.module.scss';
 import Button, { type ButtonType } from '../Button';
@@ -18,26 +20,29 @@ interface TextInputContextType {
 
 interface LabelProps extends PropsWithChildren {
   isVisible?: boolean;
+  isRequired?: boolean;
 }
 
-interface InputProps {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
-  onChange: (input: string) => void;
+  hasError: boolean;
 }
 
 interface ButtonProps extends PropsWithChildren {
   variant?: ButtonType;
   text: string;
   onClick?: () => void;
+  disabled?: boolean;
 }
 
 interface MessageProps extends PropsWithChildren {
   variant: 'success' | 'information' | 'warning';
 }
 
+const ForwardedInput = forwardRef(Input);
 const ButtonComponent = (<Action text="" onClick={() => {}} />).type;
 const MessageComponent = (<Message variant="warning" />).type;
-const InputComponent = (<Input placeholder="" onChange={() => {}} />).type;
+const InputComponent = (<ForwardedInput placeholder="" hasError={false} />).type;
 const LabelComponent = (<Label />).type;
 
 const TextInputContext = createContext<TextInputContextType | null>(null);
@@ -69,15 +74,33 @@ function Main({ children }: PropsWithChildren) {
   );
 }
 
-function Label({ isVisible = true, children }: LabelProps) {
+function Label({ isVisible = true, isRequired = false, children }: LabelProps) {
   const context = useContext(TextInputContext);
   if (!context) return null;
   const { inputId } = context;
 
   return (
-    <label htmlFor={inputId} className={cn(isVisible ? styles.label : styles.blind)}>
-      {children}
+    <label htmlFor={inputId} className={cn(isVisible ? styles.labelContainer : styles.blind)}>
+      <span className={styles.label}>{children}</span>
+      {isRequired && <span className={styles.requiredInputLabel}>{' * '}</span>}
     </label>
+  );
+}
+
+function Input({ placeholder, hasError, ...props }: InputProps, ref: ForwardedRef<HTMLInputElement>) {
+  const context = useContext(TextInputContext);
+  if (!context) return null;
+  const { inputId } = context;
+
+  return (
+    <input
+      type="text"
+      id={inputId}
+      placeholder={placeholder}
+      className={cn(hasError && styles.inputError, styles.input)}
+      ref={ref}
+      {...props}
+    />
   );
 }
 
@@ -85,26 +108,22 @@ function Message({ children, variant }: MessageProps) {
   return <span className={cn(styles[`${variant}-message`], styles.message)}>{children}</span>;
 }
 
-function Input({ placeholder, onChange }: InputProps) {
-  const context = useContext(TextInputContext);
-  if (!context) return;
-  const { inputId } = context;
-
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.value);
-  };
+function Action({ text, variant = 'secondary', onClick, disabled }: ButtonProps) {
   return (
-    <input type="text" id={inputId} placeholder={placeholder} onChange={handleInputChange} className={styles.input} />
+    <Button
+      variant={variant}
+      text={text}
+      size="medium"
+      onClick={onClick}
+      className={styles.button}
+      disabled={disabled}
+    />
   );
-}
-
-function Action({ text, variant = 'secondary', onClick }: ButtonProps) {
-  return <Button variant={variant} text={text} size="medium" onClick={onClick} className={styles.button} />;
 }
 
 export const TextInput = Object.assign(Main, {
   Label,
-  Input,
+  Input: ForwardedInput,
   Message,
   Button: Action,
 });
