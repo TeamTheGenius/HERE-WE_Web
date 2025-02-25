@@ -2,7 +2,11 @@
 @use 'sass:map';
 
 @each $key, $value in $color-light-text {
-  .icon--#{$key} {
+  .icon-fill--#{$key} {
     fill: var(--#{$key});
+  }
+
+  .icon-stroke--#{$key} {
+    stroke: var(--#{$key});
   }
 }
