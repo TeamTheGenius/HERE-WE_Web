@@ -58,6 +58,7 @@ const meta: Meta<typeof Button> = {
       },
     },
   },
+  tags: ['autodocs'],
 };
 
 export default meta;
@@ -70,13 +71,6 @@ export const Primary: Story = {
     size: 'md',
     text: 'Primary Button',
   },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Primary 스타일의 버튼을 렌더링합니다.',
-      },
-    },
-  },
 };
 
 export const Secondary: Story = {
@@ -85,13 +79,4 @@ export const Secondary: Story = {
     size: 'md',
     text: 'Secondary Button',
   },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Secondary 스타일의 버튼을 렌더링합니다.',
-      },
-    },
-  },
-
-  tags: ['autodocs'],
 };

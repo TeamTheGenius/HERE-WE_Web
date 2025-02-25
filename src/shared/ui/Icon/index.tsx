@@ -8,7 +8,7 @@ interface IconProps {
 }
 
 function Icon({ icon, color, iconSize }: IconProps) {
-  const isStroke = icon.includes('stroke'); // 아이콘 이름에 'stroke' 포함 여부 확인
+  const isStroke = icon.includes('stroke');
 
   return (
     <svg

@@ -1,19 +1,26 @@
-import { type SocialIconType } from '../../types/design-system';
 import { cn } from '../../lib/cn';
+import { SocialIconType } from '../../types/design-system';
 import SocialIcon from '../SocialIcon';
 import styles from './index.module.scss';
 
+type SocialButtonType = 'google' | 'naver' | 'kakao';
+
 interface SocialButtonProps {
-  variant: 'google' | 'naver' | 'kakao';
-  icon: SocialIconType;
-  text?: string;
+  variant: SocialButtonType;
+  text: string;
   onClick: () => void;
 }
 
-function SocialButton({ variant, text, icon, onClick }: SocialButtonProps) {
+const ICON_MAP: Record<SocialButtonType, SocialIconType> = {
+  google: 'google',
+  naver: 'naver',
+  kakao: 'kakao',
+};
+
+function SocialButton({ variant, text, onClick }: SocialButtonProps) {
   return (
     <button onClick={onClick} className={cn(styles.button, styles[`${variant}-button`])}>
-      <SocialIcon icon={icon} />
+      <SocialIcon icon={ICON_MAP[variant]} />
       {text}
     </button>
   );
