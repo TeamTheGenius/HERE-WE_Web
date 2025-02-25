@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import SocialButton from '.';
 
 const meta: Meta<typeof SocialButton> = {
-  title: 'Components/SocialButton',
+  title: 'shared/SocialButton',
   component: SocialButton,
   argTypes: {
     variant: {

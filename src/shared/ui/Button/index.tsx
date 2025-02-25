@@ -4,7 +4,7 @@ import styles from './index.module.scss';
 import Icon from '../Icon';
 import type { IconType, TextColorType } from '../../types/design-system';
 
-type ButtonType = 'primary' | 'secondary';
+export type ButtonType = 'primary' | 'secondary';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonType;

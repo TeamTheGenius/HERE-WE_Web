@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import SocialIcon from '.';
 
 const meta: Meta<typeof SocialIcon> = {
-  title: 'Components/SocialIcon',
+  title: 'shared/SocialIcon',
   component: SocialIcon,
   parameters: {
     docs: {

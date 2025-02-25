@@ -109,7 +109,7 @@ function Message({ children, variant }: MessageProps) {
 }
 
 function Action({ text, variant = 'secondary', onClick, ...props }: ButtonProps) {
-  return <Button variant={variant} text={text} size="medium" onClick={onClick} className={styles.button} {...props} />;
+  return <Button variant={variant} text={text} size="md" onClick={onClick} className={styles.button} {...props} />;
 }
 
 export const TextInput = Object.assign(Main, {
