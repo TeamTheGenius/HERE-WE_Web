@@ -1,0 +1,6 @@
+{
+  "out": "./docs",
+  "entryPoints": ["src/**/*.ts", "src/**/*.tsx"],
+  "entryPointStrategy": "expand",
+  "excludeNotDocumented": true
+}
