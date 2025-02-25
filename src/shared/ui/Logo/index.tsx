@@ -1,15 +1,21 @@
+import clsx from 'clsx';
 import styles from './index.module.scss';
 
 interface LogoProps {
-  haveIntroduce: boolean;
+  haveIntroduce?: boolean;
+  size: 'lg' | 'md';
 }
 
-function Logo({ haveIntroduce }: LogoProps) {
-  return (
+function Logo({ haveIntroduce = false, size }: LogoProps) {
+  const logo = <h1 className={clsx({ [styles.lgLogo]: size === 'lg', [styles.mdLogo]: size === 'md' })}>HERE:WE</h1>;
+
+  return haveIntroduce ? (
     <hgroup className={styles.wrapper}>
-      {haveIntroduce && <h2 className="heading-small text-primary">모임을 더 쉽게, 소중한 순간은 더 오래</h2>}
-      <h1 className="text-brand display-large">HERE:WE</h1>
+      <h2 className={styles.introduce}>모임을 더 쉽게, 소중한 순간은 더 오래</h2>
+      {logo}
     </hgroup>
+  ) : (
+    logo
   );
 }
 

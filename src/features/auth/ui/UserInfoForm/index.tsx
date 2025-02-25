@@ -18,7 +18,7 @@ function UserInfoForm({ onSubmit, formMethods, submitButtonText, profileValidati
     <form className={styles.wrapper} onSubmit={onSubmit}>
       <ProfileImageInput size="large" formMethods={formMethods} />
       <NicknameInput formMethods={formMethods} profileValidation={profileValidation} />
-      <Button variant="primary" size="large" text={submitButtonText} type="submit" />
+      <Button variant="primary" size="lg" text={submitButtonText} type="submit" />
     </form>
   );
 }

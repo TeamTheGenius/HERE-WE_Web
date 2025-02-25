@@ -5,7 +5,7 @@ const SignInPage = () => {
   return (
     <>
       <header className="mb-xl">
-        <Logo haveIntroduce={true} />
+        <Logo haveIntroduce={true} size="md" />
       </header>
       <main>
         <SignInForm />

@@ -5,7 +5,7 @@ function SignUpPage() {
   return (
     <>
       <header className="mb-xl">
-        <Logo haveIntroduce={false} />
+        <Logo haveIntroduce={false} size="md" />
       </header>
       <main>
         <SignUpForm />

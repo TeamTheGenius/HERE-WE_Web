@@ -7,3 +7,18 @@
   align-items: center;
   gap: $space-md;
 }
+
+.introduce {
+  @include font-text('heading-small');
+  color: var(--text-primary);
+}
+
+.lg-logo {
+  color: var(--text-brand);
+  @include font-text('display-large');
+}
+
+.md-logo {
+  color: var(--text-brand);
+  @include font-text('display-small');
+}
