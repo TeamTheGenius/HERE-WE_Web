@@ -1,9 +1,9 @@
 import type { UseFormReturn } from 'react-hook-form';
-import Button from '../../../../shared/ui/Button';
+import Button from '@/shared/ui/Button';
 import NicknameInput from '../NicknameInput';
 import ProfileImageInput from '../ProfileImageInput';
 import styles from './index.module.scss';
-import { UserInfoType } from '../../../../entities/user/model/types';
+import { UserInfoType } from '@/entities/user/model/types';
 import { ProfileValidationReturn } from '../../model/types';
 
 interface UserInfoFormProps {

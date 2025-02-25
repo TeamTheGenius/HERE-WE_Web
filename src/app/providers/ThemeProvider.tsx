@@ -1,5 +1,5 @@
 import { PropsWithChildren, useEffect, useState } from 'react';
-import { ThemeContext } from '../../shared/contexts/ThemeContext';
+import { ThemeContext } from '@/shared/contexts/ThemeContext';
 
 export function ThemeProvider({ children }: PropsWithChildren) {
   const getInitialTheme = () => {

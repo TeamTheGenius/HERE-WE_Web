@@ -1,4 +1,4 @@
-import { publicClient } from '../../../shared/api/config';
+import { publicClient } from '@/shared/api/config';
 
 export interface AuthProfileImageResponse {
   fileEnv: 'LOCAL' | 'CLOUD';

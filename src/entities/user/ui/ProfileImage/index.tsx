@@ -1,6 +1,6 @@
-import { cn } from '../../../../shared/lib/cn.ts';
-import { ProfileImageProps } from '../../model/types.ts';
+import { cn } from '@/shared/lib/cn.ts';
 import styles from './index.module.scss';
+import { ProfileImageProps } from '../../model/types';
 
 function ProfileImage({ size, src, alt, className }: ProfileImageProps) {
   return <img src={src} alt={alt} className={cn(styles.image, styles[`${size}-image`], className)} />;

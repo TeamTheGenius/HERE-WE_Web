@@ -1,4 +1,4 @@
-import { publicClient } from '../../../shared/api/config';
+import { publicClient } from '@/shared/api/config';
 
 export const getAuthCheckNickname = async (nickname: string) => {
   const { data: response } = await publicClient.get(`/auth/check-nickname`, {

@@ -1,8 +1,8 @@
-import ProfileImage from '../../../../entities/user/ui/ProfileImage';
-import Icon from '../../../../shared/ui/Icon';
+import ProfileImage from '@/entities/user/ui/ProfileImage';
+import Icon from '@/shared/ui/Icon';
 import styles from './index.module.scss';
 import type { ProfileImageInputProps } from '../../model/types';
-import { useFileInput } from '../../../../shared/hooks/useFileInput';
+import { useFileInput } from '@/shared/hooks/useFileInput';
 import { useEffect, useState } from 'react';
 import { useWatch } from 'react-hook-form';
 
@@ -34,7 +34,7 @@ function ProfileImageInput({ formMethods, ...profileImageProps }: ProfileImageIn
     <button type="button" onClick={handlers.handleInputClick} className={styles.editButton}>
       <ProfileImage src={previewImage} {...profileImageProps} />
       <div className={styles.editIcon}>
-        <Icon icon="pencil" fill="text-secondary" iconSize="20" />
+        <Icon icon="pencil" color="text-secondary" iconSize="20" />
       </div>
       <input
         type="file"

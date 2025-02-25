@@ -1,6 +1,6 @@
 import { Routes, BrowserRouter, Route } from 'react-router-dom';
-import SignInPage from '../../pages/SignInPage';
-import SignUpPage from '../../pages/SignUpPage';
+import SignInPage from '@/pages/SignInPage';
+import SignUpPage from '@/pages/SignUpPage';
 import { routePaths } from './path';
 import CenterLayout from '../layouts/CenterLayout';
 

@@ -39,6 +39,7 @@ const RAW_RUNTIME_STATE =
           ["@tanstack/eslint-plugin-query", "virtual:b2b9b682f39c027039400b469dfad7a3c44993a42f31b20c5024fff07698297028ac6d474ed7fb4f7a66b501306244af1438406714bb2de85b691d99e9344a51#npm:5.66.1"],\
           ["@tanstack/react-query", "virtual:b2b9b682f39c027039400b469dfad7a3c44993a42f31b20c5024fff07698297028ac6d474ed7fb4f7a66b501306244af1438406714bb2de85b691d99e9344a51#npm:5.66.0"],\
           ["@types/eslint-plugin-jsx-a11y", "npm:6.10.0"],\
+          ["@types/node", "npm:22.13.5"],\
           ["@types/react", "npm:18.3.18"],\
           ["@types/react-dom", "virtual:b2b9b682f39c027039400b469dfad7a3c44993a42f31b20c5024fff07698297028ac6d474ed7fb4f7a66b501306244af1438406714bb2de85b691d99e9344a51#npm:18.3.5"],\
           ["@vitejs/plugin-react", "virtual:b2b9b682f39c027039400b469dfad7a3c44993a42f31b20c5024fff07698297028ac6d474ed7fb4f7a66b501306244af1438406714bb2de85b691d99e9344a51#npm:4.3.4"],\
@@ -2653,6 +2654,16 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@types/node", [\
+      ["npm:22.13.5", {\
+        "packageLocation": "./.yarn/cache/@types-node-npm-22.13.5-4c5912eee2-a2e7ed7bb0.zip/node_modules/@types/node/",\
+        "packageDependencies": [\
+          ["@types/node", "npm:22.13.5"],\
+          ["undici-types", "npm:6.20.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@types/prop-types", [\
       ["npm:15.7.14", {\
         "packageLocation": "./.yarn/cache/@types-prop-types-npm-15.7.14-4ccaa07795-1ec775160b.zip/node_modules/@types/prop-types/",\
@@ -5263,6 +5274,7 @@ const RAW_RUNTIME_STATE =
           ["@tanstack/eslint-plugin-query", "virtual:b2b9b682f39c027039400b469dfad7a3c44993a42f31b20c5024fff07698297028ac6d474ed7fb4f7a66b501306244af1438406714bb2de85b691d99e9344a51#npm:5.66.1"],\
           ["@tanstack/react-query", "virtual:b2b9b682f39c027039400b469dfad7a3c44993a42f31b20c5024fff07698297028ac6d474ed7fb4f7a66b501306244af1438406714bb2de85b691d99e9344a51#npm:5.66.0"],\
           ["@types/eslint-plugin-jsx-a11y", "npm:6.10.0"],\
+          ["@types/node", "npm:22.13.5"],\
           ["@types/react", "npm:18.3.18"],\
           ["@types/react-dom", "virtual:b2b9b682f39c027039400b469dfad7a3c44993a42f31b20c5024fff07698297028ac6d474ed7fb4f7a66b501306244af1438406714bb2de85b691d99e9344a51#npm:18.3.5"],\
           ["@vitejs/plugin-react", "virtual:b2b9b682f39c027039400b469dfad7a3c44993a42f31b20c5024fff07698297028ac6d474ed7fb4f7a66b501306244af1438406714bb2de85b691d99e9344a51#npm:4.3.4"],\
@@ -7898,6 +7910,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["undici-types", [\
+      ["npm:6.20.0", {\
+        "packageLocation": "./.yarn/cache/undici-types-npm-6.20.0-bd21e669af-68e659a988.zip/node_modules/undici-types/",\
+        "packageDependencies": [\
+          ["undici-types", "npm:6.20.0"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["unique-filename", [\
       ["npm:4.0.0", {\
         "packageLocation": "./.yarn/cache/unique-filename-npm-4.0.0-bfc100c4e3-38ae681cce.zip/node_modules/unique-filename/",\
@@ -8010,7 +8031,7 @@ const RAW_RUNTIME_STATE =
           ["@types/jiti", null],\
           ["@types/less", null],\
           ["@types/lightningcss", null],\
-          ["@types/node", null],\
+          ["@types/node", "npm:22.13.5"],\
           ["@types/sass", null],\
           ["@types/sass-embedded", null],\
           ["@types/stylus", null],\

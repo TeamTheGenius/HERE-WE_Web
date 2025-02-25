@@ -1,5 +1,5 @@
-import SignInForm from '../../widgets/user/SignInForm';
-import Logo from '../../shared/ui/Logo';
+import SignInForm from '@/widgets/user/SignInForm';
+import Logo from '@/shared/ui/Logo';
 
 const SignInPage = () => {
   return (

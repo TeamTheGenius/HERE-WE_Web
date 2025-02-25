@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { TextInput } from '.';
-import NicknameInput from '../../../features/auth/ui/NicknameInput';
+import NicknameInput from '@/features/auth/ui/NicknameInput';
 import { useForm } from 'react-hook-form';
-import { UserInfoType } from '../../../entities/user/model/types';
-import { useProfileValidation } from '../../../features/auth/model/useProfileValidation';
+import { UserInfoType } from '@/entities/user/model/types';
+import { useProfileValidation } from '@/features/auth/model/useProfileValidation';
 
 const meta: Meta<typeof TextInput> = {
   title: 'shared/TextInput',

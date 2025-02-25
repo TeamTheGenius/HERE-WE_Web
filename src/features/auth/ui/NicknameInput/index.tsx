@@ -1,9 +1,9 @@
 import { useWatch, type UseFormReturn } from 'react-hook-form';
-import { TextInput } from '../../../../shared/ui/TextInput';
-import { UserInfoType } from '../../../../entities/user/model/types';
+import { TextInput } from '@/shared/ui/TextInput';
+import { UserInfoType } from '@/entities/user/model/types';
 import { getAuthCheckNickname } from '../../api/getAuthCheckNickname';
 import { ProfileValidationReturn } from '../../model/types';
-import { REGEX, VALIDATION_MESSAGES } from '../../../../shared/constants/userValidation';
+import { REGEX, VALIDATION_MESSAGES } from '@/shared/constants/userValidation';
 import { AxiosError } from 'axios';
 
 interface NicknameInputProps {

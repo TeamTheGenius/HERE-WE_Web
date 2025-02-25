@@ -1,13 +1,13 @@
 import { useForm } from 'react-hook-form';
-import UserInfoForm from '../../../features/auth/ui/UserInfoForm';
-import { UserInfoType } from '../../../entities/user/model/types';
+import UserInfoForm from '@/features/auth/ui/UserInfoForm';
+import { UserInfoType } from '@/entities/user/model/types';
 import { useSearchParams } from 'react-router-dom';
-import { getAuthProfileImage } from '../../../features/auth/api/getAuthProfileImage';
+import { getAuthProfileImage } from '@/features/auth/api/getAuthProfileImage';
 import { useEffect } from 'react';
-import { makeSourceToFileList } from '../../../shared/helper/sourceToFileList';
-import { useProfileValidation } from '../../../features/auth/model/useProfileValidation';
-import { VALIDATION_MESSAGES } from '../../../shared/constants/userValidation';
-import { postAuthSignup } from '../../../entities/user/api/postAuthSignup';
+import { makeSourceToFileList } from '@/shared/helper/sourceToFileList';
+import { useProfileValidation } from '@/features/auth/model/useProfileValidation';
+import { VALIDATION_MESSAGES } from '@/shared/constants/userValidation';
+import { postAuthSignup } from '@/entities/user/api/postAuthSignup';
 
 function SignUpForm() {
   const [searchParams] = useSearchParams();

@@ -1,5 +1,5 @@
-import Logo from '../../shared/ui/Logo';
-import SignUpForm from '../../widgets/user/SignUpForm';
+import Logo from '@/shared/ui/Logo';
+import SignUpForm from '@/widgets/user/SignUpForm';
 
 function SignUpPage() {
   return (

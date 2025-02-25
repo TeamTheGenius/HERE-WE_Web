@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import { cn } from '../../../shared/lib/cn';
+import { cn } from '@/shared/lib/cn';
 import styles from './index.module.scss';
 
 function CenterLayout() {
