@@ -2,7 +2,7 @@ import SocialButton from '@/shared/ui/SocialButton';
 import { useAuth } from '@/features/auth/model/useAuth';
 import styles from './index.module.scss';
 
-function SignInForm() {
+function SignInSection() {
   const { handleSocialSignIn } = useAuth();
 
   return (
@@ -14,4 +14,4 @@ function SignInForm() {
   );
 }
 
-export default SignInForm;
+export default SignInSection;

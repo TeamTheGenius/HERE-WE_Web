@@ -1,7 +1,11 @@
 import { useState } from 'react';
-import { ProfileValidationState } from './types';
 
-export const useProfileValidation = () => {
+export interface ProfileValidationState {
+  isDuplicateChecked: boolean;
+  isUnique: boolean;
+}
+
+export const useProfileSubmitValidation = () => {
   const [profileValidation, setProfileValidation] = useState<ProfileValidationState>({
     isDuplicateChecked: false,
     isUnique: false,
@@ -22,13 +26,9 @@ export const useProfileValidation = () => {
   };
 
   return {
-    state: {
-      isDuplicateChecked: profileValidation.isDuplicateChecked,
-      isUnique: profileValidation.isUnique,
-    },
-    update: {
-      updateNicknameDuplicateCheck,
-      updateNicknameUniqueness,
-    },
+    isDuplicateChecked: profileValidation.isDuplicateChecked,
+    isUnique: profileValidation.isUnique,
+    updateNicknameDuplicateCheck,
+    updateNicknameUniqueness,
   };
 };

@@ -1,0 +1,6 @@
+@use '@/shared/styles/global' as *;
+
+.nickname {
+  @include font-text(heading-small);
+  color: var(--text-primary);
+}

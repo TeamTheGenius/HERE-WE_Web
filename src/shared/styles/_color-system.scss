@@ -85,6 +85,10 @@ $dark: map.merge(map.merge($dark-text, $dark-surface), $dark-border);
   }
 }
 
+:root {
+  @include theme($light);
+}
+
 :root[data-theme='light'] {
   @include theme($light);
 }
