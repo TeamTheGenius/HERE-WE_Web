@@ -69,8 +69,7 @@ export const useProfileRegister = (data: UserInfoType) => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
     const isValid = await formMethods.trigger();
     if (!isValid) return;
 
