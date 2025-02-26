@@ -3,9 +3,6 @@ import {
   PropsWithChildren,
   useContext,
   useId,
-  Children,
-  ReactNode,
-  isValidElement,
   InputHTMLAttributes,
   forwardRef,
   ForwardedRef,
@@ -14,6 +11,7 @@ import {
 import styles from './index.module.scss';
 import Button, { type ButtonType } from '../Button';
 import { cn } from '../../lib/cn';
+import { filterChildrenByComponent } from '@/shared/lib/reactChildren';
 
 interface TextInputContextType {
   inputId: string;
@@ -47,18 +45,13 @@ const LabelComponent = (<Label />).type;
 
 const TextInputContext = createContext<TextInputContextType | null>(null);
 
-function getElements(children: ReactNode, component: JSX.Element['type']) {
-  const childrenArray = Children.toArray(children);
-  return childrenArray.filter((child) => isValidElement(child) && child.type === component).slice(0, 2);
-}
-
 function Main({ children }: PropsWithChildren) {
   const inputId = useId();
 
-  const labelElement = getElements(children, LabelComponent);
-  const inputElement = getElements(children, InputComponent);
-  const buttonElement = getElements(children, ButtonComponent);
-  const messageElement = getElements(children, MessageComponent);
+  const labelElement = filterChildrenByComponent(children, LabelComponent);
+  const inputElement = filterChildrenByComponent(children, InputComponent);
+  const buttonElement = filterChildrenByComponent(children, ButtonComponent);
+  const messageElement = filterChildrenByComponent(children, MessageComponent);
 
   return (
     <TextInputContext.Provider value={{ inputId }}>

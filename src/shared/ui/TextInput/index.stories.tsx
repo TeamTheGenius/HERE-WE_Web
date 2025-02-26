@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { TextInput } from '.';
 import NicknameInput from '@/features/auth/ui/ProfileNicknameInput';
-import { useForm } from 'react-hook-form';
-import { UserInfoType } from '@/entities/user/model/types';
-import { useProfileValidation } from '@/features/auth/model/useProfileSubmitValidation';
+import { useWatch } from 'react-hook-form';
+import { useProfileRegister } from '@/features/auth/model/useProfileRegister';
 
 const meta: Meta<typeof TextInput> = {
   title: 'shared/TextInput',
@@ -121,9 +120,26 @@ export const Playground: Story = {
   },
 
   render: () => {
-    const formMethods = useForm<UserInfoType>({ defaultValues: { nickname: '', image: undefined }, mode: 'onBlur' });
-    const profileValidation = useProfileValidation();
+    const { formMethods, handleNicknameDuplicateCheck } = useProfileRegister({
+      nickname: '',
+      image: new DataTransfer().files,
+    });
+    const {
+      register,
+      formState: { errors },
+      control,
+    } = formMethods;
 
-    return <NicknameInput formMethods={formMethods} profileValidation={profileValidation} currentNickname="선아" />;
+    const watchedNickname = useWatch({ control, name: 'nickname' });
+
+    return (
+      <NicknameInput
+        register={register('nickname')}
+        initialNickname=""
+        handleDupllicateCheck={handleNicknameDuplicateCheck}
+        error={errors.nickname}
+        watchedNickname={watchedNickname}
+      />
+    );
   },
 };
