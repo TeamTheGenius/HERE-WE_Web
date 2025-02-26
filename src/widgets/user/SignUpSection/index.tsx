@@ -22,7 +22,7 @@ function SignUpSection() {
 
   if (!initialImage) return null;
 
-  return <SignUpForm nickname="" image={initialImage} />;
+  return <SignUpForm nickname="" image={initialImage} userId={userId} />;
 }
 
 export default SignUpSection;
