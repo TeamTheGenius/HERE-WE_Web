@@ -1,0 +1,76 @@
+@use '@/shared/styles/global' as *;
+
+.container {
+  width: 100%;
+  @include flex-column;
+  gap: $space-xs;
+}
+
+.label-container {
+  display: block;
+  @include font-text(heading-small);
+  margin-bottom: $space-sm;
+}
+
+.label {
+  color: var(--text-primary);
+}
+
+.required-input-label {
+  color: var(--text-notice);
+}
+
+.blind {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+}
+
+.area {
+  @include font-text(caption-medium);
+  width: 100%;
+  min-height: 9rem;
+  border: 1px solid var(--border-strong);
+  border-radius: 0.8rem;
+  color: var(--text-primary);
+  padding: $space-md;
+  resize: none;
+
+  &::placeholder {
+    color: var(--text-placeholder);
+  }
+
+  &:focus {
+    border-color: var(--border-brand);
+  }
+}
+
+.area-error {
+  border-color: var(--text-notice);
+
+  &:focus {
+    border-color: var(--text-notice);
+  }
+}
+
+.message {
+  @include font-text(caption-small);
+  display: flex;
+  justify-content: end;
+  width: 100%;
+}
+
+.warning-message {
+  color: var(--text-notice);
+}
+
+.information-message {
+  color: var(--text-tertiary);
+}
+
+.success-message {
+  color: var(--text-brand);
+}
