@@ -1,0 +1,13 @@
+@use '@/shared/styles/global.scss' as *;
+
+.header {
+  @include flex-row(between, center);
+  height: 5.5rem;
+  padding: 0 $space-md;
+  border-bottom: 1px solid var(--border-default);
+}
+
+.header__user-actions {
+  @include flex-row;
+  gap: $space-xs;
+}

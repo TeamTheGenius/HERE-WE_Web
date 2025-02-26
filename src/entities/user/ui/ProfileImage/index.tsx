@@ -8,7 +8,7 @@ export interface ProfileImageProps {
   className?: string;
 }
 
-function ProfileImage({ size, src, alt, className }: ProfileImageProps) {
+function ProfileImage({ size, src, alt = '프로필 사진', className }: ProfileImageProps) {
   return <img src={src} alt={alt} className={cn(styles.image, styles[`${size}-image`], className)} />;
 }
 
