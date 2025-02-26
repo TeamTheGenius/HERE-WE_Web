@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { TextInput } from '.';
-import NicknameInput from '@/features/auth/ui/ProfileNicknameInput';
-import { useWatch } from 'react-hook-form';
-import { useProfileRegister } from '@/features/auth/model/useProfileRegister';
+import { useForm } from 'react-hook-form';
+import { REGEX, VALIDATION_MESSAGES } from '@/shared/constants/userValidation';
 
 const meta: Meta<typeof TextInput> = {
   title: 'shared/TextInput',
@@ -120,26 +119,41 @@ export const Playground: Story = {
   },
 
   render: () => {
-    const { formMethods, handleNicknameDuplicateCheck } = useProfileRegister({
-      nickname: '',
-      image: new DataTransfer().files,
-    });
     const {
       register,
       formState: { errors },
-      control,
-    } = formMethods;
+    } = useForm({
+      defaultValues: {
+        nickname: 'seona',
+      },
+      mode: 'onChange',
+    });
 
-    const watchedNickname = useWatch({ control, name: 'nickname' });
+    register('nickname', {
+      pattern: {
+        value: REGEX.nickname,
+        message: VALIDATION_MESSAGES.nickname.invalid,
+      },
+      required: VALIDATION_MESSAGES.nickname.required,
+    });
 
     return (
-      <NicknameInput
-        register={register('nickname')}
-        initialNickname=""
-        handleDupllicateCheck={handleNicknameDuplicateCheck}
-        error={errors.nickname}
-        watchedNickname={watchedNickname}
-      />
+      <TextInput>
+        <TextInput.Label isRequired={true}>닉네임</TextInput.Label>
+        <TextInput.Input
+          minLength={2}
+          maxLength={20}
+          placeholder="2-20자의 한글, 영문, 숫자로 입력해주세요"
+          {...register('nickname')}
+          onInvalid={(e) => e.preventDefault()}
+          hasError={!!errors.nickname}
+        />
+        {errors.nickname ? (
+          <TextInput.Message variant="warning">{errors.nickname.message}</TextInput.Message>
+        ) : (
+          <TextInput.Message variant="success">사용 가능한 닉네임입니다.</TextInput.Message>
+        )}
+      </TextInput>
     );
   },
 };
