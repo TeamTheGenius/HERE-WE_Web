@@ -1,0 +1,8 @@
+@use '@/shared/styles/global' as *;
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: $space-xl;
+}

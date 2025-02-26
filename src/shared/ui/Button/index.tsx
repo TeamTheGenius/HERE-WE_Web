@@ -16,7 +16,17 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   onClick?: () => void;
 }
 
-function Button({ variant = 'primary', size = 'md', onClick, text, icon, iconColor, className, ...rest }: ButtonProps) {
+function Button({
+  variant = 'primary',
+  size = 'md',
+  onClick,
+  text,
+  icon,
+  iconColor,
+  className,
+  children,
+  ...rest
+}: ButtonProps) {
   const computedIconColor: TextColorType = iconColor ?? (variant === 'primary' ? 'text-default' : 'text-secondary');
 
   return (
@@ -27,6 +37,7 @@ function Button({ variant = 'primary', size = 'md', onClick, text, icon, iconCol
     >
       {icon && <Icon icon={icon} color={computedIconColor} iconSize="20" />}
       {text && text}
+      {children}
     </button>
   );
 }

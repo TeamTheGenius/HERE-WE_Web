@@ -1,49 +1,31 @@
 import ProfileImage from '@/entities/user/ui/ProfileImage';
 import Icon from '@/shared/ui/Icon';
 import styles from './index.module.scss';
-import type { ProfileImageInputProps } from '../../model/types';
-import { useFileInput } from '@/shared/hooks/useFileInput';
-import { useEffect, useState } from 'react';
-import { useWatch } from 'react-hook-form';
+import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
-function ProfileImageInput({ formMethods, ...profileImageProps }: ProfileImageInputProps) {
-  const {
-    register,
-    formState: { errors },
-    control,
-  } = formMethods;
-  const { handlers, fileRegister } = useFileInput(register, 'image');
-  const [previewImage, setPreviewImage] = useState('');
+export interface ProfileImageInputProps {
+  previewImage: string;
+  handleInputClick: () => void;
+  handleFileInputRef: (element: HTMLInputElement) => void;
+  register: UseFormRegisterReturn;
+  error: FieldError | undefined;
+}
 
-  const watchedFile = useWatch({
-    control,
-    name: 'image',
-  });
-
-  useEffect(() => {
-    if (!watchedFile) return;
-    const image = URL.createObjectURL(watchedFile[0]);
-    setPreviewImage(image);
-
-    return () => {
-      URL.revokeObjectURL(image);
-    };
-  }, [watchedFile]);
-
+function ProfileImageInput({
+  previewImage,
+  handleInputClick,
+  handleFileInputRef,
+  register,
+  error,
+}: ProfileImageInputProps) {
   return (
-    <button type="button" onClick={handlers.handleInputClick} className={styles.editButton}>
-      <ProfileImage src={previewImage} {...profileImageProps} />
+    <button type="button" onClick={handleInputClick} className={styles.editButton}>
+      <ProfileImage src={previewImage} size="large" />
       <div className={styles.editIcon}>
         <Icon icon="pencil" color="text-secondary" iconSize="20" />
       </div>
-      <input
-        type="file"
-        accept="image/*"
-        {...fileRegister}
-        ref={handlers.handleFileInputRef}
-        className={styles.editInput}
-      />
-      {errors.image && <p className={styles.errorText}>{errors.image.message}</p>}
+      <input type="file" accept="image/*" {...register} ref={handleFileInputRef} className={styles.editInput} />
+      {error && <p className={styles.errorText}>{error.message}</p>}
     </button>
   );
 }

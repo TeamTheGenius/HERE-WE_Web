@@ -1,4 +1,4 @@
-import { SocialProvider } from './types';
+export type SocialProvider = 'google' | 'naver' | 'kakao';
 
 export const useAuth = () => {
   const handleSocialSignIn = (variant: SocialProvider) => {
