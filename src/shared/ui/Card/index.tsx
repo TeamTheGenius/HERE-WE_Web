@@ -21,16 +21,22 @@ function Main({ children }: PropsWithChildren) {
   const metadataElements = filterChildrenByComponent(children, MetadataComponent);
   const badgeElements = filterChildrenByComponent(children, BadgeComponent);
 
+  const hasContent = titleElements.length > 0 || detailElements.length > 0 || metadataElements.length > 0;
+  const hasDetailElement = detailElements.length > 0;
+  const hasMetadataElement = metadataElements.length > 0;
+
   return (
     <article>
       <button className={styles.wrapper}>
         {imageElements}
         {badgeElements}
-        <div className={styles.content}>
-          {titleElements}
-          <div className={styles.detailContainer}>{detailElements}</div>
-          <div className={styles.metaContainer}>{metadataElements}</div>
-        </div>
+        {hasContent && (
+          <div className={styles.content}>
+            {titleElements}
+            {hasDetailElement && <div className={styles.detailContainer}>{detailElements}</div>}
+            {hasMetadataElement && <div className={styles.metaContainer}>{metadataElements}</div>}
+          </div>
+        )}
       </button>
     </article>
   );
