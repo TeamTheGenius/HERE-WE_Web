@@ -20,6 +20,7 @@ export default tseslint.config(
       react.configs.flat['jsx-runtime'],
     ],
     settings: {
+      react: { version: '18.3' },
       'import/resolver': {
         node: {
           extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -33,7 +34,7 @@ export default tseslint.config(
       parser: tseslint.parser,
       parserOptions: {
         project: ['tsconfig.node.json', 'tsconfig.app.json'],
-        tsconfigRootDir: __dirname,
+        tsconfigRootDir: import.meta.dirname,
       },
     },
     plugins: {
