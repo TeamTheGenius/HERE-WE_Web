@@ -1,0 +1,73 @@
+@use '@/shared/styles/global' as *;
+
+.wrapper {
+  max-width: 24rem;
+  height: auto;
+  background-color: var(--surface-default);
+  box-shadow: 0 4px 8px var(--border-default);
+  border-radius: 0.8rem;
+  position: relative;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 16px var(--border-default);
+  }
+}
+
+.tag {
+  position: absolute;
+  top: $space-xs;
+  right: $space-xs;
+}
+
+.image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-top-right-radius: inherit;
+  border-top-left-radius: inherit;
+}
+
+.content {
+  padding: $space-xs;
+  @include flex-column;
+  gap: $space-xs;
+  text-align: start;
+}
+
+.title {
+  width: 100%;
+  @include font-text(heading-small);
+  color: var(--text-primary);
+  @include util-text-overflow-ellipsis;
+}
+
+.detail-container {
+  width: 100%;
+  @include flex-column;
+  gap: $space-xxs;
+}
+
+.detail {
+  width: 100%;
+  color: var(--text-secondary);
+  @include font-text(body-medium);
+  @include util-text-overflow-ellipsis;
+}
+
+.meta-container {
+  @include flex-column;
+  gap: $space-xxs;
+  width: 100%;
+}
+
+.meta {
+  width: 100%;
+  color: var(--text-tertiary);
+  @include font-text(caption-small);
+  @include util-text-overflow-ellipsis;
+}

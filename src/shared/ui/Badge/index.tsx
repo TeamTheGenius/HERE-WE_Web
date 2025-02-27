@@ -9,9 +9,10 @@ interface BadgeProps {
   icon?: IconType;
   text?: string;
   variant?: BadgeType;
+  className?: string;
 }
 
-function Badge({ icon, text, variant = 'primary' }: BadgeProps) {
+function Badge({ icon, text, variant = 'primary', className }: BadgeProps) {
   const iconColorMap: Record<BadgeType, TextColorType> = {
     primary: 'text-default',
     secondary: 'text-default',
@@ -19,11 +20,15 @@ function Badge({ icon, text, variant = 'primary' }: BadgeProps) {
   };
   return (
     <span
-      className={cn(styles.container, {
-        [styles.primaryBadge]: variant === 'primary',
-        [styles.secondaryBadge]: variant === 'secondary',
-        [styles.tertiaryBadge]: variant === 'tertiary',
-      })}
+      className={cn(
+        styles.container,
+        {
+          [styles.primaryBadge]: variant === 'primary',
+          [styles.secondaryBadge]: variant === 'secondary',
+          [styles.tertiaryBadge]: variant === 'tertiary',
+        },
+        className,
+      )}
     >
       {icon && <Icon icon={icon} iconSize="16" color={iconColorMap[variant]} />}
       {text && <span>{text}</span>}
