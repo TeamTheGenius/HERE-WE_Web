@@ -35,4 +35,4 @@ export type IconType =
   | 'send'
   | 'alarm';
 export type SocialIconType = 'kakao' | 'naver' | 'google';
-export type IconSizeType = '20' | '24' | '28';
+export type IconSizeType = '16' | '20' | '24' | '28';
