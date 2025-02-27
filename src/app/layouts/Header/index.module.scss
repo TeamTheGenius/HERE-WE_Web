@@ -11,3 +11,8 @@
   @include flex-row;
   gap: $space-xs;
 }
+
+.theme-button {
+  @include font-text(body-medium);
+  color: var(--text-primary);
+}
