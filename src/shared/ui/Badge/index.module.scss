@@ -1,0 +1,27 @@
+@use '@/shared/styles/global.scss' as *;
+
+.container {
+  display: inline-flex;
+  gap: $space-xxs;
+  padding: $space-xxs $space-xs;
+  @include font-text(caption-medium);
+  border-radius: 5rem;
+}
+
+.primary-badge {
+  color: var(--text-default);
+  background-color: var(--surface-brand);
+  border: 1px solid var(--border-default);
+}
+
+.secondary-badge {
+  color: var(--text-default);
+  background-color: var(--surface-black);
+  border: 1px solid var(--border-default);
+}
+
+.tertiary-badge {
+  color: var(--text-tertiary);
+  background-color: var(--surface-disabled);
+  border: 1px solid var(--border-default);
+}
