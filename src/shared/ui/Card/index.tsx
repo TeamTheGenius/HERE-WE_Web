@@ -1,5 +1,5 @@
 import styles from './index.module.scss';
-import Badge from '../Badge';
+import Badge, { BadgeProps } from '../Badge';
 import { PropsWithChildren } from 'react';
 import { filterChildrenByComponent } from '@/shared/lib/reactChildren';
 
@@ -58,7 +58,7 @@ function CardMetadata({ children }: PropsWithChildren) {
   return <p className={styles.meta}>{children}</p>;
 }
 
-function CardTag({ ...props }) {
+function CardTag({ ...props }: BadgeProps) {
   return <Badge className={styles.tag} {...props} />;
 }
 

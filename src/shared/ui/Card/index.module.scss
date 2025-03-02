@@ -1,6 +1,7 @@
 @use '@/shared/styles/global' as *;
 
 .wrapper {
+  width: 100%;
   background-color: var(--surface-default);
   box-shadow: 0 4px 8px var(--border-default);
   border-radius: 0.8rem;
