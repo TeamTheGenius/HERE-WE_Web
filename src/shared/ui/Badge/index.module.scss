@@ -1,11 +1,11 @@
 @use '@/shared/styles/global.scss' as *;
 
 .container {
-  display: inline-flex;
   gap: $space-xxs;
   padding: $space-xxs $space-xs;
-  @include font-text(caption-medium);
+  @include font-text(caption-small);
   border-radius: 5rem;
+  @include flex-row;
 }
 
 .primary-badge {

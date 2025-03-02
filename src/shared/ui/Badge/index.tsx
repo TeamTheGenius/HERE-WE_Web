@@ -5,7 +5,7 @@ import Icon from '../Icon';
 
 type BadgeType = 'primary' | 'secondary' | 'tertiary';
 
-interface BadgeProps {
+export interface BadgeProps {
   icon?: IconType;
   text?: string;
   variant?: BadgeType;
