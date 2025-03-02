@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import GridContainer from '.';
+import { CSSProperties } from 'react';
 
 const meta: Meta<typeof GridContainer> = {
   title: 'shared/GridContainer',
@@ -32,7 +33,7 @@ export const Default: Story = {
     </GridContainer>
   ),
 };
-const boxStyle: React.CSSProperties = {
+const boxStyle: CSSProperties = {
   background: '#ddd',
   padding: '1rem',
   textAlign: 'center',
