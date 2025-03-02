@@ -2,6 +2,7 @@ import styles from './index.module.scss';
 import Badge, { BadgeProps } from '../Badge';
 import { PropsWithChildren } from 'react';
 import { filterChildrenByComponent } from '@/shared/lib/reactChildren';
+import { cn } from '@/shared/lib/cn';
 
 interface CardImageProps {
   src: string;
@@ -14,7 +15,12 @@ const DetailComponent = (<CardDetail />).type;
 const MetadataComponent = (<CardMetadata />).type;
 const BadgeComponent = (<CardTag />).type;
 
-function Main({ children }: PropsWithChildren) {
+interface MainProps extends PropsWithChildren {
+  size?: 'full' | 'md';
+  classNames?: string;
+}
+
+function Main({ children, size = 'full', classNames }: MainProps) {
   const imageElements = filterChildrenByComponent(children, ImageComponent);
   const titleElements = filterChildrenByComponent(children, TitleComponent);
   const detailElements = filterChildrenByComponent(children, DetailComponent);
@@ -27,7 +33,16 @@ function Main({ children }: PropsWithChildren) {
 
   return (
     <article>
-      <button className={styles.wrapper}>
+      <button
+        className={cn(
+          styles.wrapper,
+          {
+            [styles.fullCard]: size === 'full',
+            [styles.mdCard]: size === 'md',
+          },
+          classNames,
+        )}
+      >
         {imageElements}
         {badgeElements}
         {hasContent && (
