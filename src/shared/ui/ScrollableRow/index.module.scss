@@ -1,0 +1,19 @@
+@use '@/shared/styles/global.scss' as *;
+
+.container {
+  overflow-x: auto;
+  @include flex-row(start, center);
+  gap: $space-md;
+
+  // box-shadow 잘림 방지
+  padding: 24px 16px;
+  margin: -24px -16px;
+
+  // 크롬 & 사파리
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  // 파이어폭스
+  scrollbar-width: none;
+}
