@@ -5,7 +5,9 @@
   padding: $space-xxs $space-xs;
   @include font-text(caption-small);
   border-radius: 5rem;
-  @include flex-row;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .primary-badge {
