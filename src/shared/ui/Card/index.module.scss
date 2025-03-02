@@ -1,7 +1,14 @@
 @use '@/shared/styles/global' as *;
 
-.wrapper {
+.full-card {
   width: 100%;
+}
+
+.md-card {
+  width: 24rem;
+}
+
+.wrapper {
   background-color: var(--surface-default);
   box-shadow: 0 4px 8px var(--border-default);
   border-radius: 0.8rem;
