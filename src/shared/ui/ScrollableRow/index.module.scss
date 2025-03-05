@@ -1,19 +1,62 @@
 @use '@/shared/styles/global.scss' as *;
 
 .container {
+  width: 100%;
+  position: relative;
+
+  &:hover {
+    .left-button,
+    .right-button {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.scrollable-container {
   overflow-x: auto;
   @include flex-row(start, center);
   gap: $space-md;
+  -webkit-overflow-scrolling: touch; // iOS에서 부드러운 스크롤
+  scroll-behavior: smooth; // 부드러운 스크롤 효과
+  scroll-snap-type: x proximity; // 가벼운 스크롤 스냅 적용
 
-  // box-shadow 잘림 방지
-  padding: 24px 16px;
-  margin: -24px -16px;
-
-  // 크롬 & 사파리
+  // 스크롤바 숨김
   &::-webkit-scrollbar {
-    display: none;
+    display: none; // 크롬 & 사파리
   }
+  scrollbar-width: none; // 파이어폭스
+}
 
-  // 파이어폭스
-  scrollbar-width: none;
+// 네비게이션 버튼 공통 스타일
+.left-button,
+.right-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3.6rem;
+  height: 3.6rem;
+  border-radius: 50%;
+  background-color: var(--surface-default);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  transition: all 0.2s ease;
+  visibility: hidden;
+  opacity: 0;
+
+  &:hover {
+    background-color: var(--surface-primary);
+  }
+}
+
+.left-button {
+  left: 1.2px;
+}
+
+.right-button {
+  right: -12px;
 }

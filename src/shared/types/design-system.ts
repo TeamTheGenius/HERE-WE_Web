@@ -33,6 +33,7 @@ export type IconType =
   | 'sound'
   | 'chat'
   | 'send'
-  | 'alarm';
+  | 'alarm'
+  | 'arrow';
 export type SocialIconType = 'kakao' | 'naver' | 'google';
 export type IconSizeType = '16' | '20' | '24' | '28';

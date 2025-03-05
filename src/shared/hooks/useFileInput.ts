@@ -1,11 +1,7 @@
 import { useRef, useState } from 'react';
 import { type UseFormRegister, type FieldValues, type Path } from 'react-hook-form';
 
-export const useFileInput = <T extends FieldValues>(
-  register: UseFormRegister<T>,
-
-  fieldName: Path<T>,
-) => {
+export const useFileInput = <T extends FieldValues>(register: UseFormRegister<T>, fieldName: Path<T>) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [previousFile, setPreviousFile] = useState<File>();
 

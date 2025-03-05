@@ -1,5 +1,5 @@
 import { Card } from '@/shared/ui/Card';
-import image from '@/shared/assets/drawing_1739943673312.png';
+import image from '@/shared/assets/temp.jpg';
 
 const datas = [
   { id: 1, name: 'testtttttttttttttttttttttttttt', image, participants: 5 },
@@ -14,6 +14,8 @@ const datas = [
   { id: 10, name: 'test', image, participants: 12 },
   { id: 11, name: 'test', image, participants: 27 },
   { id: 12, name: 'test', image, participants: 19 },
+  { id: 13, name: 'test', image, participants: 27 },
+  { id: 14, name: 'test', image, participants: 19 },
 ];
 
 function ParticipatingCrewList() {
@@ -22,7 +24,7 @@ function ParticipatingCrewList() {
       {datas.map((data) => {
         return (
           <Card key={data.id}>
-            <Card.Image src={image} alt="크루 썸네일" />
+            <Card.Image src={data.image} alt="크루 썸네일" />
             <Card.Title>{data.name}</Card.Title>
             <Card.Detail>크루원 {data.participants}</Card.Detail>
           </Card>

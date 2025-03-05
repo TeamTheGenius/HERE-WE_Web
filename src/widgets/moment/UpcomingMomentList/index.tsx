@@ -1,4 +1,4 @@
-import image from '@/shared/assets/drawing_1739943673312.png';
+import image from '@/shared/assets/temp.jpg';
 import { Card } from '@/shared/ui/Card';
 
 const datas = [
@@ -8,7 +8,7 @@ const datas = [
     name: '신년파티!!!!',
     image,
     participants: 5,
-    date: '2025.03.03 월요일 오전 06:00',
+    date: '2025.03.05 월요일 오전 06:00',
     place: '사당역 4번 출구',
   },
   {
@@ -17,7 +17,7 @@ const datas = [
     name: '신년파티!!!!',
     image,
     participants: 5,
-    date: '2025.03.03 월요일 오전 06:00',
+    date: '2025.03.05 월요일 오전 06:00',
     place: '사당역 4번 출구',
   },
   {
@@ -26,7 +26,7 @@ const datas = [
     name: '신년파티!!!!',
     image,
     participants: 5,
-    date: '2025.03.03 월요일 오전 06:00',
+    date: '2025.03.05 월요일 오전 06:00',
     place: '사당역 4번 출구',
   },
   {
@@ -35,7 +35,7 @@ const datas = [
     name: '신년파티!!!!',
     image,
     participants: 5,
-    date: '2025.03.03 월요일 오전 06:00',
+    date: '2025.03.05 월요일 오전 06:00',
     place: '사당역 4번 출구',
   },
   {
@@ -44,7 +44,7 @@ const datas = [
     name: '신년파티!!!!',
     image,
     participants: 5,
-    date: '2025.03.03 월요일 오전 06:00',
+    date: '2025.03.05 월요일 오전 06:00',
     place: '사당역 4번 출구',
   },
   {
@@ -53,7 +53,25 @@ const datas = [
     name: '신년파티!!!!',
     image,
     participants: 5,
-    date: '2025.03.03 월요일 오전 06:00',
+    date: '2025.03.05 월요일 오전 06:00',
+    place: '사당역 4번 출구',
+  },
+  {
+    id: 7,
+    crew: 'TeamTheGenius',
+    name: '신년파티!!!!',
+    image,
+    participants: 5,
+    date: '2025.03.05 월요일 오전 06:00',
+    place: '사당역 4번 출구',
+  },
+  {
+    id: 8,
+    crew: 'TeamTheGenius',
+    name: '신년파티!!!!',
+    image,
+    participants: 5,
+    date: '2025.03.05 월요일 오전 06:00',
     place: '사당역 4번 출구',
   },
 ];
@@ -93,7 +111,7 @@ function UpcomingMomentList() {
         return (
           <Card key={data.id} size="md">
             <Card.Image src={image} alt="크루 썸네일" />
-            <Card.Tag variant="secondary" text={`D-${getDDayNumber(data.date)}`}></Card.Tag>
+            <Card.Tag variant="tertiary" text={`D-${getDDayNumber(data.date)}`}></Card.Tag>
             <Card.Title>{data.crew}</Card.Title>
             <Card.Detail>{data.name}</Card.Detail>
             <Card.Detail>{data.date}</Card.Detail>

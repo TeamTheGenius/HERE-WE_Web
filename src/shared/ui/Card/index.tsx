@@ -58,7 +58,11 @@ function Main({ children, size = 'full', classNames }: MainProps) {
 }
 
 function CardImage({ src, alt }: CardImageProps) {
-  return <img src={src} className={styles.image} alt={alt} />;
+  return (
+    <div className={styles.imageContainer}>
+      <img src={src} className={styles.image} alt={alt} />
+    </div>
+  );
 }
 
 function CardTitle({ children }: PropsWithChildren) {
