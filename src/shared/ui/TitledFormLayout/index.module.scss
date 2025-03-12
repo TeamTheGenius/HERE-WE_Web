@@ -1,0 +1,35 @@
+@use '@/shared/styles/global.scss' as *;
+
+.container {
+  padding-bottom: 8rem;
+  max-width: $media-notebook;
+  margin: 0 auto;
+}
+
+.title {
+  @include font-text(heading-large);
+  color: var(--text-primary);
+  padding: $space-lg 0;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.submit-button-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--surface-default);
+}
+
+.submit-button {
+  margin: 0 $space-md $space-md $space-md;
+}
