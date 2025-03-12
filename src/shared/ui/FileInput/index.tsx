@@ -73,7 +73,7 @@ function Label({ handleClick, imagePreview }: LabelProps) {
         ) : (
           <>
             <Icon icon="upload" iconSize="24" color="text-tertiary" />
-            <span className={styles.labelText}>Drag files to upload</span>
+            <span className={styles.labelText}>Click to upload image</span>
           </>
         )}
       </label>
