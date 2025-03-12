@@ -5,7 +5,7 @@ export const useFileInput = <T extends FieldValues>(register: UseFormRegister<T>
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [previousFile, setPreviousFile] = useState<File>();
 
-  const handleFileInputRef = (element: HTMLInputElement) => {
+  const mergedRef = (element: HTMLInputElement) => {
     register(fieldName).ref(element);
     inputRef.current = element;
   };
@@ -39,6 +39,6 @@ export const useFileInput = <T extends FieldValues>(register: UseFormRegister<T>
   return {
     handleFileInputClick,
     handleFileChange,
-    handleFileInputRef,
+    mergedRef,
   };
 };

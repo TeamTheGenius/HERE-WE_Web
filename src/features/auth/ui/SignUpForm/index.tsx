@@ -20,7 +20,7 @@ function SignUpForm({ nickname, image, userId }: SignUpForm) {
     },
     handleSubmit: checkSignUpValidation,
     handleFileInputClick,
-    handleFileInputRef,
+    mergedRef,
     handleNicknameDuplicateCheck,
   } = useProfileRegister({ nickname, image });
   const navigate = useNavigate();
@@ -45,7 +45,7 @@ function SignUpForm({ nickname, image, userId }: SignUpForm) {
         error={errors.image}
         register={register('image')}
         previewImage={profileImagePreview}
-        handleFileInputRef={handleFileInputRef}
+        mergedRef={mergedRef}
         handleInputClick={handleFileInputClick}
       />
       <ProfileForm.Nickname
