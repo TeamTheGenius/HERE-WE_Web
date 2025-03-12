@@ -25,7 +25,6 @@
 
 .wrapper {
   width: 100%;
-  min-height: 8.5rem;
 }
 
 .container {
@@ -37,16 +36,13 @@
 
 .message {
   @include font-text(caption-small);
-  display: flex;
-  justify-content: end;
-  width: 100%;
 }
 
 .warning-message {
   color: var(--text-notice);
 }
 
-.information-message {
+.length-message {
   color: var(--text-tertiary);
 }
 

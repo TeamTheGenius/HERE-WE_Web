@@ -34,7 +34,7 @@ interface ButtonProps extends PropsWithChildren<ButtonHTMLAttributes<HTMLButtonE
 }
 
 interface MessageProps extends PropsWithChildren {
-  variant: 'success' | 'information' | 'warning';
+  variant: 'success' | 'warning';
 }
 
 const ForwardedInput = forwardRef(Input);
@@ -101,6 +101,10 @@ function Message({ children, variant }: MessageProps) {
   return <span className={cn(styles[`${variant}-message`], styles.message)}>{children}</span>;
 }
 
+function Length({ children }: PropsWithChildren) {
+  return <span className={cn(styles.lengthMessage, styles.message)}>{children}</span>;
+}
+
 function Action({ text, variant = 'secondary', onClick, ...props }: ButtonProps) {
   return <Button variant={variant} text={text} size="md" onClick={onClick} className={styles.button} {...props} />;
 }
@@ -110,4 +114,5 @@ export const TextInput = Object.assign(Main, {
   Input: ForwardedInput,
   Message,
   Button: Action,
+  Length,
 });
