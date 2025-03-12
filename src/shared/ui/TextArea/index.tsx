@@ -54,7 +54,7 @@ function Main({ children }: PropsWithChildren) {
 
   return (
     <TextAreaContext.Provider value={{ inputId }}>
-      <div className={styles.textAreaContainer}>
+      <div>
         {labelElement}
         <div className={styles.container}>
           {areaElement}
