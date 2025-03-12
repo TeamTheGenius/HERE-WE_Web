@@ -1,7 +1,7 @@
 import { cn } from '@/shared/lib/cn';
 import styles from './index.module.scss';
 import { IconType } from '@/shared/types/design-system';
-import Icon from '../Icon';
+import Icon from '../../../shared/ui/Icon';
 import { Link } from 'react-router-dom';
 
 interface NavigationItemProps {

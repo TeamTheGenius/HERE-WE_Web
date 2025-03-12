@@ -1,4 +1,4 @@
-import NavitationItem from '@/shared/ui/NavigationItem';
+import NavitationItem from '@/app/layouts/NavigationItem';
 import styles from './index.module.scss';
 import { useParams } from 'react-router-dom';
 import { routePaths } from '@/app/routes/path';
