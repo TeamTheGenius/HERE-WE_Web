@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export const useBlobURL = (file: File | Blob) => {
+export const useBlobURL = (file: File | Blob | undefined) => {
   const [blobURL, setBlobURL] = useState<string>('');
 
   useEffect(() => {
