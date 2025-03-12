@@ -9,7 +9,7 @@
 .title {
   @include font-text(heading-large);
   color: var(--text-primary);
-  padding: $space-lg 0;
+  padding: 0 0 $space-lg 0;
   text-align: center;
 }
 

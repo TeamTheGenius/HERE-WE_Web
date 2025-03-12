@@ -1,5 +1,7 @@
 @use '@/shared/styles/global.scss' as *;
 
 .content {
-  padding: $layout-header-height 0 0 0;
+  padding: ($layout-header-height + $space-md) $space-md $space-md $space-md;
+  max-width: $media-desktop;
+  margin: 0 auto;
 }
