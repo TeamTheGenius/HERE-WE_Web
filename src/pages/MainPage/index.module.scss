@@ -3,9 +3,6 @@
 .wrapper {
   @include flex-column;
   gap: $space-xl;
-  padding: $space-md;
-  max-width: $media-desktop;
-  margin: 0 auto;
 }
 
 .container {
