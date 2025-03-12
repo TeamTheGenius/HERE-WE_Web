@@ -4,6 +4,12 @@ import SignUpPage from '@/pages/SignUpPage';
 import { routePaths } from './path';
 import CenterLayout from '../layouts/CenterLayout';
 import Main from '@/pages/MainPage';
+import HeaderLayout from '../layouts/HeaderLayout';
+import NavigationLayout from '../layouts/NavigationLayout';
+import MemberPage from '@/pages/MemberPage';
+import HomePage from '@/pages/HomePage';
+import ChatPage from '@/pages/ChatPage';
+import MomentPage from '@/pages/MomentPage';
 
 export function Routing() {
   return (
@@ -13,7 +19,17 @@ export function Routing() {
           <Route path={routePaths.signIn} element={<SignInPage />} />
           <Route path={routePaths.signUp} element={<SignUpPage />} />
         </Route>
-        <Route path={routePaths.main} element={<Main />} />
+
+        <Route element={<HeaderLayout />}>
+          <Route path={routePaths.main} element={<Main />} />
+        </Route>
+
+        <Route element={<NavigationLayout />}>
+          <Route path={routePaths.member} element={<MemberPage />} />
+          <Route path={routePaths.home} element={<HomePage />} />
+          <Route path={routePaths.chat} element={<ChatPage />} />
+          <Route path={routePaths.moment} element={<MomentPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
