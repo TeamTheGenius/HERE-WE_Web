@@ -17,7 +17,7 @@ export const useProfileRegister = (data: UserInfoType) => {
   const { updateNicknameDuplicateCheck, updateNicknameUniqueness, isDuplicateChecked, isUnique } =
     useProfileSubmitValidation();
 
-  const { handleFileChange, handleFileInputRef, handleFileInputClick } = useFileInput(register, 'image');
+  const { handleFileChange, mergedRef, handleFileInputClick } = useFileInput(register, 'image');
 
   register('nickname', {
     pattern: {
@@ -90,7 +90,7 @@ export const useProfileRegister = (data: UserInfoType) => {
   return {
     handleNicknameDuplicateCheck,
     handleSubmit,
-    handleFileInputRef,
+    mergedRef,
     handleFileInputClick,
     formMethods,
   };
