@@ -1,0 +1,6 @@
+@use '@/shared/styles/global.scss' as *;
+
+.invite-button {
+  justify-self: self-end;
+  margin-bottom: $space-md;
+}

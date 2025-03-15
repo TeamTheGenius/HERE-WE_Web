@@ -1,0 +1,23 @@
+@use '@/shared/styles/global.scss' as *;
+
+.crew-header {
+  display: flex;
+  gap: $space-xs;
+  margin-bottom: $space-md;
+}
+
+.crew-information {
+  display: flex;
+  align-items: center;
+  gap: $space-xxs;
+}
+
+.crew-name {
+  @include font-text(heading-large);
+  color: var(--text-primary);
+}
+
+.crew-participants {
+  @include font-text(caption-small);
+  color: var(--text-primary);
+}
