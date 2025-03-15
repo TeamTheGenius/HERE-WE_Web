@@ -1,0 +1,41 @@
+@use '@/shared/styles/global.scss' as *;
+
+.wrapper {
+  max-width: $media-desktop;
+  margin: 0 auto;
+  padding: $space-md;
+}
+
+.member-list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.member-item {
+  background-color: var(--surface-primary);
+  width: 100%;
+  border-radius: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $space-md;
+}
+
+.information-container {
+  display: flex;
+  gap: $space-xs;
+  align-items: center;
+}
+
+.text-information-container {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xxs;
+}
+
+.text-core-information-container {
+  display: flex;
+  gap: $space-xxs;
+  flex-wrap: wrap;
+}
