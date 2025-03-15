@@ -1,0 +1,6 @@
+@use '@/shared/styles/global.scss' as *;
+
+.member-joined-date {
+  @include font-text(body-small);
+  color: var(--text-tertiary);
+}

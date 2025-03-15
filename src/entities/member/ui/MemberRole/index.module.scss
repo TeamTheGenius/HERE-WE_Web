@@ -1,0 +1,13 @@
+@use '@/shared/styles/global.scss' as *;
+
+.crew-leader {
+  @include font-text(caption-small);
+  color: var(--text-brand);
+  white-space: nowrap;
+}
+
+.crew-member {
+  @include font-text(caption-small);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
