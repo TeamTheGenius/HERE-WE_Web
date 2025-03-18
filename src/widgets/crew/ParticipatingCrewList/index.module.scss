@@ -1,0 +1,12 @@
+@use '@/shared/styles/global.scss' as *;
+
+.crew-list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xxl;
+}
+
+.crew-list__pagination {
+  display: inline-flex;
+  justify-content: center;
+}

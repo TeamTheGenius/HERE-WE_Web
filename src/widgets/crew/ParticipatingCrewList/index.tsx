@@ -1,5 +1,9 @@
 import { Card } from '@/shared/ui/Card';
 import image from '@/shared/assets/temp.jpg';
+import { usePagination } from '@/shared/hooks/usePagination';
+import Pagination from '@/shared/ui/Pagination';
+import styles from './index.module.scss';
+import GridContainer from '@/shared/ui/GridContainer';
 
 const datas = [
   { id: 1, name: 'testtttttttttttttttttttttttttt', image, participants: 5 },
@@ -19,18 +23,25 @@ const datas = [
 ];
 
 function ParticipatingCrewList() {
+  const paginationTools = usePagination(1, 15);
+
   return (
-    <>
-      {datas.map((data) => {
-        return (
-          <Card key={data.id}>
-            <Card.Image src={data.image} alt="크루 썸네일" />
-            <Card.Title>{data.name}</Card.Title>
-            <Card.Detail>크루원 {data.participants}</Card.Detail>
-          </Card>
-        );
-      })}
-    </>
+    <div className={styles.crewList}>
+      <GridContainer>
+        {datas.map((data) => {
+          return (
+            <Card key={data.id}>
+              <Card.Image src={data.image} alt="크루 썸네일" />
+              <Card.Title>{data.name}</Card.Title>
+              <Card.Detail>크루원 {data.participants}</Card.Detail>
+            </Card>
+          );
+        })}
+      </GridContainer>
+      <div className={styles.crewListPagination}>
+        <Pagination paginationTools={paginationTools} />
+      </div>
+    </div>
   );
 }
 
