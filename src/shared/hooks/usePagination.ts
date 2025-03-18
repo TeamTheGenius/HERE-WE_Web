@@ -15,8 +15,11 @@ export interface PaginationHookReturn {
 }
 
 export const usePagination = (minPage: number, maxPage: number, blockSize: number = 6): PaginationHookReturn => {
+  if (blockSize < 7) {
+    throw new Error('blockSize는 7 이상이어야합니다.');
+  }
   const END_BLOCK_SIZE = blockSize - 1;
-  const MIDDLE_BLOCK_SIZE = Math.floor(blockSize / 2);
+  const MIDDLE_BLOCK_SIZE = blockSize - 4;
 
   const [currentPage, setCurrentPage] = useState(minPage);
   const [visiblePages, setVisiblePages] = useState<Page[]>([]);
@@ -40,21 +43,24 @@ export const usePagination = (minPage: number, maxPage: number, blockSize: numbe
 
   const getFirstBlock = (): Page[] => {
     // 🔹 minPage 근처 (ex. [1, 2, 3, 4, 5, ..., 51])
-    const pages = Array.from({ length: Math.min(maxPage, END_BLOCK_SIZE) }, (_, i) => minPage + i);
+    const pages = Array.from({ length: Math.min(maxPage, END_BLOCK_SIZE - 1) }, (_, i) => minPage + i);
     if (maxPage - minPage > END_BLOCK_SIZE) return [...pages, 'nextBlock', maxPage];
     return pages;
   };
 
   const getLastBlock = (): Page[] => {
     // 🔹 maxPage 근처 (ex. [1, ...,47, 48, 49, 50, 51])
-    const pages = Array.from({ length: END_BLOCK_SIZE }, (_, i) => maxPage - END_BLOCK_SIZE + 1 + i);
+    const pages = Array.from({ length: END_BLOCK_SIZE - 1 }, (_, i) => maxPage - (END_BLOCK_SIZE - 2) + i);
     if (maxPage - minPage > END_BLOCK_SIZE) return [minPage, 'prevBlock', ...pages];
     return pages;
   };
 
   const getMiddleBlock = (): Page[] => {
     // 🔹 중간 페이지 (ex. [1, ..., 9, 10, 11, ..., 51])
-    return [minPage, 'prevBlock', currentPage - 1, currentPage, currentPage + 1, 'nextBlock', maxPage];
+    const start = Math.max(minPage, currentPage - Math.floor(MIDDLE_BLOCK_SIZE / 2));
+    const end = Math.min(maxPage, currentPage + Math.floor(MIDDLE_BLOCK_SIZE / 2));
+    const pages = Array.from({ length: end - start + 1 }, (_, i) => start + i);
+    return [minPage, 'prevBlock', ...pages, 'nextBlock', maxPage];
   };
 
   const handleClickPage = (page: number) => setCurrentPage(page);

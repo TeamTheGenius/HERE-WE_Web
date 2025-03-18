@@ -23,7 +23,7 @@ const datas = [
 ];
 
 function ParticipatingCrewList() {
-  const paginationTools = usePagination(1, 15);
+  const paginationTools = usePagination(1, 19, 7);
 
   return (
     <div className={styles.crewList}>
