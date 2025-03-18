@@ -12,8 +12,8 @@
   @include font-text(label-medium);
 
   @media (max-width: $media-tablet) {
-    width: 3rem;
-    height: 3rem;
+    width: 2.8rem;
+    height: 2.8rem;
   }
 
   @media (max-width: $media-mobile) {
@@ -28,11 +28,17 @@
   color: var(--text-default);
 }
 
-.pagination__button-inactive {
+.pagination__button--inactive {
   background-color: var(--surface-default);
   border: 1px solid var(--border-strong);
   color: var(--text-secondary);
   &:hover {
     background-color: var(--surface-tertiary);
   }
+}
+
+.pagination__button--disabled {
+  background-color: var(--surface-default);
+  border: 1px solid var(--border-strong);
+  color: var(--text-disabled);
 }
