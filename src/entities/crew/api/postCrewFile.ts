@@ -1,17 +1,12 @@
 import { privateClient } from '@/shared/api/config';
+import { FileResponse } from '@/shared/types/api';
 
 export interface PostCrewFileRequest {
   crewId: number;
   files: File[];
 }
 
-export interface PostCrewFileResponse {
-  fileId: number;
-  source: string;
-  fileEnv: 'LOCAL' | 'CLOUD';
-}
-
-export const postCrewFile = async ({ crewId, files }: PostCrewFileRequest): Promise<PostCrewFileResponse> => {
+export const postCrewFile = async ({ crewId, files }: PostCrewFileRequest): Promise<FileResponse> => {
   const formData = new FormData();
   files.forEach((file) => formData.append('files', file));
 
