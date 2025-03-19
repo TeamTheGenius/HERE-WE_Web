@@ -5,19 +5,20 @@ import MemberJoinedDate from '@/entities/member/ui/MemberJoinedDate';
 import MemberRole from '@/entities/member/ui/MemberRole';
 import Button from '@/shared/ui/Button';
 
-interface Data {
+export type CrewMemberRoleType = '크루리더' | '크루원원';
+
+export interface CrewMemberType {
   id: number;
   image: string;
   nickname: string;
-  role: '크루리더' | '크루원';
+  role: CrewMemberRoleType;
   date: string;
 }
 
 interface MemberListProps {
-  data: Data[];
+  data: CrewMemberType[];
   isCrewLeader: boolean;
 }
-
 function MemberList({ data, isCrewLeader }: MemberListProps) {
   return (
     <ul className={styles.memberList}>
