@@ -1,12 +1,7 @@
 import { publicClient } from '@/shared/api/config';
+import { FileResponse } from '@/shared/types/api';
 
-export interface AuthProfileImageResponse {
-  fileEnv: 'LOCAL' | 'CLOUD';
-  fileId: number;
-  source: string;
-}
-
-export const getAuthProfileImage = async (token: string): Promise<AuthProfileImageResponse> => {
+export const getAuthProfileImage = async (token: string): Promise<FileResponse> => {
   const { data: response } = await publicClient.get(`/auth/profile?token=${token}`);
   const { data } = response;
   const { fileEnv, fileId, source } = data;
