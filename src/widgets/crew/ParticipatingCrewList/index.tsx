@@ -6,8 +6,10 @@ import GridContainer from '@/shared/ui/GridContainer';
 import { useEffect } from 'react';
 import { useMyCrewsWithImages } from '@/features/crew/query/useCrewsWithFile';
 import temp from '@/shared/assets/temp.jpg';
+import { useNavigate } from 'react-router-dom';
 
 function ParticipatingCrewList() {
+  const navigate = useNavigate();
   const paginationTools = usePagination(1, 1, 7);
   const { currentPage, setMaxPage } = paginationTools;
   const { data: crewListData } = useMyCrewsWithImages(currentPage - 1, 12);
@@ -15,6 +17,10 @@ function ParticipatingCrewList() {
   useEffect(() => {
     if (crewListData?.page?.totalPages) setMaxPage(crewListData.page.totalPages);
   }, [crewListData?.page?.totalPages, setMaxPage]);
+
+  const handleClickCard = (crewId: number) => {
+    navigate(`/home/${crewId}`);
+  };
 
   if (!crewListData) return null;
   const { content } = crewListData;
@@ -24,7 +30,7 @@ function ParticipatingCrewList() {
       <GridContainer>
         {content.map((crew) => {
           return (
-            <Card key={crew.crewId}>
+            <Card key={crew.crewId} handleClick={() => handleClickCard(crew.crewId)}>
               <Card.Image src={crew.file?.source || temp} alt="크루 썸네일" />
               <Card.Title>{crew.name}</Card.Title>
               <Card.Detail>크루원 {crew.participantCount}</Card.Detail>

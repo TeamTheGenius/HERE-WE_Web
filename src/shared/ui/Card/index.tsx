@@ -18,9 +18,10 @@ const BadgeComponent = (<CardTag />).type;
 interface MainProps extends PropsWithChildren {
   size?: 'full' | 'md';
   classNames?: string;
+  handleClick: () => void;
 }
 
-function Main({ children, size = 'full', classNames }: MainProps) {
+function Main({ children, size = 'full', classNames, handleClick }: MainProps) {
   const imageElements = filterChildrenByComponent(children, ImageComponent);
   const titleElements = filterChildrenByComponent(children, TitleComponent);
   const detailElements = filterChildrenByComponent(children, DetailComponent);
@@ -34,6 +35,7 @@ function Main({ children, size = 'full', classNames }: MainProps) {
   return (
     <article>
       <button
+        onClick={handleClick}
         className={cn(
           styles.wrapper,
           {

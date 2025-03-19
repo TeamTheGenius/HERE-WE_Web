@@ -1,11 +1,11 @@
 import { privateClient } from '@/shared/api/config';
-import { FileResponse } from '@/shared/types/api';
+import { FileType } from '@/shared/types/api';
 
 export interface GetCrewFileRequest {
   crewId: number;
 }
 
-export const getCrewFile = async ({ crewId }: GetCrewFileRequest): Promise<FileResponse> => {
+export const getCrewFile = async ({ crewId }: GetCrewFileRequest): Promise<FileType> => {
   const { data: response } = await privateClient(`/file/${crewId}`, {
     params: { type: 'crew' },
   });
