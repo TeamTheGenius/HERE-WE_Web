@@ -1,5 +1,6 @@
-export interface FileResponse {
+export type FileEnvType = 'LOCAL' | 'CLOUD';
+export interface FileType {
   fileId: number;
   source: string;
-  fileEnv: 'LOCAL' | 'CLOUD';
+  fileEnv: FileEnvType;
 }

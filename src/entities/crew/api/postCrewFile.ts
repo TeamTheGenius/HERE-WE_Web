@@ -1,12 +1,12 @@
 import { privateClient } from '@/shared/api/config';
-import { FileResponse } from '@/shared/types/api';
+import { FileType } from '@/shared/types/api';
 
 export interface PostCrewFileRequest {
   crewId: number;
   files: File[];
 }
 
-export const postCrewFile = async ({ crewId, files }: PostCrewFileRequest): Promise<FileResponse> => {
+export const postCrewFile = async ({ crewId, files }: PostCrewFileRequest): Promise<FileType> => {
   const formData = new FormData();
   files.forEach((file) => formData.append('files', file));
 
