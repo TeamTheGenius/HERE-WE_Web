@@ -1,6 +1,6 @@
 import { useQueries, useQuery } from '@tanstack/react-query';
 import { crewQueries } from './crewQueries';
-import { FileResponse } from '@/shared/types/api';
+import { FileType } from '@/shared/types/api';
 
 // 크루와 이미지를 합병하는 커스텀 훅
 export const useMyCrewsWithImages = (page: number, size: number) => {
@@ -15,7 +15,7 @@ export const useMyCrewsWithImages = (page: number, size: number) => {
   });
 
   // 파일 데이터를 ID로 매핑
-  const fileDataMap: Record<number, FileResponse | undefined> = {};
+  const fileDataMap: Record<number, FileType | undefined> = {};
   crewListData?.content?.forEach((crew, index) => {
     fileDataMap[crew.crewId] = fileQueries[index]?.data;
   });

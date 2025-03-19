@@ -1,9 +1,11 @@
+import { routePaths } from '@/app/routes/path';
 import { usePostCrew } from '@/entities/crew/query/usePostCrew';
 import { usePostCrewFile } from '@/entities/crew/query/usePostCrewFile';
 import { useCrewRegister } from '@/features/crew/model/useCrewRegister';
 import CrewForm from '@/features/crew/ui/CrewForm';
 import { TitledFormLayout } from '@/shared/ui/TitledFormLayout';
 import { FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function CrewCreatePage() {
   const { formMethods, handleFileInputClick, mergedRef } = useCrewRegister({
@@ -13,6 +15,7 @@ function CrewCreatePage() {
   });
   const { mutateAsync: postCrew } = usePostCrew();
   const { mutateAsync: postCrewFile } = usePostCrewFile();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,6 +30,7 @@ function CrewCreatePage() {
 
     const { crewId } = await postCrew({ name: crewName, introduce: crewIntroduce });
     if (files.length > 0) await postCrewFile({ crewId, files });
+    navigate(routePaths.main);
   };
 
   return (

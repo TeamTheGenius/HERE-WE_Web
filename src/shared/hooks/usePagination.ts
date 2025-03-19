@@ -12,15 +12,24 @@ export interface PaginationHookReturn {
   handleClickNextPage: () => void;
   handleClickPrevPages: () => void;
   handleClickNextPages: () => void;
+  setMaxPage: (newMaxPage: number) => void;
+  setMinPage: (newMinPage: number) => void;
 }
 
-export const usePagination = (minPage: number, maxPage: number, blockSize: number = 6): PaginationHookReturn => {
+export const usePagination = (
+  initialMinPage: number,
+  initialMaxPage: number,
+  blockSize: number = 6,
+): PaginationHookReturn => {
   if (blockSize < 7) {
     throw new Error('blockSize는 7 이상이어야합니다.');
   }
   const END_BLOCK_SIZE = blockSize - 1;
   const MIDDLE_BLOCK_SIZE = blockSize - 4;
 
+  // maxPage를 상태로 관리
+  const [maxPage, setMaxPage] = useState(initialMaxPage);
+  const [minPage, setMinPage] = useState(initialMinPage);
   const [currentPage, setCurrentPage] = useState(minPage);
   const [visiblePages, setVisiblePages] = useState<Page[]>([]);
 
@@ -80,6 +89,8 @@ export const usePagination = (minPage: number, maxPage: number, blockSize: numbe
     visiblePages,
     minPage,
     maxPage,
+    setMaxPage,
+    setMinPage,
     handleClickPage,
     handleClickPrevPage,
     handleClickNextPage,
