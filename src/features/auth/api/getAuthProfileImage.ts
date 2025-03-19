@@ -6,8 +6,8 @@ export interface AuthProfileImageResponse {
   source: string;
 }
 
-export const getAuthProfileImage = async (id: number): Promise<AuthProfileImageResponse> => {
-  const { data: response } = await publicClient.get(`/auth/profile/${id}`);
+export const getAuthProfileImage = async (token: string): Promise<AuthProfileImageResponse> => {
+  const { data: response } = await publicClient.get(`/auth/profile?token=${token}`);
   const { data } = response;
   const { fileEnv, fileId, source } = data;
 

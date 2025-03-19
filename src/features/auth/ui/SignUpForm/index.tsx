@@ -5,12 +5,14 @@ import { useBlobURL } from '@/shared/hooks/useBlobURL';
 import { UserInfoType } from '@/entities/user/model/types';
 import { postAuthSignup } from '@/entities/user/api/postAuthSignup';
 import { useNavigate } from 'react-router-dom';
+import { postAuth } from '../../api/postAuth';
+import { routePaths } from '@/app/routes/path';
 
 interface SignUpForm extends UserInfoType {
-  userId: number;
+  token: string;
 }
 
-function SignUpForm({ nickname, image, userId }: SignUpForm) {
+function SignUpForm({ nickname, image, token }: SignUpForm) {
   const {
     formMethods: {
       formState: { errors },
@@ -18,7 +20,7 @@ function SignUpForm({ nickname, image, userId }: SignUpForm) {
       control,
       getValues,
     },
-    handleSubmit: checkSignUpValidation,
+    checkCanSubmit,
     handleFileInputClick,
     mergedRef,
     handleNicknameDuplicateCheck,
@@ -31,12 +33,12 @@ function SignUpForm({ nickname, image, userId }: SignUpForm) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    checkSignUpValidation();
-
+    const canSubmit = await checkCanSubmit();
+    if (!canSubmit) return;
     const nickname = getValues('nickname');
-    await postAuthSignup(userId, nickname);
-
-    navigate('/main');
+    const { userId } = await postAuthSignup(token, nickname);
+    await postAuth(userId);
+    navigate(routePaths.main);
   };
 
   return (

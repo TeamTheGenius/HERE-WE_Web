@@ -20,11 +20,14 @@ export const useProfileRegister = (data: UserInfoType) => {
   const { handleFileChange, mergedRef, handleFileInputClick } = useFileInput(register, 'image');
 
   register('nickname', {
+    required: {
+      value: true,
+      message: VALIDATION_MESSAGES.nickname.required,
+    },
     pattern: {
       value: REGEX.nickname,
       message: VALIDATION_MESSAGES.nickname.invalid,
     },
-    required: VALIDATION_MESSAGES.nickname.required,
     onChange: () => {
       updateNicknameDuplicateCheck(false);
       updateNicknameUniqueness(false);
@@ -69,27 +72,29 @@ export const useProfileRegister = (data: UserInfoType) => {
     }
   };
 
-  const handleSubmit = async () => {
+  const checkCanSubmit = async () => {
     const isValid = await formMethods.trigger();
-    if (!isValid) return;
+    if (!isValid) return false;
 
     if (!isDuplicateChecked) {
       formMethods.setError('nickname', {
         message: VALIDATION_MESSAGES.nickname.notCheck,
       });
-      return;
+      return false;
     }
 
     if (!isUnique) {
       formMethods.setError('nickname', {
         message: VALIDATION_MESSAGES.nickname.duplicate,
       });
-      return;
+      return false;
     }
+    return true;
   };
+
   return {
     handleNicknameDuplicateCheck,
-    handleSubmit,
+    checkCanSubmit,
     mergedRef,
     handleFileInputClick,
     formMethods,

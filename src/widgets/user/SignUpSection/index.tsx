@@ -6,12 +6,14 @@ import SignUpForm from '@/features/auth/ui/SignUpForm';
 
 function SignUpSection() {
   const [searchParams] = useSearchParams();
-  const userId = Number(searchParams.get('id'));
+  const token = searchParams.get('token');
+
+  if (!token) return null;
 
   const { data } = useQuery({
-    queryKey: ['profileImage', userId],
+    queryKey: ['profileImage', token],
     queryFn: async () => {
-      return await getAuthProfileImage(userId);
+      return await getAuthProfileImage(token);
     },
   });
 
@@ -22,7 +24,7 @@ function SignUpSection() {
 
   if (!initialImage) return null;
 
-  return <SignUpForm nickname="" image={initialImage} userId={userId} />;
+  return <SignUpForm nickname="" image={initialImage} token={token} />;
 }
 
 export default SignUpSection;
