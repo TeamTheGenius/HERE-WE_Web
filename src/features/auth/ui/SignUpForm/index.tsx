@@ -7,6 +7,7 @@ import { postAuthSignup } from '@/entities/user/api/postAuthSignup';
 import { useNavigate } from 'react-router-dom';
 import { postAuth } from '../../api/postAuth';
 import { routePaths } from '@/app/routes/path';
+import { FormEvent } from 'react';
 
 interface SignUpForm extends UserInfoType {
   token: string;
@@ -20,6 +21,7 @@ function SignUpForm({ nickname, image, token }: SignUpForm) {
       control,
       getValues,
     },
+    isUnique,
     checkCanSubmit,
     handleFileInputClick,
     mergedRef,
@@ -31,7 +33,7 @@ function SignUpForm({ nickname, image, token }: SignUpForm) {
   const watchedNickname = useWatch({ control, name: 'nickname' });
   const profileImagePreview = useBlobURL(watchedFile?.[0]);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const canSubmit = await checkCanSubmit();
     if (!canSubmit) return;
@@ -51,6 +53,7 @@ function SignUpForm({ nickname, image, token }: SignUpForm) {
         handleInputClick={handleFileInputClick}
       />
       <ProfileForm.Nickname
+        isUnique={isUnique}
         error={errors.nickname}
         register={register('nickname')}
         handleDupllicateCheck={handleNicknameDuplicateCheck}

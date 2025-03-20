@@ -2,6 +2,7 @@ import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 import { TextInput } from '@/shared/ui/TextInput';
 
 interface ProfileNicknameInputProps {
+  isUnique: boolean;
   register: UseFormRegisterReturn;
   initialNickname?: string;
   watchedNickname: string;
@@ -15,6 +16,7 @@ function ProfileNicknameInput({
   handleDupllicateCheck,
   error,
   watchedNickname,
+  isUnique,
 }: ProfileNicknameInputProps) {
   return (
     <TextInput>
@@ -35,9 +37,9 @@ function ProfileNicknameInput({
       />
       {error ? (
         <TextInput.Message variant="warning">{error.message}</TextInput.Message>
-      ) : (
+      ) : isUnique ? (
         <TextInput.Message variant="success">사용 가능한 닉네임입니다.</TextInput.Message>
-      )}
+      ) : null}
     </TextInput>
   );
 }

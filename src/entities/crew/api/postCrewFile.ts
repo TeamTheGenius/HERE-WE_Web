@@ -1,4 +1,5 @@
 import { privateClient } from '@/shared/api/config';
+import { formatImageSource } from '@/shared/helper/formatImageSource';
 import { FileType } from '@/shared/types/api';
 
 export interface PostCrewFileRequest {
@@ -17,9 +18,11 @@ export const postCrewFile = async ({ crewId, files }: PostCrewFileRequest): Prom
     },
   });
 
+  const { fileId, source, fileEnv } = response.data;
+
   return {
-    fileId: response.data.fileId,
-    source: response.data.source,
-    fileEnv: response.data.fileEnv,
+    fileId: fileId,
+    source: formatImageSource(fileEnv, source),
+    fileEnv: fileEnv,
   };
 };

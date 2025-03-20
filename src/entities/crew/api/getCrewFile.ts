@@ -1,4 +1,5 @@
 import { privateClient } from '@/shared/api/config';
+import { formatImageSource } from '@/shared/helper/formatImageSource';
 import { FileType } from '@/shared/types/api';
 
 export interface GetCrewFileRequest {
@@ -10,9 +11,11 @@ export const getCrewFile = async ({ crewId }: GetCrewFileRequest): Promise<FileT
     params: { type: 'crew' },
   });
 
+  const { fileId, source, fileEnv } = response.data;
+
   return {
-    fileId: response.data.fileId,
-    source: response.data.source,
-    fileEnv: response.data.fileEnv,
+    fileId: fileId,
+    source: formatImageSource(fileEnv, source),
+    fileEnv: fileEnv,
   };
 };
