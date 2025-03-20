@@ -98,5 +98,6 @@ export const useProfileRegister = (data: UserInfoType) => {
     mergedRef,
     handleFileInputClick,
     formMethods,
+    isUnique,
   };
 };

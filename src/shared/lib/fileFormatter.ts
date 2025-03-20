@@ -1,13 +1,27 @@
-interface FileInfo {
+interface Base64FileInfo {
   base64: string;
   fileName: string;
   fileType: string;
 }
 
-export const base64ToFileList = (files: FileInfo[]) => {
+interface URLFileInfo {
+  url: string;
+  fileName: string;
+}
+
+export const checkURL = (source: string) => {
+  return /^(https?:\/\/|\/)/.test(source);
+};
+
+export const checkBase64 = (source: string) => {
+  console.log(source);
+  return /^data:image\/[a-zA-Z]+;base64,/.test(source);
+};
+
+export const base64ToFileList = async (files: Base64FileInfo[]) => {
   const dataTransfer = new DataTransfer();
 
-  files.forEach(({ base64, fileName, fileType }) => {
+  const processFiles = files.map(async ({ base64, fileName, fileType }) => {
     const base64WithMeta = base64.includes('data:') ? base64 : `data:${fileType};base64,${base64}`;
     const base64Data = base64WithMeta.split(';base64,').pop();
 
@@ -26,5 +40,22 @@ export const base64ToFileList = (files: FileInfo[]) => {
     dataTransfer.items.add(file);
   });
 
+  await Promise.all(processFiles);
+  return dataTransfer.files;
+};
+
+export const URLToFileList = async (files: URLFileInfo[]) => {
+  const dataTransfer = new DataTransfer();
+
+  const fetchFiles = files.map(async ({ url, fileName }) => {
+    const response = await fetch(url);
+    const blob = await response.blob();
+    const fileType = blob.type;
+
+    const file = new File([blob], fileName, { type: fileType });
+    dataTransfer.items.add(file);
+  });
+
+  await Promise.all(fetchFiles);
   return dataTransfer.files;
 };

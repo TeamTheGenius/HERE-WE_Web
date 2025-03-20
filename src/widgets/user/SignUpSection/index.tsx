@@ -1,30 +1,27 @@
 import { getAuthProfileImage } from '@/features/auth/api/getAuthProfileImage';
-import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import { makeSourceToFileList } from '@/shared/helper/sourceToFileList';
 import SignUpForm from '@/features/auth/ui/SignUpForm';
+import { useEffect, useState } from 'react';
 
 function SignUpSection() {
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
+  const [initialFileList, setInitialFileList] = useState<FileList>();
 
-  if (!token) return null;
+  useEffect(() => {
+    if (!token) return;
+    const fetchData = async () => {
+      const { source, fileEnv } = await getAuthProfileImage(token);
+      const fileList = await makeSourceToFileList(source, 'profile-image', fileEnv);
+      setInitialFileList(fileList);
+    };
+    fetchData();
+  }, [token]);
 
-  const { data } = useQuery({
-    queryKey: ['profileImage', token],
-    queryFn: async () => {
-      return await getAuthProfileImage(token);
-    },
-  });
+  if (!token || !initialFileList) return null;
 
-  if (!data) return null;
-
-  const { source, fileEnv } = data;
-  const initialImage = makeSourceToFileList(fileEnv, source, 'profile-image');
-
-  if (!initialImage) return null;
-
-  return <SignUpForm nickname="" image={initialImage} token={token} />;
+  return <SignUpForm nickname="" image={initialFileList} token={token} />;
 }
 
 export default SignUpSection;

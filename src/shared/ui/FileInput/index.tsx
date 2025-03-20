@@ -3,6 +3,7 @@ import styles from './index.module.scss';
 import { cn } from '../../lib/cn';
 import { filterChildrenByComponent } from '@/shared/lib/reactChildren';
 import Icon from '../Icon';
+import { IMAGE_FORMAT } from '@/shared/constants/fileValidation';
 
 interface FileInputContextType {
   inputId: string;
@@ -86,7 +87,7 @@ function Input({ ...props }, ref: ForwardedRef<HTMLInputElement>) {
   if (!context) return null;
   const { inputId } = context;
 
-  return <input type="file" id={inputId} accept="image/*" className={styles.fileInput} ref={ref} {...props} />;
+  return <input type="file" id={inputId} accept={IMAGE_FORMAT} className={styles.fileInput} ref={ref} {...props} />;
 }
 
 function Message({ children, variant }: MessageProps) {
