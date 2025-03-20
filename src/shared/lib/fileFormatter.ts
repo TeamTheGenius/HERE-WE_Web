@@ -14,7 +14,6 @@ export const checkURL = (source: string) => {
 };
 
 export const checkBase64 = (source: string) => {
-  console.log(source);
   return /^data:image\/[a-zA-Z]+;base64,/.test(source);
 };
 
