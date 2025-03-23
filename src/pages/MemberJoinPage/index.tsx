@@ -1,5 +1,4 @@
-import { routePaths } from '@/app/routes/path';
-import { usePostCrewJoin } from '@/entities/member/query';
+import { usePostCrewJoin } from '@/entities/member/query/usePostCrewJoin';
 import { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
@@ -11,8 +10,8 @@ function MemberJoinPage() {
 
   useEffect(() => {
     const joinCrew = async () => {
-      await mutateAsync({ token: token || '' });
-      navigate(routePaths.main);
+      const { crewId } = await mutateAsync({ token: token || '' });
+      navigate(`/home/${crewId}`);
     };
     joinCrew();
   }, [token, mutateAsync]);

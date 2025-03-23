@@ -4,7 +4,14 @@ interface PostCrewJoinRequest {
   token: string;
 }
 
-export const postCrewJoin = async ({ token }: PostCrewJoinRequest) => {
+interface PostCrewJoinResponse {
+  crewId: number;
+}
+
+export const postCrewJoin = async ({ token }: PostCrewJoinRequest): Promise<PostCrewJoinResponse> => {
   const { data: response } = await privateClient.post(`/crew/invite/${token}`);
-  return response.code === 'OK';
+
+  return {
+    crewId: response.data.crewId,
+  };
 };
