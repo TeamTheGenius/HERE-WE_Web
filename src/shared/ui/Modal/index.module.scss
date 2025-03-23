@@ -1,0 +1,63 @@
+@use '@/shared/styles/global' as *;
+
+.modal-root {
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-root--open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-root--close {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.modal {
+  padding: $space-md;
+  width: 100%;
+  margin: $space-md;
+  max-width: 32rem;
+  height: auto;
+  border-radius: 0.8rem;
+  background-color: var(--surface-default);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: $space-md;
+  z-index: 999;
+}
+
+.modal__title {
+  @include font-text(heading-medium);
+  color: var(--text-primary);
+}
+
+.modal__content {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.modal__description {
+  @include font-text(body-medium);
+  color: var(--text-secondary);
+}
+
+.modal__buttons {
+  display: inline-flex;
+  justify-content: end;
+  gap: $space-sm;
+}
