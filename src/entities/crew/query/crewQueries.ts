@@ -1,6 +1,7 @@
 import { queryOptions } from '@tanstack/react-query';
-import { getMyCrewList, GetMyCrewListRequest, GetMyCrewListResponse } from '../api/getMyCrewList';
+import { getMyCrewList, GetMyCrewListRequest, GetMyCrewListResponse } from '../../../features/crew/api/getMyCrewList';
 import { getCrewFile, GetCrewFileRequest } from '@/entities/crew/api/getCrewFile';
+import { getCrew, GetCrewRequest } from '../api/getCrew';
 
 export const crewQueries = {
   allKeys: ['crew'] as const,
@@ -12,7 +13,13 @@ export const crewQueries = {
       queryFn: () => getCrewFile({ crewId }),
     }),
 
-  myCrewList: ({ page, size }: GetMyCrewListRequest) =>
+  crewJSON: ({ crewId }: GetCrewRequest) =>
+    queryOptions({
+      queryKey: [...crewQueries.allKeys, 'json', crewId],
+      queryFn: () => getCrew({ crewId }),
+    }),
+
+  myCrewsPagination: ({ page, size }: GetMyCrewListRequest) =>
     queryOptions<GetMyCrewListResponse>({
       queryKey: [...crewQueries.myAllCrewKeys, 'list', page, size],
       queryFn: () => getMyCrewList({ page, size }),

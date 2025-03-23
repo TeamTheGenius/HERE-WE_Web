@@ -3,9 +3,9 @@ import { crewQueries } from './crewQueries';
 import { FileType } from '@/shared/types/api';
 
 // 크루와 이미지를 합병하는 커스텀 훅
-export const useMyCrewsWithImages = (page: number, size: number) => {
+export const useMyCrewsWithFile = (page: number, size: number) => {
   const { data: crewListData } = useQuery({
-    ...crewQueries.myCrewList({ page, size }),
+    ...crewQueries.myCrewsPagination({ page, size }),
   });
 
   const fileQueries = useQueries({
