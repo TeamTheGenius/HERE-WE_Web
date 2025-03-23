@@ -1,8 +1,10 @@
 import { Modal } from '@/shared/ui/Modal';
-import MemberInviteForm from '../MemberInviteForm';
-import { useForm } from 'react-hook-form';
-import { CrewInviteFormType } from '../../model/types';
-import { REGEX, VALIDATION_MESSAGES } from '@/shared/constants/userValidation';
+import { useEffect, useId } from 'react';
+import { useParams } from 'react-router-dom';
+import { usePostCrewInvite } from '../../query/usePostCrewInvite';
+import { useCrewInviteRegister } from '../../hooks/useCrewInviteRegister';
+import { AxiosError } from 'axios';
+import MemberInviteNicknameInput from '../MemberInviteNicknameInput';
 
 interface MemberInviteModalProps {
   handleClose: () => void;
@@ -10,25 +12,44 @@ interface MemberInviteModalProps {
 }
 
 function MemberInviteModal({ handleClose, isOpen }: MemberInviteModalProps) {
-  const formMethods = useForm<CrewInviteFormType>({ defaultValues: { nickname: '' }, mode: 'onBlur' });
-  const { register } = formMethods;
+  const formId = useId();
+  const { crewId } = useParams();
+  const { mutateAsync } = usePostCrewInvite();
+  const { formMethods, handleApiError } = useCrewInviteRegister();
+  const { reset, handleSubmit, getValues } = formMethods;
 
-  register('nickname', {
-    pattern: {
-      value: REGEX.nickname,
-      message: VALIDATION_MESSAGES.nickname.invalid,
-    },
-  });
+  useEffect(() => {
+    reset();
+  }, [isOpen]);
+
+  const onSubmit = async () => {
+    if (!crewId) return;
+    const nickname = getValues('nickname');
+    try {
+      await mutateAsync({ crewId: Number(crewId), nickname });
+      reset();
+      // 성공 토스트 메시지 띄우기
+    } catch (error) {
+      if (!(error instanceof AxiosError)) throw error;
+      const errorCode = error.response?.data?.code;
+      handleApiError(errorCode);
+      throw error;
+    }
+  };
 
   return (
     <Modal isOpen={isOpen}>
       <Modal.Overlay handleClick={handleClose} />
       <Modal.Title>크루원 초대</Modal.Title>
       <Modal.Content>
-        <MemberInviteForm formMethods={formMethods} />
+        <form onSubmit={handleSubmit(onSubmit)} id={formId}>
+          <MemberInviteNicknameInput formMethods={formMethods} />
+        </form>
       </Modal.Content>
-      <Modal.LeftButton handleClick={handleClose}>닫기</Modal.LeftButton>
-      <Modal.RightButton handleClick={handleClose}>초대</Modal.RightButton>
+      <Modal.LeftButton onClick={handleClose}>닫기</Modal.LeftButton>
+      <Modal.RightButton type="submit" form={formId}>
+        초대
+      </Modal.RightButton>
     </Modal>
   );
 }

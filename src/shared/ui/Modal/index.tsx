@@ -2,13 +2,9 @@ import { PropsWithChildren } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './index.module.scss';
 import Overlay from '../Overlay';
-import Button from '../Button';
+import Button, { ButtonProps } from '../Button';
 import { filterChildrenByComponent } from '@/shared/lib/reactChildren';
 import { cn } from '@/shared/lib/cn';
-
-interface ModalButtonProps extends PropsWithChildren {
-  handleClick: () => void;
-}
 
 interface MainProps extends PropsWithChildren {
   isOpen: boolean;
@@ -62,17 +58,17 @@ function ModalBody({ children }: PropsWithChildren) {
   return <div>{children}</div>;
 }
 
-function ModalLeftButton({ handleClick, children }: ModalButtonProps) {
+function ModalLeftButton({ children, ...rest }: ButtonProps) {
   return (
-    <Button onClick={handleClick} variant="secondary">
+    <Button variant="secondary" {...rest}>
       {children}
     </Button>
   );
 }
 
-function ModalRightButton({ handleClick, children }: ModalButtonProps) {
+function ModalRightButton({ children, ...rest }: ButtonProps) {
   return (
-    <Button onClick={handleClick} variant="primary">
+    <Button variant="primary" {...rest}>
       {children}
     </Button>
   );
