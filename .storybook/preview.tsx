@@ -16,6 +16,11 @@ const preview: Preview = {
 
   decorators: [
     (Story) => {
+      if (!document.getElementById('modal')) {
+        const modalRoot = document.createElement('div');
+        modalRoot.setAttribute('id', 'modal');
+        document.body.appendChild(modalRoot);
+      }
       return (
         <ThemeProvider>
           <GlobalSvgSprite />
