@@ -4,7 +4,7 @@ import Pagination from '@/shared/ui/Pagination';
 import styles from './index.module.scss';
 import GridContainer from '@/shared/ui/GridContainer';
 import { useEffect } from 'react';
-import { useMyCrewsWithFile } from '@/entities/crew/query/useMyCrewsWithFile';
+import { useMyCrewsWithFile } from '@/features/crew/hook/useMyCrewsWithFile';
 import temp from '@/shared/assets/temp.jpg';
 import { useNavigate } from 'react-router-dom';
 

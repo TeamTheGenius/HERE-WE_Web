@@ -1,11 +1,12 @@
 import { useQueries, useQuery } from '@tanstack/react-query';
-import { crewQueries } from './crewQueries';
+import { crewQueries } from '../../../entities/crew/query/crewQueries';
 import { FileType } from '@/shared/types/api';
+import { crewListQueries } from '../query/crewListQueries';
 
 // 크루와 이미지를 합병하는 커스텀 훅
 export const useMyCrewsWithFile = (page: number, size: number) => {
   const { data: crewListData } = useQuery({
-    ...crewQueries.myCrewsPagination({ page, size }),
+    ...crewListQueries.myCrewsPagination({ page, size }),
   });
 
   const fileQueries = useQueries({
