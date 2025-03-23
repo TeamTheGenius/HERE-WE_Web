@@ -4,6 +4,7 @@ export const routePaths = {
   signIn: '/signin',
   signUp: '/signup',
   member: '/member/:crewId',
+  memberJoin: '/invite',
   home: '/home/:crewId',
   moment: '/moment/:crewId',
   chat: '/chat/:crewId',
