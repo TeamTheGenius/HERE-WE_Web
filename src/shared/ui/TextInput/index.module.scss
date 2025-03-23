@@ -62,7 +62,7 @@
     color: var(--text-placeholder);
   }
 
-  &:focus {
+  &:focus:not([readonly]) {
     border-bottom-color: var(--border-brand);
   }
 }

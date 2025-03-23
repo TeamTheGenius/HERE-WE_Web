@@ -109,7 +109,7 @@ function UpcomingMomentList() {
     <>
       {datas.map((data) => {
         return (
-          <Card key={data.id} size="md">
+          <Card key={data.id} size="md" handleClick={() => {}}>
             <Card.Image src={image} alt="크루 썸네일" />
             <Card.Tag variant="tertiary" text={`D-${getDDayNumber(data.date)}`}></Card.Tag>
             <Card.Title>{data.crew}</Card.Title>
