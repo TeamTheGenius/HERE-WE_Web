@@ -9,6 +9,7 @@ export const publicClient = axios.create({
 
 export const privateClient = axios.create({
   baseURL: API_BASE_URL,
+  withCredentials: true,
 });
 
 privateClient.interceptors.request.use((config) => {

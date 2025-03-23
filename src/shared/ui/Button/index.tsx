@@ -6,7 +6,7 @@ import type { IconType, TextColorType } from '../../types/design-system';
 
 export type ButtonType = 'primary' | 'secondary';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonType;
   size?: 'lg' | 'md' | 'sm';
   text?: string;
