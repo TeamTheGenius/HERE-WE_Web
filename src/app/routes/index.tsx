@@ -12,6 +12,7 @@ import ChatPage from '@/pages/ChatPage';
 import MomentPage from '@/pages/MomentPage';
 import CrewCreatePage from '@/pages/CrewCreatePage';
 import AuthPage from '@/pages/AuthPage';
+import MemberJoinPage from '@/pages/MemberJoinPage';
 
 export function Routing() {
   return (
@@ -23,7 +24,7 @@ export function Routing() {
         </Route>
 
         <Route path={routePaths.auth} element={<AuthPage />} />
-
+        <Route path={routePaths.memberJoin} element={<MemberJoinPage />} />
         <Route element={<HeaderLayout />}>
           <Route path={routePaths.main} element={<Main />} />
           <Route path={routePaths.createCrew} element={<CrewCreatePage />} />

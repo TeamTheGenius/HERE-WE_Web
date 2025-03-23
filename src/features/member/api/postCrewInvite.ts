@@ -11,9 +11,5 @@ export const postCrewInvite = async ({ crewId, nickname }: PostCrewInviteRequest
     nickname: nickname,
   });
 
-  const canInvite = response.code == 'OK';
-
-  return {
-    canInvite: canInvite,
-  };
+  return response.code == 'OK';
 };
