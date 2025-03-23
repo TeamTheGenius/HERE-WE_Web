@@ -18,28 +18,36 @@ export interface CrewMemberType {
 interface MemberListProps {
   data: CrewMemberType[];
   isCrewLeader: boolean;
+  handleKick: (nickname: string) => void;
 }
-function MemberList({ data, isCrewLeader }: MemberListProps) {
+
+function MemberList({ data, isCrewLeader, handleKick }: MemberListProps) {
   return (
-    <ul className={styles.memberList}>
-      {data.map((el) => (
-        <li className={styles.memberItem} key={el.id}>
-          <div className={styles.informationContainer}>
-            <ProfileImage size="medium" src={el.image} />
-            <div className={styles.textInformationContainer}>
-              <div className={styles.textCoreInformationContainer}>
-                <ProfileNickname size="md" className={styles.textInformationNickname}>
-                  {el.nickname}
-                </ProfileNickname>
-                {el.role === '크루리더' && <MemberRole role={el.role} />}
+    <>
+      <ul className={styles.memberList}>
+        {data.map((el) => (
+          <li className={styles.memberItem} key={el.id}>
+            <div className={styles.informationContainer}>
+              <ProfileImage size="medium" src={el.image} />
+              <div className={styles.textInformationContainer}>
+                <div className={styles.textCoreInformationContainer}>
+                  <ProfileNickname size="md" className={styles.textInformationNickname}>
+                    {el.nickname}
+                  </ProfileNickname>
+                  {el.role === '크루리더' && <MemberRole role={el.role} />}
+                </div>
+                <MemberJoinedDate>크루 참여 {el.date}</MemberJoinedDate>
               </div>
-              <MemberJoinedDate>크루 참여 {el.date}</MemberJoinedDate>
             </div>
-          </div>
-          {isCrewLeader && <Button variant="secondary">내보내기</Button>}
-        </li>
-      ))}
-    </ul>
+            {isCrewLeader && (
+              <Button variant="secondary" onClick={() => handleKick(el.nickname)}>
+                내보내기
+              </Button>
+            )}
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
 

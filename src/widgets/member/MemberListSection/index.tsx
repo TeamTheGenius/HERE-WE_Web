@@ -3,15 +3,26 @@ import MemberList, { CrewMemberRoleType, CrewMemberType } from '@/features/membe
 import temp from '@/shared/assets/temp.jpg';
 import { usePagination } from '@/shared/hooks/usePagination';
 import Pagination from '@/shared/ui/Pagination';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styles from './index.module.scss';
+import { useDeleteCrewMember } from '@/entities/member/query/useDeleteCrewMember';
+import { useModal } from '@/shared/hooks/useModal';
+import MemberKickModal from '@/features/member/ui/MemberKickModal';
 
 function MemberListSection() {
   const { crewId } = useParams();
   const paginationTools = usePagination(1, 1, 7);
   const { currentPage, setMaxPage } = paginationTools;
   const { data: crewMemberList } = useCrewMembersWithFile(currentPage - 1, 12, Number(crewId));
+  const { mutateAsync } = useDeleteCrewMember();
+  const { isOpen, closeModal, openModal } = useModal();
+  const [selectedNickname, setSelectedNickname] = useState('');
+
+  const handleKickModalOpen = (nickname: string) => {
+    setSelectedNickname(nickname);
+    openModal();
+  };
 
   useEffect(() => {
     if (crewMemberList?.page?.totalPages) setMaxPage(crewMemberList.page.totalPages);
@@ -22,15 +33,21 @@ function MemberListSection() {
       id: member.userId,
       image: member.file?.source || temp,
       nickname: member.name,
-      role: member.role === 'LEADER' ? '크루리더' : ('크루원' as CrewMemberRoleType),
+      role: member.role === 'LEADER' ? ('크루리더' as CrewMemberRoleType) : ('크루원' as CrewMemberRoleType),
       date: member.joinedAt,
     })) || [];
 
   if (!crewMemberList) return null;
 
+  const handleKick = async () => {
+    await mutateAsync({ nickname: selectedNickname, crewId: Number(crewId) });
+    closeModal();
+  };
+
   return (
     <>
-      <MemberList data={[...transformedData]} isCrewLeader={true} />
+      <MemberKickModal isOpen={isOpen} handleClose={closeModal} handleSubmit={handleKick} nickname={selectedNickname} />
+      <MemberList data={[...transformedData]} isCrewLeader={true} handleKick={handleKickModalOpen} />
       {crewMemberList.page.totalPages > 0 && (
         <div className={styles.pagination}>
           <Pagination paginationTools={paginationTools} />

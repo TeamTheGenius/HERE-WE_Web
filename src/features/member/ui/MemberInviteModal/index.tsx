@@ -41,6 +41,7 @@ function MemberInviteModal({ handleClose, isOpen }: MemberInviteModalProps) {
     <Modal isOpen={isOpen}>
       <Modal.Overlay handleClick={handleClose} />
       <Modal.Title>크루원 초대</Modal.Title>
+      <Modal.Description>메일이 오지 않았을 경우 스팸함을 확인해주세요</Modal.Description>
       <Modal.Content>
         <form onSubmit={handleSubmit(onSubmit)} id={formId}>
           <MemberInviteNicknameInput formMethods={formMethods} />
