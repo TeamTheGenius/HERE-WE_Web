@@ -33,7 +33,6 @@ function CrewForm({ formMethods, handleFileInputClick, mergedRef }: CrewFormProp
           {...register('title')}
         />
         {errors.title && <TextInput.Message variant="warning">{errors.title.message}</TextInput.Message>}
-        {<TextInput.Length>gg</TextInput.Length>}
       </TextInput>
 
       <FileInput>

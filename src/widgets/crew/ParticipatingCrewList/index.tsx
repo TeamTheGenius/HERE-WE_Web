@@ -4,7 +4,7 @@ import Pagination from '@/shared/ui/Pagination';
 import styles from './index.module.scss';
 import GridContainer from '@/shared/ui/GridContainer';
 import { useEffect } from 'react';
-import { useMyCrewsWithImages } from '@/features/crew/query/useCrewsWithFile';
+import { useMyCrewsWithFile } from '@/entities/crew/query/useMyCrewsWithFile';
 import temp from '@/shared/assets/temp.jpg';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ function ParticipatingCrewList() {
   const navigate = useNavigate();
   const paginationTools = usePagination(1, 1, 7);
   const { currentPage, setMaxPage } = paginationTools;
-  const { data: crewListData } = useMyCrewsWithImages(currentPage - 1, 12);
+  const { data: crewListData } = useMyCrewsWithFile(currentPage - 1, 12);
 
   useEffect(() => {
     if (crewListData?.page?.totalPages) setMaxPage(crewListData.page.totalPages);

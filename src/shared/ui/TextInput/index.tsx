@@ -23,8 +23,8 @@ interface LabelProps extends PropsWithChildren {
 }
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  placeholder: string;
-  hasError: boolean;
+  placeholder?: string;
+  hasError?: boolean;
 }
 
 interface ButtonProps extends PropsWithChildren<ButtonHTMLAttributes<HTMLButtonElement>> {
