@@ -59,8 +59,8 @@ export const Default: Story = {
           <Modal.Overlay handleClick={closeModal} />
           <Modal.Title>모달 예시</Modal.Title>
           <Modal.Description>모달 예시 설명</Modal.Description>
-          <Modal.RightButton handleClick={closeModal}>닫기</Modal.RightButton>
-          <Modal.RightButton handleClick={confirmModal}>확인</Modal.RightButton>
+          <Modal.RightButton onClick={closeModal}>닫기</Modal.RightButton>
+          <Modal.RightButton onClick={confirmModal}>확인</Modal.RightButton>
         </Modal>
       </>
     );
@@ -90,7 +90,7 @@ export const WithContentModal: Story = {
           <Modal.Content>
             <p>모달 내용이 여기에 들어갑니다. 어떤 React 컴포넌트도 추가할 수 있습니다.</p>
           </Modal.Content>
-          <Modal.RightButton handleClick={closeModal}>닫기</Modal.RightButton>
+          <Modal.RightButton onClick={closeModal}>닫기</Modal.RightButton>
         </Modal>
       </>
     );
