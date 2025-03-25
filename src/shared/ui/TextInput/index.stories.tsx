@@ -54,7 +54,7 @@ export const WithButton: Story = {
     <TextInput>
       <TextInput.Label>닉네임</TextInput.Label>
       <TextInput.Input placeholder="닉네임을 입력해주세요" hasError={false} />
-      <TextInput.Button text="중복확인" onClick={() => alert('Searching...')} />
+      <TextInput.Button onClick={() => alert('Searching...')}>중복 확인</TextInput.Button>
     </TextInput>
   ),
 };

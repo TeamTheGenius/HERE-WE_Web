@@ -21,4 +21,7 @@ export const VALIDATION_MESSAGES = {
   applicationDeadline: {
     required: '신청 마감 날짜/시간을 선택해주세요',
   },
+  meetingLocation: {
+    required: '만나는 위치를 선택해주세요',
+  },
 };

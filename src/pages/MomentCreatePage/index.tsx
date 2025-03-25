@@ -13,6 +13,7 @@ function MomentCreatePage() {
     participantCountLimit: undefined,
     deadlineDateTime: '',
     applicationDeadline: '',
+    meetingLocation: undefined,
   });
 
   const onSubmit = () => {

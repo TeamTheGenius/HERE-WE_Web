@@ -20,6 +20,10 @@
   background-color: var(--surface-brand);
   color: var(--text-default);
   @include disable;
+
+  &:hover {
+    background-color: var(--surface-brand-hover);
+  }
 }
 
 .secondary-button {
@@ -27,6 +31,10 @@
   border: 1px solid var(--border-strong);
   color: var(--text-tertiary);
   @include disable;
+
+  &:hover {
+    background-color: var(--surface-primary);
+  }
 }
 
 .lg-button {

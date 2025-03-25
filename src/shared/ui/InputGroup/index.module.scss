@@ -1,0 +1,21 @@
+@use '@/shared/styles/global' as *;
+
+.label-container {
+  display: block;
+  @include font-text(heading-small);
+  margin-bottom: $space-sm;
+}
+
+.label {
+  color: var(--text-primary);
+}
+
+.required-input-label {
+  color: var(--text-notice);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
