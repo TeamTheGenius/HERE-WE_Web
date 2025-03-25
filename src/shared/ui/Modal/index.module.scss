@@ -10,9 +10,11 @@
   z-index: 999;
   width: 100%;
   height: 100%;
+  overflow-y: auto;
   display: flex;
+  align-items: flex-start;
   justify-content: center;
-  align-items: center;
+  padding: $space-md;
 }
 
 .modal-root--open {
@@ -26,9 +28,9 @@
 }
 
 .modal {
+  margin: auto 0;
   padding: $space-md;
   width: 100%;
-  margin: $space-md;
   max-width: 32rem;
   height: auto;
   border-radius: 0.8rem;
@@ -37,7 +39,9 @@
   flex-direction: column;
   justify-content: space-between;
   gap: $space-md;
-  z-index: 999;
+  z-index: inherit;
+  overflow: auto;
+  max-height: 80vh;
 }
 
 .modal__title {

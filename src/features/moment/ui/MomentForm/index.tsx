@@ -5,6 +5,8 @@ import { FileInput } from '@/shared/ui/FileInput';
 import { useBlobURL } from '@/shared/hooks/useBlobURL';
 import { CrewType } from '@/entities/crew/model/types';
 import { InputGroup } from '@/shared/ui/InputGroup';
+import { useModal } from '@/shared/hooks/useModal';
+import LocationSelectModal from '@/features/Location/ui/LocationSelectModal';
 
 interface MomentFormProps {
   formMethods: UseFormReturn<MomentFormType>;
@@ -23,9 +25,12 @@ function MomentForm({ formMethods, handleFileInputClick, mergedRef, crewData }: 
 
   const watchedFile = useWatch({ control, name: 'image' });
   const crewImagePreview = useBlobURL(watchedFile?.[0]);
+  const { isOpen, closeModal, openModal } = useModal();
 
   return (
     <>
+      <LocationSelectModal isOpen={isOpen} handleClose={closeModal} />
+
       <TextInput>
         <TextInput.Label>크루명 (수정 불가)</TextInput.Label>
         <TextInput.Input value={name} readOnly={true} />
@@ -58,7 +63,9 @@ function MomentForm({ formMethods, handleFileInputClick, mergedRef, crewData }: 
             <TextInput.Label isRequired={true} isVisible={false}>
               도로명
             </TextInput.Label>
-            <TextInput.Button type="button">장소 검색</TextInput.Button>
+            <TextInput.Button type="button" onClick={openModal}>
+              장소 검색
+            </TextInput.Button>
           </TextInput>
           <TextInput>
             <TextInput.Input disabled={true} placeholder="도로명 주소" />
