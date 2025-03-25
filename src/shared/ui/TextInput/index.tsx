@@ -29,7 +29,6 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 interface ButtonProps extends PropsWithChildren<ButtonHTMLAttributes<HTMLButtonElement>> {
   variant?: ButtonType;
-  text: string;
   onClick?: () => void;
 }
 
@@ -38,7 +37,7 @@ interface MessageProps extends PropsWithChildren {
 }
 
 const ForwardedInput = forwardRef(Input);
-const ButtonComponent = (<Action text="" onClick={() => {}} />).type;
+const ButtonComponent = (<Action onClick={() => {}} />).type;
 const MessageComponent = (<Message variant="warning" />).type;
 const InputComponent = (<ForwardedInput placeholder="" hasError={false} />).type;
 const LabelComponent = (<Label />).type;
@@ -105,8 +104,8 @@ function Length({ children }: PropsWithChildren) {
   return <span className={cn(styles.lengthMessage, styles.message)}>{children}</span>;
 }
 
-function Action({ text, variant = 'secondary', onClick, ...props }: ButtonProps) {
-  return <Button variant={variant} text={text} size="md" onClick={onClick} className={styles.button} {...props} />;
+function Action({ variant = 'secondary', onClick, ...props }: ButtonProps) {
+  return <Button variant={variant} size="md" onClick={onClick} className={styles.button} {...props} />;
 }
 
 export const TextInput = Object.assign(Main, {

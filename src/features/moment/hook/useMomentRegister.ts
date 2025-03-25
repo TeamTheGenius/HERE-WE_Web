@@ -50,5 +50,9 @@ export const useMomentRegister = (data: MomentFormType) => {
     required: VALIDATION_MESSAGES.applicationDeadline.required,
   });
 
+  register('meetingLocation', {
+    required: VALIDATION_MESSAGES.meetingLocation.required,
+  });
+
   return { formMethods, handleFileChange, mergedRef, handleFileInputClick };
 };

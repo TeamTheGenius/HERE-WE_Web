@@ -4,6 +4,7 @@ import { MomentFormType } from '../../model/types';
 import { FileInput } from '@/shared/ui/FileInput';
 import { useBlobURL } from '@/shared/hooks/useBlobURL';
 import { CrewType } from '@/entities/crew/model/types';
+import { InputGroup } from '@/shared/ui/InputGroup';
 
 interface MomentFormProps {
   formMethods: UseFormReturn<MomentFormType>;
@@ -49,13 +50,30 @@ function MomentForm({ formMethods, handleFileInputClick, mergedRef, crewData }: 
         {errors.image && <FileInput.Message variant="warning">{errors.image.message}</FileInput.Message>}
       </FileInput>
 
-      <TextInput>
-        <TextInput.Label isRequired={true}>만나는 위치</TextInput.Label>
-        <TextInput.Input />
-        {errors.participantCountLimit && (
-          <TextInput.Message variant="warning">{errors.participantCountLimit.message}</TextInput.Message>
-        )}
-      </TextInput>
+      <InputGroup>
+        <InputGroup.Title isRequired={true}>만나는 위치</InputGroup.Title>
+        <InputGroup.Content>
+          <TextInput>
+            <TextInput.Input disabled={true} hasError={!!errors.meetingLocation} placeholder="장소명" />
+            <TextInput.Label isRequired={true} isVisible={false}>
+              도로명
+            </TextInput.Label>
+            <TextInput.Button type="button">장소 검색</TextInput.Button>
+          </TextInput>
+          <TextInput>
+            <TextInput.Input disabled={true} placeholder="도로명 주소" />
+            <TextInput.Label isVisible={false}>도로명 주소</TextInput.Label>
+          </TextInput>
+
+          <TextInput>
+            <TextInput.Input disabled={true} placeholder="지번 주소" />
+            <TextInput.Label isVisible={false}>지번 주소</TextInput.Label>
+          </TextInput>
+          {errors.meetingLocation && (
+            <TextInput.Message variant="warning">{errors.meetingLocation.message}</TextInput.Message>
+          )}
+        </InputGroup.Content>
+      </InputGroup>
 
       <TextInput>
         <TextInput.Label isRequired={true}>만나는 날짜/시간</TextInput.Label>
