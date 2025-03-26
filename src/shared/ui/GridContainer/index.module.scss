@@ -3,5 +3,14 @@
 .container {
   display: grid;
   gap: $space-md;
-  grid-template-columns: repeat(auto-fill, minmax(clamp(14rem, 20%, 30rem), 1fr));
+
+  grid-template-columns: repeat(4, minmax(14rem, 1fr));
+
+  @media (max-width: $media-tablet) {
+    grid-template-columns: repeat(2, minmax(14rem, 1fr));
+  }
+
+  @media (max-width: $media-mobile) {
+    grid-template-columns: repeat(1, minmax(14rem, 1fr));
+  }
 }
