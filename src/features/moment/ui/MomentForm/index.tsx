@@ -7,6 +7,7 @@ import { CrewType } from '@/entities/crew/model/types';
 import { InputGroup } from '@/shared/ui/InputGroup';
 import { useModal } from '@/shared/hooks/useModal';
 import LocationSelectModal from '@/features/Location/ui/LocationSelectModal';
+import { Location } from '@/entities/Location/model/types';
 
 interface MomentFormProps {
   formMethods: UseFormReturn<MomentFormType>;
@@ -20,16 +21,22 @@ function MomentForm({ formMethods, handleFileInputClick, mergedRef, crewData }: 
     formState: { errors },
     control,
     register,
+    setValue,
   } = formMethods;
   const { name } = crewData;
 
   const watchedFile = useWatch({ control, name: 'image' });
   const crewImagePreview = useBlobURL(watchedFile?.[0]);
+  const watchedLocation = useWatch({ control, name: 'meetingLocation' });
   const { isOpen, closeModal, openModal } = useModal();
+
+  const handleSelectLocation = (location: Location) => {
+    setValue('meetingLocation', location);
+  };
 
   return (
     <>
-      <LocationSelectModal isOpen={isOpen} handleClose={closeModal} />
+      <LocationSelectModal isOpen={isOpen} closeModal={closeModal} handleSelectLocation={handleSelectLocation} />
 
       <TextInput>
         <TextInput.Label>크루명 (수정 불가)</TextInput.Label>
@@ -59,22 +66,27 @@ function MomentForm({ formMethods, handleFileInputClick, mergedRef, crewData }: 
         <InputGroup.Title isRequired={true}>만나는 위치</InputGroup.Title>
         <InputGroup.Content>
           <TextInput>
-            <TextInput.Input disabled={true} hasError={!!errors.meetingLocation} placeholder="장소명" />
             <TextInput.Label isRequired={true} isVisible={false}>
-              도로명
+              장소명
             </TextInput.Label>
+            <TextInput.Input
+              value={watchedLocation?.placeName || ''}
+              disabled={true}
+              hasError={!!errors.meetingLocation}
+              placeholder="장소명"
+            />
             <TextInput.Button type="button" onClick={openModal}>
               장소 검색
             </TextInput.Button>
           </TextInput>
           <TextInput>
-            <TextInput.Input disabled={true} placeholder="도로명 주소" />
             <TextInput.Label isVisible={false}>도로명 주소</TextInput.Label>
+            <TextInput.Input value={watchedLocation?.roadAddressName || ''} disabled={true} placeholder="도로명 주소" />
           </TextInput>
 
           <TextInput>
-            <TextInput.Input disabled={true} placeholder="지번 주소" />
             <TextInput.Label isVisible={false}>지번 주소</TextInput.Label>
+            <TextInput.Input value={watchedLocation?.addressName || ''} disabled={true} placeholder="지번 주소" />
           </TextInput>
           {errors.meetingLocation && (
             <TextInput.Message variant="warning">{errors.meetingLocation.message}</TextInput.Message>

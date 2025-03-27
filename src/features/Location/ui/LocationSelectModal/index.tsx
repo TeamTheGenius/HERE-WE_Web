@@ -1,95 +1,73 @@
-import { LocationType } from '@/entities/Location/model/types';
 import { Card } from '@/shared/ui/Card';
 import { Modal } from '@/shared/ui/Modal';
 import { TextInput } from '@/shared/ui/TextInput';
 import styles from './index.module.scss';
+import { FormEvent, useRef, useState } from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { locationListQueries } from '../../query/locationListQueries';
+import { Location } from '@/entities/Location/model/types';
 
 export interface LocationSelectModalProps {
   isOpen: boolean;
-  handleClose: () => void;
+  closeModal: () => void;
+  handleSelectLocation: (location: Location) => void;
 }
 
-const data: LocationType[] = [
-  {
-    placeName: '장소명1',
-    roadAddressName: '도로명1',
-    addressName: '지번명1',
-    phone: '0101',
-    placeURL: 'url1',
-    x: 1,
-    y: 1,
-  },
-  {
-    placeName: '장소명2',
-    roadAddressName: '도로명2',
-    addressName: '지번명2',
-    phone: '0102',
-    placeURL: 'url2',
-    x: 2,
-    y: 2,
-  },
-  {
-    placeName: '장소명3',
-    roadAddressName: '도로명3',
-    addressName: '지번명3',
-    phone: '0103',
-    placeURL: 'url3',
-    x: 3,
-    y: 3,
-  },
-  {
-    placeName: '장소명4',
-    roadAddressName: '도로명4',
-    addressName: '지번명4',
-    phone: '0104',
-    placeURL: 'url4',
-    x: 4,
-    y: 4,
-  },
-  {
-    placeName: '장소명4',
-    roadAddressName: '도로명4',
-    addressName: '지번명4',
-    phone: '0104',
-    placeURL: 'url4',
-    x: 4,
-    y: 4,
-  },
-  {
-    placeName: '장소명4',
-    roadAddressName: '도로명4',
-    addressName: '지번명4',
-    phone: '0104',
-    placeURL: 'url4',
-    x: 4,
-    y: 4,
-  },
-];
+function LocationSelectModal({ isOpen, closeModal, handleSelectLocation }: LocationSelectModalProps) {
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const [keyword, setKeyword] = useState('');
 
-function LocationSelectModal({ isOpen, handleClose }: LocationSelectModalProps) {
+  const { data } = useInfiniteQuery({
+    ...locationListQueries.searchLocationWithInfiniteScroll({ page: 1, size: 15, keyword: keyword }),
+    enabled: isOpen && keyword.trim().length > 0,
+  });
+
+  const handleSearchLocation = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const keyword = searchInputRef?.current?.value;
+    if (!keyword) return;
+    setKeyword(keyword);
+  };
+
+  const handleCloseModal = () => {
+    closeModal();
+    if (searchInputRef.current) {
+      searchInputRef.current.value = '';
+    }
+    setKeyword('');
+  };
+
   return (
     <Modal isOpen={isOpen}>
-      <Modal.Overlay handleClick={handleClose} />
+      <Modal.Overlay handleClick={handleCloseModal} />
       <Modal.Title>장소 검색하기</Modal.Title>
       <Modal.Content>
-        <TextInput>
-          <TextInput.Label isVisible={false}>장소 검색</TextInput.Label>
-          <TextInput.Input type="search" placeholder="어디서 만날까요?" />
-        </TextInput>
+        <form onSubmit={handleSearchLocation}>
+          <TextInput>
+            <TextInput.Label isVisible={false}>장소 검색</TextInput.Label>
+            <TextInput.Input type="search" placeholder="어디서 만날까요?" ref={searchInputRef} />
+          </TextInput>
+        </form>
 
-        {data.map((location, index) => (
-          <div key={index}>
-            <Card handleClick={() => {}}>
-              <Card.Detail>{location.placeName}</Card.Detail>
-              <Card.Metadata>{location.roadAddressName}</Card.Metadata>
-              <Card.Metadata>{location.addressName}</Card.Metadata>
-              <Card.Metadata>{location.phone}</Card.Metadata>
-            </Card>
-            <u className={styles.underline} />
-          </div>
-        ))}
+        {data &&
+          data.pages.map((page, index) =>
+            page.content.map((location) => {
+              const { placeName, roadAddressName, addressName, phone } = location;
+              return (
+                <div key={index}>
+                  <Card handleClick={() => handleSelectLocation(location)}>
+                    <Card.Detail>{placeName}</Card.Detail>
+                    <Card.Metadata>{roadAddressName}</Card.Metadata>
+                    <Card.Metadata>{addressName}</Card.Metadata>
+                    <Card.Metadata>{phone}</Card.Metadata>
+                  </Card>
+                  <u className={styles.underline} />
+                </div>
+              );
+            }),
+          )}
       </Modal.Content>
-      <Modal.RightButton onClick={handleClose}>닫기</Modal.RightButton>
+      <Modal.RightButton onClick={handleCloseModal}>닫기</Modal.RightButton>
     </Modal>
   );
 }
