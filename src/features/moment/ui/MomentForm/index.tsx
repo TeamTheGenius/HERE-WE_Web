@@ -27,11 +27,11 @@ function MomentForm({ formMethods, handleFileInputClick, mergedRef, crewData }: 
 
   const watchedFile = useWatch({ control, name: 'image' });
   const crewImagePreview = useBlobURL(watchedFile?.[0]);
-  const watchedLocation = useWatch({ control, name: 'meetingLocation' });
+  const watchedLocation = useWatch({ control, name: 'place' });
   const { isOpen, closeModal, openModal } = useModal();
 
   const handleSelectLocation = (location: Location) => {
-    setValue('meetingLocation', location);
+    setValue('place', location);
   };
 
   return (
@@ -46,13 +46,13 @@ function MomentForm({ formMethods, handleFileInputClick, mergedRef, crewData }: 
       <TextInput>
         <TextInput.Label isRequired={true}>모먼트 제목</TextInput.Label>
         <TextInput.Input
-          {...register('title')}
+          {...register('name')}
           minLength={2}
           maxLength={20}
-          hasError={!!errors.title}
+          hasError={!!errors.name}
           placeholder="모먼트 제목을 입력해주세요"
         />
-        {errors.title && <TextInput.Message variant="warning">{errors.title.message}</TextInput.Message>}
+        {errors.name && <TextInput.Message variant="warning">{errors.name.message}</TextInput.Message>}
       </TextInput>
 
       <FileInput>
@@ -72,7 +72,7 @@ function MomentForm({ formMethods, handleFileInputClick, mergedRef, crewData }: 
             <TextInput.Input
               value={watchedLocation?.placeName || ''}
               disabled={true}
-              hasError={!!errors.meetingLocation}
+              hasError={!!errors.place}
               placeholder="장소명"
             />
             <TextInput.Button type="button" onClick={openModal}>
@@ -88,51 +88,43 @@ function MomentForm({ formMethods, handleFileInputClick, mergedRef, crewData }: 
             <TextInput.Label isVisible={false}>지번 주소</TextInput.Label>
             <TextInput.Input value={watchedLocation?.addressName || ''} disabled={true} placeholder="지번 주소" />
           </TextInput>
-          {errors.meetingLocation && (
-            <TextInput.Message variant="warning">{errors.meetingLocation.message}</TextInput.Message>
-          )}
+          {errors.place && <TextInput.Message variant="warning">{errors.place.message}</TextInput.Message>}
         </InputGroup.Content>
       </InputGroup>
 
       <TextInput>
         <TextInput.Label isRequired={true}>만나는 날짜/시간</TextInput.Label>
         <TextInput.Input
-          {...register('deadlineDateTime')}
+          {...register('meetAt')}
           placeholder="만나는 날짜와 시간을 선택해주세요"
-          hasError={!!errors.participantCountLimit}
+          hasError={!!errors.capacity}
           type="datetime-local"
         />
-        {errors.deadlineDateTime && (
-          <TextInput.Message variant="warning">{errors.deadlineDateTime.message}</TextInput.Message>
-        )}
+        {errors.meetAt && <TextInput.Message variant="warning">{errors.meetAt.message}</TextInput.Message>}
       </TextInput>
 
       <TextInput>
         <TextInput.Label isRequired={true}>신청 마감 인원</TextInput.Label>
         <TextInput.Input
-          {...register('participantCountLimit')}
+          {...register('capacity')}
           placeholder="신청 마감 인원을 작성해주세요"
-          hasError={!!errors.participantCountLimit}
+          hasError={!!errors.capacity}
           min={2}
           max={1000}
           type="number"
         />
-        {errors.participantCountLimit && (
-          <TextInput.Message variant="warning">{errors.participantCountLimit.message}</TextInput.Message>
-        )}
+        {errors.capacity && <TextInput.Message variant="warning">{errors.capacity.message}</TextInput.Message>}
       </TextInput>
 
       <TextInput>
         <TextInput.Label isRequired={true}>신청 마감 날짜/시간</TextInput.Label>
         <TextInput.Input
-          {...register('applicationDeadline')}
+          {...register('closedAt')}
           placeholder="신청 마감 날짜와 시간을 선택해주세요"
-          hasError={!!errors.participantCountLimit}
+          hasError={!!errors.capacity}
           type="datetime-local"
         />
-        {errors.applicationDeadline && (
-          <TextInput.Message variant="warning">{errors.applicationDeadline.message}</TextInput.Message>
-        )}
+        {errors.closedAt && <TextInput.Message variant="warning">{errors.closedAt.message}</TextInput.Message>}
       </TextInput>
     </>
   );

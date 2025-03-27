@@ -5,7 +5,7 @@ export interface MomentJSONType {
   name: string;
   date: string;
   location: string;
-  participantCountLimit: number;
+  capacity: number;
   participantCount: number;
   endDate: string;
 }

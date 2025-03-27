@@ -14,12 +14,12 @@ export const useMomentRegister = (data: MomentFormType) => {
 
   const { handleFileInputClick, handleFileChange, mergedRef } = useFileInput(register, 'image');
 
-  register('title', {
+  register('name', {
     pattern: {
-      value: REGEX.title,
-      message: VALIDATION_MESSAGES.title.invalid,
+      value: REGEX.name,
+      message: VALIDATION_MESSAGES.name.invalid,
     },
-    required: VALIDATION_MESSAGES.title.required,
+    required: VALIDATION_MESSAGES.name.required,
   });
 
   register('image', {
@@ -34,24 +34,24 @@ export const useMomentRegister = (data: MomentFormType) => {
     onChange: handleFileChange,
   });
 
-  register('participantCountLimit', {
-    required: VALIDATION_MESSAGES.participantCountLimit.required,
+  register('capacity', {
+    required: VALIDATION_MESSAGES.capacity.required,
     pattern: {
-      value: REGEX.participantCountLimit,
-      message: VALIDATION_MESSAGES.participantCountLimit.invalid,
+      value: REGEX.capacity,
+      message: VALIDATION_MESSAGES.capacity.invalid,
     },
   });
 
-  register('deadlineDateTime', {
-    required: VALIDATION_MESSAGES.deadlineDateTime.required,
+  register('meetAt', {
+    required: VALIDATION_MESSAGES.meetAt.required,
   });
 
-  register('applicationDeadline', {
-    required: VALIDATION_MESSAGES.applicationDeadline.required,
+  register('closedAt', {
+    required: VALIDATION_MESSAGES.closedAt.required,
   });
 
-  register('meetingLocation', {
-    required: VALIDATION_MESSAGES.meetingLocation.required,
+  register('place', {
+    required: VALIDATION_MESSAGES.place.required,
   });
 
   return { formMethods, handleFileChange, mergedRef, handleFileInputClick };

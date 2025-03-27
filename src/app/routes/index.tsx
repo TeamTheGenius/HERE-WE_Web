@@ -14,6 +14,7 @@ import CrewCreatePage from '@/pages/CrewCreatePage';
 import AuthPage from '@/pages/AuthPage';
 import MemberJoinPage from '@/pages/MemberJoinPage';
 import MomentCreatePage from '@/pages/MomentCreatePage';
+import MomentDetailPage from '@/pages/MomentDetailPage';
 
 export function Routing() {
   return (
@@ -30,6 +31,7 @@ export function Routing() {
           <Route path={routePaths.main} element={<Main />} />
           <Route path={routePaths.createCrew} element={<CrewCreatePage />} />
           <Route path={routePaths.momentCreate.path} element={<MomentCreatePage />} />
+          <Route path={routePaths.momentDetail.path} element={<MomentDetailPage />} />
         </Route>
 
         <Route element={<NavigationLayout />}>

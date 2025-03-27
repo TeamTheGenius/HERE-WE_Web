@@ -19,7 +19,7 @@ const data: MomentType[] = [
     location: '사당역 4번 출구',
     name: '신년파티',
     participantCount: 15,
-    participantCountLimit: 20,
+    capacity: 20,
   },
   {
     crewId: 1,
@@ -33,7 +33,7 @@ const data: MomentType[] = [
     location: '사당역 4번 출구',
     name: '신년파티',
     participantCount: 15,
-    participantCountLimit: 20,
+    capacity: 20,
   },
   {
     crewId: 1,
@@ -47,7 +47,7 @@ const data: MomentType[] = [
     location: '사당역 4번 출구',
     name: '신년파티',
     participantCount: 15,
-    participantCountLimit: 20,
+    capacity: 20,
   },
   {
     crewId: 1,
@@ -61,7 +61,7 @@ const data: MomentType[] = [
     location: '사당역 4번 출구',
     name: '신년파티',
     participantCount: 15,
-    participantCountLimit: 20,
+    capacity: 20,
   },
   {
     crewId: 1,
@@ -75,7 +75,7 @@ const data: MomentType[] = [
     location: '사당역 4번 출구',
     name: '신년파티',
     participantCount: 15,
-    participantCountLimit: 20,
+    capacity: 20,
   },
   {
     crewId: 1,
@@ -89,7 +89,7 @@ const data: MomentType[] = [
     location: '사당역 4번 출구',
     name: '신년파티',
     participantCount: 15,
-    participantCountLimit: 20,
+    capacity: 20,
   },
   {
     crewId: 1,
@@ -103,7 +103,7 @@ const data: MomentType[] = [
     location: '사당역 4번 출구',
     name: '신년파티',
     participantCount: 15,
-    participantCountLimit: 20,
+    capacity: 20,
   },
 ];
 
@@ -120,7 +120,7 @@ function CrewMomentList() {
               <Card.Detail>{moment.date}</Card.Detail>
               <Card.Detail>{moment.location}</Card.Detail>
               <Card.Metadata>
-                참여 {moment.participantCount}/{moment.participantCountLimit}명
+                참여 {moment.participantCount}/{moment.capacity}명
               </Card.Metadata>
               <Card.Metadata>마감 {moment.endDate}</Card.Metadata>
             </Card>
