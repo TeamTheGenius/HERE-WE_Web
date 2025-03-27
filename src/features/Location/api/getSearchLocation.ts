@@ -1,4 +1,4 @@
-import type { Location } from '@/entities/Location/model/types';
+import type { Location, LocationAboutServer } from '@/entities/Location/model/types';
 import { privateClient } from '@/shared/api/config';
 import { InfiniteScroll } from '@/shared/types/api';
 
@@ -8,17 +8,7 @@ export interface GetSearchLocationRequest {
   size: number;
 }
 
-interface GetSEarchLocationResponseContent {
-  place_name: string;
-  x: number;
-  y: number;
-  address_name: string;
-  road_address_name: string;
-  place_url: string;
-  phone: string;
-}
-
-interface GetSarchLocationResponse extends InfiniteScroll<GetSEarchLocationResponseContent> {}
+interface GetSarchLocationResponse extends InfiniteScroll<LocationAboutServer> {}
 
 export const getSearchLocation = async ({
   keyword,
@@ -30,7 +20,7 @@ export const getSearchLocation = async ({
   });
 
   const { content, ...rest }: GetSarchLocationResponse = response.data;
-  const clientContent: Location[] = content.map((item: GetSEarchLocationResponseContent) => ({
+  const clientContent: Location[] = content.map((item: LocationAboutServer) => ({
     placeName: item.place_name,
     x: item.x,
     y: item.y,
