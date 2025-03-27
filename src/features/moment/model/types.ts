@@ -1,4 +1,4 @@
-import { LocationType } from '@/entities/Location/model/types';
+import { Location } from '@/entities/Location/model/types';
 
 export interface MomentFormType {
   title: string;
@@ -6,5 +6,5 @@ export interface MomentFormType {
   participantCountLimit: number | undefined;
   deadlineDateTime: string;
   applicationDeadline: string;
-  meetingLocation: LocationType | undefined;
+  meetingLocation: Location | undefined;
 }

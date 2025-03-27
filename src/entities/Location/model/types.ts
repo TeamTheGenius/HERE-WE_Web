@@ -1,4 +1,4 @@
-export interface LocationType {
+export interface Location {
   placeName: string;
   addressName: string;
   roadAddressName: string;
