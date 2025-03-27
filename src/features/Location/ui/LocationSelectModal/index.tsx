@@ -6,6 +6,7 @@ import { FormEvent, useRef, useState } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { locationListQueries } from '../../query/locationListQueries';
 import { Location } from '@/entities/Location/model/types';
+import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll';
 
 export interface LocationSelectModalProps {
   isOpen: boolean;
@@ -17,10 +18,19 @@ function LocationSelectModal({ isOpen, closeModal, handleSelectLocation }: Locat
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [keyword, setKeyword] = useState('');
 
-  const { data } = useInfiniteQuery({
-    ...locationListQueries.searchLocationWithInfiniteScroll({ page: 1, size: 15, keyword: keyword }),
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
+    ...locationListQueries.searchLocationWithInfiniteScroll({ page: 0, size: 15, keyword: keyword }),
     enabled: isOpen && keyword.trim().length > 0,
   });
+
+  const observerRef = useInfiniteScroll({ fetchNextPage, hasNextPage, isFetchingNextPage });
+
+  const resetInput = () => {
+    if (searchInputRef.current) {
+      searchInputRef.current.value = '';
+    }
+    setKeyword('');
+  };
 
   const handleSearchLocation = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,10 +41,7 @@ function LocationSelectModal({ isOpen, closeModal, handleSelectLocation }: Locat
 
   const handleCloseModal = () => {
     closeModal();
-    if (searchInputRef.current) {
-      searchInputRef.current.value = '';
-    }
-    setKeyword('');
+    resetInput();
   };
 
   return (
@@ -50,11 +57,11 @@ function LocationSelectModal({ isOpen, closeModal, handleSelectLocation }: Locat
         </form>
 
         {data &&
-          data.pages.map((page, index) =>
-            page.content.map((location) => {
+          data.pages.map((page, pageIndex) =>
+            page.content.map((location, itemIndex) => {
               const { placeName, roadAddressName, addressName, phone } = location;
               return (
-                <div key={index}>
+                <div key={`${pageIndex}-${itemIndex}`}>
                   <Card handleClick={() => handleSelectLocation(location)}>
                     <Card.Detail>{placeName}</Card.Detail>
                     <Card.Metadata>{roadAddressName}</Card.Metadata>
@@ -66,6 +73,7 @@ function LocationSelectModal({ isOpen, closeModal, handleSelectLocation }: Locat
               );
             }),
           )}
+        <div ref={observerRef} />
       </Modal.Content>
       <Modal.RightButton onClick={handleCloseModal}>닫기</Modal.RightButton>
     </Modal>
