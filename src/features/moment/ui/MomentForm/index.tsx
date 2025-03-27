@@ -97,7 +97,7 @@ function MomentForm({ formMethods, handleFileInputClick, mergedRef, crewData }: 
         <TextInput.Input
           {...register('meetAt')}
           placeholder="만나는 날짜와 시간을 선택해주세요"
-          hasError={!!errors.capacity}
+          hasError={!!errors.meetAt}
           type="datetime-local"
         />
         {errors.meetAt && <TextInput.Message variant="warning">{errors.meetAt.message}</TextInput.Message>}
@@ -121,7 +121,7 @@ function MomentForm({ formMethods, handleFileInputClick, mergedRef, crewData }: 
         <TextInput.Input
           {...register('closedAt')}
           placeholder="신청 마감 날짜와 시간을 선택해주세요"
-          hasError={!!errors.capacity}
+          hasError={!!errors.closedAt}
           type="datetime-local"
         />
         {errors.closedAt && <TextInput.Message variant="warning">{errors.closedAt.message}</TextInput.Message>}

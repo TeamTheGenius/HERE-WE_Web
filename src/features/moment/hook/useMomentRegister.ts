@@ -10,9 +10,14 @@ export const useMomentRegister = (data: MomentFormType) => {
     mode: 'onBlur',
   });
 
-  const { register } = formMethods;
-
+  const { register, getValues } = formMethods;
   const { handleFileInputClick, handleFileChange, mergedRef } = useFileInput(register, 'image');
+
+  const isAfterNow = (value: string) => {
+    const now = new Date();
+    const selectedDate = new Date(value);
+    return selectedDate > now;
+  };
 
   register('name', {
     pattern: {
@@ -44,10 +49,33 @@ export const useMomentRegister = (data: MomentFormType) => {
 
   register('meetAt', {
     required: VALIDATION_MESSAGES.meetAt.required,
+    validate: {
+      isAfterNow: (value) => {
+        if (!isAfterNow(value)) {
+          return VALIDATION_MESSAGES.meetAt.invalid;
+        }
+        return true;
+      },
+    },
   });
 
   register('closedAt', {
     required: VALIDATION_MESSAGES.closedAt.required,
+    validate: {
+      isAfterNow: (value) => {
+        if (!isAfterNow(value)) {
+          return VALIDATION_MESSAGES.closedAt.invalid;
+        }
+        return true;
+      },
+      isClosedAfterMeetAt: (value) => {
+        const { meetAt } = getValues();
+        if (meetAt && new Date(meetAt) >= new Date(value)) {
+          return VALIDATION_MESSAGES.closedAt.invalidOrder;
+        }
+        return true;
+      },
+    },
   });
 
   register('place', {
