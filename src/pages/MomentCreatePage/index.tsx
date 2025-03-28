@@ -4,6 +4,7 @@ import { usePostMoment } from '@/entities/moment/query/usePostMoment';
 import { usePostMomentFile } from '@/entities/moment/query/usePostMomentFile';
 import { useMomentRegister } from '@/features/moment/hook/useMomentRegister';
 import MomentForm from '@/features/moment/ui/MomentForm';
+import { formatLocalDateTime } from '@/shared/lib/dateFormater';
 import { TitledFormLayout } from '@/shared/ui/TitledFormLayout';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -27,26 +28,24 @@ function MomentCreatePage() {
   const onSubmit = async () => {
     const { name, image, capacity, closedAt, meetAt, place } = getValues();
     if (!crewId || !capacity || !place) return;
-    const formattedClosedAt = new Date(closedAt).toISOString();
-    const formattedMeetAt = new Date(meetAt).toISOString();
-
     const files = image ? [...image] : [];
 
-    try {
-      const { momentId } = await postMoment({
-        crewId: Number(crewId),
-        momentName: name,
-        capacity,
-        closedAt: formattedClosedAt,
-        meetAt: formattedMeetAt,
-        place,
-      });
+    const closedAtDate = new Date(closedAt);
+    const meetAtDate = new Date(meetAt);
+    const formattedClosedAt = formatLocalDateTime(closedAtDate);
+    const formattedMeetAt = formatLocalDateTime(meetAtDate);
 
-      await postMomentFile({ momentId, files: files });
-      navigate(routePaths.momentDetail.getPath(Number(crewId), momentId));
-    } catch (error) {
-      // 모먼트 삭제
-    }
+    const { momentId } = await postMoment({
+      crewId: Number(crewId),
+      momentName: name,
+      capacity,
+      closedAt: formattedClosedAt,
+      meetAt: formattedMeetAt,
+      place,
+    });
+
+    await postMomentFile({ momentId, files: files });
+    navigate(routePaths.momentDetail.getPath(Number(crewId), momentId));
   };
 
   if (!crewData) return null;

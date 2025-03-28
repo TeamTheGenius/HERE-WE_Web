@@ -68,9 +68,9 @@ export const useMomentRegister = (data: MomentFormType) => {
         }
         return true;
       },
-      isClosedAfterMeetAt: (value) => {
+      isClosedBeforeMeetAt: (value) => {
         const { meetAt } = getValues();
-        if (meetAt && new Date(meetAt) >= new Date(value)) {
+        if (meetAt && new Date(meetAt) <= new Date(value)) {
           return VALIDATION_MESSAGES.closedAt.invalidOrder;
         }
         return true;
