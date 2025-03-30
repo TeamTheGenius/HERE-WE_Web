@@ -14,5 +14,6 @@ export const locationListQueries = {
       },
       initialPageParam: page,
       getNextPageParam: (lastPage) => (lastPage.last ? undefined : lastPage.number + 1),
+      staleTime: Infinity, // map api 결과는 자주 변경되지 않기 때문
     }),
 };

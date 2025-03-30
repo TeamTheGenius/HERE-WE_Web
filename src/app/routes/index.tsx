@@ -14,7 +14,8 @@ import CrewCreatePage from '@/pages/CrewCreatePage';
 import AuthPage from '@/pages/AuthPage';
 import MemberJoinPage from '@/pages/MemberJoinPage';
 import MomentCreatePage from '@/pages/MomentCreatePage';
-import MomentDetailPage from '@/pages/MomentDetailPage';
+import FullLayout from '../layouts/FullLayout';
+import MomentPlacePage from '@/pages/MomentPlacePage';
 
 export function Routing() {
   return (
@@ -27,11 +28,11 @@ export function Routing() {
 
         <Route path={routePaths.auth} element={<AuthPage />} />
         <Route path={routePaths.memberJoin} element={<MemberJoinPage />} />
+
         <Route element={<HeaderLayout />}>
           <Route path={routePaths.main} element={<Main />} />
           <Route path={routePaths.createCrew} element={<CrewCreatePage />} />
           <Route path={routePaths.momentCreate.path} element={<MomentCreatePage />} />
-          <Route path={routePaths.momentDetail.path} element={<MomentDetailPage />} />
         </Route>
 
         <Route element={<NavigationLayout />}>
@@ -39,6 +40,10 @@ export function Routing() {
           <Route path={routePaths.home} element={<HomePage />} />
           <Route path={routePaths.chat} element={<ChatPage />} />
           <Route path={routePaths.moment} element={<MomentPage />} />
+        </Route>
+
+        <Route element={<FullLayout />}>
+          <Route path={routePaths.momentPlace.path} element={<MomentPlacePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
