@@ -45,7 +45,7 @@ function MomentCreatePage() {
     });
 
     await postMomentFile({ momentId, files: files });
-    navigate(routePaths.momentDetail.getPath(Number(crewId), momentId));
+    navigate(routePaths.momentPlace.getPath(Number(crewId), momentId));
   };
 
   if (!crewData) return null;

@@ -1,0 +1,50 @@
+@use '@/shared/styles/global.scss' as *;
+
+.container {
+  display: grid;
+  height: 100%;
+  grid-template-rows: 1fr;
+  grid-template-columns: 28rem 1fr;
+  grid-template-areas: 'location map';
+  overflow: hidden;
+
+  @media (max-width: $media-tablet) {
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'map'
+      'location';
+  }
+}
+
+.locationSection {
+  grid-area: location;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.mapWrapper {
+  grid-area: map;
+  height: 100%;
+  width: 100%;
+}
+
+.tabContent {
+  height: 100%;
+  overflow-y: auto;
+}
+
+// 임시 탭
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem;
+  background-color: var(--surface-primary);
+}
+
+.tabItem {
+  font-weight: bold;
+  color: #333;
+  position: relative;
+}
