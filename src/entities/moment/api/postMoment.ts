@@ -11,7 +11,7 @@ interface PostMomentRequest {
 }
 
 export const postMoment = async ({ crewId, momentName, meetAt, place, capacity, closedAt }: PostMomentRequest) => {
-  const { placeName, placeURL, addressName, roadAddressName, phone, x, y } = place;
+  const { placeName, placeURL, addressName, roadAddressName, phone, x, y, id } = place;
 
   const formattedPlace: LocationAboutServer = {
     place_name: placeName,
@@ -19,9 +19,12 @@ export const postMoment = async ({ crewId, momentName, meetAt, place, capacity, 
     address_name: addressName,
     road_address_name: roadAddressName,
     phone: phone,
+    id: id,
     x: x,
     y: y,
   };
+
+  console.log(formattedPlace);
 
   const { data: response } = await privateClient.post(
     '/moment',

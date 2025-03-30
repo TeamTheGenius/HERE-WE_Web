@@ -57,11 +57,11 @@ function LocationSelectModal({ isOpen, closeModal, handleSelectLocation }: Locat
         </form>
 
         {data &&
-          data.pages.map((page, pageIndex) =>
-            page.content.map((location, itemIndex) => {
-              const { placeName, roadAddressName, addressName, phone } = location;
+          data.pages.map((page) =>
+            page.content.map((location) => {
+              const { placeName, roadAddressName, addressName, phone, id } = location;
               return (
-                <div key={`${pageIndex}-${itemIndex}`}>
+                <div key={id}>
                   <Card handleClick={() => handleSelectLocation(location)}>
                     <Card.Detail>{placeName}</Card.Detail>
                     <Card.Metadata>{roadAddressName}</Card.Metadata>

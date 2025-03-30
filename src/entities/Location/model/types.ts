@@ -1,4 +1,5 @@
 export interface Location {
+  id: number;
   placeName: string;
   addressName: string;
   roadAddressName: string;
@@ -15,5 +16,6 @@ export interface LocationAboutServer {
   address_name: string;
   road_address_name: string;
   place_url: string;
+  id: number;
   phone: string;
 }
