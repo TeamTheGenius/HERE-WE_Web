@@ -1,20 +1,9 @@
 import { privateClient } from '@/shared/api/config';
+import { Pagination } from '@/shared/types/api';
 
 export interface GetMyCrewListRequest {
   size: number;
   page: number;
-}
-
-export interface GetMyCrewListResponse {
-  content: Crew[];
-  page: Page;
-}
-
-export interface Page {
-  size: number;
-  number: number;
-  totalPages: number;
-  totalElements: number;
 }
 
 export interface Crew {
@@ -23,7 +12,7 @@ export interface Crew {
   participantCount: number;
 }
 
-export const getMyCrewList = async ({ size, page }: GetMyCrewListRequest): Promise<GetMyCrewListResponse> => {
+export const getMyCrewList = async ({ size, page }: GetMyCrewListRequest): Promise<Pagination<Crew>> => {
   const { data: response } = await privateClient.get('/crew/my', {
     params: {
       page: page,
