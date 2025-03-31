@@ -1,13 +1,14 @@
 import { FileType } from '@/shared/types/api';
 
 export interface MomentJSONType {
-  crewId: number;
+  momentId: number;
+  status: '참여가능' | '참여중' | '마감';
   name: string;
-  date: string;
-  location: string;
-  capacity: number;
+  meetAt: string;
+  meetingPlaceName: string;
   participantCount: number;
-  endDate: string;
+  capacity: number;
+  closedAt: string;
 }
 
 export interface MomentType extends MomentJSONType {
