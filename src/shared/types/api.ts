@@ -1,4 +1,5 @@
 export type FileEnvType = 'LOCAL' | 'CLOUD';
+
 export interface FileType {
   fileId: number;
   source: string;
@@ -20,4 +21,16 @@ interface Pageable {
   pageNumber: number;
   pageSize: number;
   paged: boolean;
+}
+
+export interface Pagination<T> {
+  content: T[];
+  page: Page;
+}
+
+interface Page {
+  size: number;
+  number: number;
+  totalPages: number;
+  totalElements: number;
 }
