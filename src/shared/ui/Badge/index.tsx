@@ -2,17 +2,18 @@ import { IconType, TextColorType } from '@/shared/types/design-system';
 import styles from './index.module.scss';
 import { cn } from '@/shared/lib/cn';
 import Icon from '../Icon';
+import { PropsWithChildren } from 'react';
 
 type BadgeType = 'primary' | 'secondary' | 'tertiary';
 
-export interface BadgeProps {
+export interface BadgeProps extends PropsWithChildren {
   icon?: IconType;
   text?: string;
   variant?: BadgeType;
   className?: string;
 }
 
-function Badge({ icon, text, variant = 'primary', className }: BadgeProps) {
+function Badge({ icon, text, variant = 'primary', className, children }: BadgeProps) {
   const iconColorMap: Record<BadgeType, TextColorType> = {
     primary: 'text-default',
     secondary: 'text-default',
@@ -32,6 +33,7 @@ function Badge({ icon, text, variant = 'primary', className }: BadgeProps) {
     >
       {icon && <Icon icon={icon} iconSize="16" color={iconColorMap[variant]} />}
       {text && <span>{text}</span>}
+      {children}
     </span>
   );
 }
