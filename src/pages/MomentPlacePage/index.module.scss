@@ -1,19 +1,29 @@
 @use '@/shared/styles/global.scss' as *;
 
+.title {
+  @include font-text(heading-small);
+  color: var(--text-primary);
+  padding: $space-sm;
+}
+
 .container {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   height: 100%;
+}
+
+.content-container {
+  display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 28rem 1fr;
   grid-template-areas: 'location map';
   overflow: hidden;
+  height: 100%;
 
   @media (max-width: $media-tablet) {
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr;
-    grid-template-areas:
-      'map'
-      'location';
+    grid-template-areas: 'map' 'location';
   }
 }
 
