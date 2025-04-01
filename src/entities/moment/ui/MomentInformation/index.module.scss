@@ -1,0 +1,50 @@
+@use '@/shared/styles/global' as *;
+
+.container {
+  display: flex;
+  gap: $space-md;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.thumbnail {
+  width: 100%;
+  max-width: 32rem;
+  aspect-ratio: 16/9;
+}
+
+.field-container {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  max-width: 32rem;
+}
+
+.field {
+  display: flex;
+  width: 100%;
+  gap: $space-md;
+}
+
+.field__title {
+  @include font-text(heading-small);
+  color: var(--text-primary);
+  min-width: 10rem;
+}
+
+.field__content {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+}
+
+.field__main-content {
+  @include font-text(body-medium);
+  color: var(--text-primary);
+}
+
+.field__sub-content {
+  @include font-text(body-small);
+  color: var(--text-tertiary);
+}
