@@ -1,4 +1,5 @@
 import { Location } from '@/entities/Location/model/types';
+import { FileType } from '@/shared/types/api';
 
 export interface MomentFormType {
   name: string;
@@ -17,4 +18,17 @@ export interface MomentPlaces {
   momentId: number;
   places: MomentPlace[];
   count: number;
+}
+
+export interface UpcomingMomentJSON {
+  momentId: number;
+  crewId: number;
+  crewName: string;
+  momentName: string;
+  meetAt: string;
+  meetPlaceName: string;
+}
+
+export interface UpcomingMoment extends UpcomingMomentJSON {
+  file?: FileType;
 }
