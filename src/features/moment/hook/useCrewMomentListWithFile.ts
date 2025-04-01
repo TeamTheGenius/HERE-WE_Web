@@ -1,12 +1,12 @@
 import { useQueries, useQuery } from '@tanstack/react-query';
-import { momentListQueries } from '../query/momentListQueries';
+import { momentFeatureQueries } from '../query/momentFeatureQueries';
 import { momentQueries } from '@/entities/moment/query/momentQueries';
 import { FileType } from '@/shared/types/api';
 
 // 모먼트와 이미지를 합병하는 커스텀 훅
 export const useCrewMomentListWithFile = (page: number, size: number, crewId: number) => {
   const { data: momentListData } = useQuery({
-    ...momentListQueries.crewMomentPagination({ page, size, crewId }),
+    ...momentFeatureQueries.crewMomentPagination({ page, size, crewId }),
   });
 
   const fileQueries = useQueries({
