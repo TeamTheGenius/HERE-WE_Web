@@ -1,0 +1,13 @@
+@use '@/shared/styles/global' as *;
+
+.container {
+  @include flex-row(between, center);
+  margin-bottom: $space-md;
+  gap: $space-md;
+}
+
+.title {
+  @include font-text(heading-medium);
+  color: var(--text-primary);
+  @include util-text-overflow-ellipsis;
+}
