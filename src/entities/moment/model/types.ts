@@ -1,3 +1,4 @@
+import { Location } from '@/entities/Location/model/types';
 import { FileType } from '@/shared/types/api';
 
 export interface MomentJSONType {
@@ -9,6 +10,7 @@ export interface MomentJSONType {
   participantCount: number;
   capacity: number;
   closedAt: string;
+  place: Location;
 }
 
 export interface MomentType extends MomentJSONType {
