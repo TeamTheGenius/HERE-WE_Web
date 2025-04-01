@@ -32,8 +32,10 @@ function ParticipatingCrewList() {
           return (
             <Card key={crew.crewId} handleClick={() => handleClickCard(crew.crewId)}>
               <Card.Image src={crew.file?.source || temp} alt="크루 썸네일" />
-              <Card.Title>{crew.name}</Card.Title>
-              <Card.Detail>크루원 {crew.participantCount}</Card.Detail>
+              <Card.Text>
+                <Card.Title>{crew.name}</Card.Title>
+                <Card.Detail>크루원 {crew.participantCount}</Card.Detail>
+              </Card.Text>
             </Card>
           );
         })}

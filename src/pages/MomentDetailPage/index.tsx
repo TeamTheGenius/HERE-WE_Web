@@ -1,14 +1,23 @@
 import MomentDetailHeader from '@/entities/moment/ui/MomentDetailHeader';
 import MomentInformation from '@/entities/moment/ui/MomentInformation';
 import MomentInformationHeader from '@/entities/moment/ui/MomentInformationHeader';
+import MomentPlaceHeader from '@/entities/moment/ui/MomentPlaceHeader';
+import MomentPlaceRow from '@/features/moment/ui/MomentPlaceRow';
+import styles from './index.module.scss';
 
 function MomentDetailPage() {
   return (
-    <>
+    <main className={styles.container}>
       <MomentDetailHeader />
-      <MomentInformationHeader />
-      <MomentInformation />
-    </>
+      <div>
+        <MomentInformationHeader />
+        <MomentInformation />
+      </div>
+      <div>
+        <MomentPlaceHeader />
+        <MomentPlaceRow />
+      </div>
+    </main>
   );
 }
 

@@ -41,13 +41,15 @@ function CrewMomentList() {
             <Card key={moment.momentId} handleClick={() => handleClickCard(moment.momentId)}>
               <Card.Image src={moment.file?.source || temp} alt="크루 썸네일" />
               <Card.Tag variant={statusMap[moment.status]}>{moment.status}</Card.Tag>
-              <Card.Title>{moment.name}</Card.Title>
-              <Card.Detail>{moment.meetAt}</Card.Detail>
-              <Card.Detail>{moment.meetingPlaceName}</Card.Detail>
-              <Card.Metadata>
-                참여 {moment.participantCount}/{moment.capacity}명
-              </Card.Metadata>
-              <Card.Metadata>마감 {moment.closedAt}</Card.Metadata>
+              <Card.Text>
+                <Card.Title>{moment.name}</Card.Title>
+                <Card.Detail>{moment.meetAt}</Card.Detail>
+                <Card.Detail>{moment.meetingPlaceName}</Card.Detail>
+                <Card.Metadata>
+                  참여 {moment.participantCount}/{moment.capacity}명
+                </Card.Metadata>
+                <Card.Metadata>마감 {moment.closedAt}</Card.Metadata>
+              </Card.Text>
             </Card>
           );
         })}

@@ -9,29 +9,14 @@ interface CardImageProps {
   alt: string;
 }
 
-const ImageComponent = (<CardImage src="" alt="" />).type;
-const TitleComponent = (<CardTitle />).type;
-const DetailComponent = (<CardDetail />).type;
-const MetadataComponent = (<CardMetadata />).type;
-const BadgeComponent = (<CardTag />).type;
-
 interface MainProps extends PropsWithChildren {
   size?: 'full' | 'md';
   classNames?: string;
   handleClick: () => void;
+  border?: boolean;
 }
 
-function Main({ children, size = 'full', classNames, handleClick }: MainProps) {
-  const imageElements = filterChildrenByComponent(children, ImageComponent);
-  const titleElements = filterChildrenByComponent(children, TitleComponent);
-  const detailElements = filterChildrenByComponent(children, DetailComponent);
-  const metadataElements = filterChildrenByComponent(children, MetadataComponent);
-  const badgeElements = filterChildrenByComponent(children, BadgeComponent);
-
-  const hasContent = titleElements.length > 0 || detailElements.length > 0 || metadataElements.length > 0;
-  const hasDetailElement = detailElements.length > 0;
-  const hasMetadataElement = metadataElements.length > 0;
-
+function Main({ children, size = 'full', classNames, handleClick, border }: MainProps) {
   return (
     <article>
       <button
@@ -41,19 +26,12 @@ function Main({ children, size = 'full', classNames, handleClick }: MainProps) {
           {
             [styles.fullCard]: size === 'full',
             [styles.mdCard]: size === 'md',
+            [styles.wrapperBorder]: border === true,
           },
           classNames,
         )}
       >
-        {imageElements}
-        {badgeElements}
-        {hasContent && (
-          <div className={styles.content}>
-            {titleElements}
-            {hasDetailElement && <div className={styles.detailContainer}>{detailElements}</div>}
-            {hasMetadataElement && <div className={styles.metaContainer}>{metadataElements}</div>}
-          </div>
-        )}
+        {children}
       </button>
     </article>
   );
@@ -63,6 +41,23 @@ function CardImage({ src, alt }: CardImageProps) {
   return (
     <div className={styles.imageContainer}>
       <img src={src} className={styles.image} alt={alt} />
+    </div>
+  );
+}
+
+function CardText({ children }: PropsWithChildren) {
+  const titleElements = filterChildrenByComponent(children, CardTitle);
+  const detailElements = filterChildrenByComponent(children, CardDetail);
+  const metadataElements = filterChildrenByComponent(children, CardMetadata);
+
+  const hasDetailElement = detailElements.length > 0;
+  const hasMetadataElement = metadataElements.length > 0;
+
+  return (
+    <div className={styles.content}>
+      {titleElements}
+      {hasDetailElement && <div className={styles.detailContainer}>{detailElements}</div>}
+      {hasMetadataElement && <div className={styles.metaContainer}>{metadataElements}</div>}
     </div>
   );
 }
@@ -86,6 +81,7 @@ function CardTag({ ...props }: BadgeProps) {
 export const Card = Object.assign(Main, {
   Tag: CardTag,
   Image: CardImage,
+  Text: CardText,
   Title: CardTitle,
   Detail: CardDetail,
   Metadata: CardMetadata,

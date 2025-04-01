@@ -112,10 +112,12 @@ function UpcomingMomentList() {
           <Card key={data.id} size="md" handleClick={() => {}}>
             <Card.Image src={image} alt="크루 썸네일" />
             <Card.Tag variant="tertiary" text={`D-${getDDayNumber(data.date)}`}></Card.Tag>
-            <Card.Title>{data.crew}</Card.Title>
-            <Card.Detail>{data.name}</Card.Detail>
-            <Card.Detail>{data.date}</Card.Detail>
-            <Card.Detail>{data.place}</Card.Detail>
+            <Card.Text>
+              <Card.Title>{data.crew}</Card.Title>
+              <Card.Detail>{data.name}</Card.Detail>
+              <Card.Detail>{data.date}</Card.Detail>
+              <Card.Detail>{data.place}</Card.Detail>
+            </Card.Text>
           </Card>
         );
       })}
