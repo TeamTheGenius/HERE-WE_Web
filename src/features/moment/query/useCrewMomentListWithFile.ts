@@ -1,5 +1,5 @@
 import { useQueries, useQuery } from '@tanstack/react-query';
-import { momentFeatureQueries } from '../query/momentFeatureQueries';
+import { momentFeatureQueries } from './momentFeatureQueries';
 import { momentQueries } from '@/entities/moment/query/momentQueries';
 import { FileType } from '@/shared/types/api';
 
