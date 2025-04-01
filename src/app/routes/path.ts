@@ -20,5 +20,6 @@ export const routePaths = {
     path: '/crew/:crewId/moment/:momentId/place',
     getPath: (crewId: number, momentId: number) => `/crew/${crewId}/moment/${momentId}/place`,
   },
+  upcomingMoment: '/moment/upcoming',
   chat: '/chat/:crewId',
 };

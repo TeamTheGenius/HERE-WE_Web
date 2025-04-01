@@ -1,0 +1,15 @@
+@use '@/shared/styles/global.scss' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xxl;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  @include font-text(heading-large);
+  color: var(--text-primary);
+  text-align: center;
+}
