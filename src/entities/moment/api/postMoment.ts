@@ -24,8 +24,6 @@ export const postMoment = async ({ crewId, momentName, meetAt, place, capacity, 
     y: y,
   };
 
-  console.log(formattedPlace);
-
   const { data: response } = await privateClient.post(
     '/moment',
     {

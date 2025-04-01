@@ -19,8 +19,6 @@ export const getSearchLocation = async ({
     params: { keyword, page, size },
   });
 
-  console.log(response.data);
-
   const { content, ...rest }: GetSarchLocationResponse = response.data;
   const clientContent: Location[] = content.map((item: LocationAboutServer) => ({
     id: item.id,
