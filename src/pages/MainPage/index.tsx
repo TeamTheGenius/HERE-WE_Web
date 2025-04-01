@@ -1,18 +1,15 @@
 import styles from './index.module.scss';
 import ParticipatingCrewList from '@/widgets/crew/ParticipatingCrewList';
 import ParticipatingCrewHeader from '@/widgets/crew/ParticipatingCrewHeader';
-import UpcomingMomentList from '@/widgets/moment/UpcomingMomentList';
 import UpcomingMomentHeader from '@/widgets/moment/UpcomingMomentHeader';
-import ScrollableRow from '@/shared/ui/ScrollableRow';
+import UpcomingMomentsRow from '@/widgets/moment/UpcomingMomentsRow';
 
 function Main() {
   return (
     <div className={styles.wrapper}>
       <aside className={styles.container}>
         <UpcomingMomentHeader />
-        <ScrollableRow>
-          <UpcomingMomentList />
-        </ScrollableRow>
+        <UpcomingMomentsRow />
       </aside>
       <main className={styles.container}>
         <ParticipatingCrewHeader />
