@@ -5,7 +5,7 @@ import GridContainer from '@/shared/ui/GridContainer';
 import Pagination from '@/shared/ui/Pagination';
 import styles from './index.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useCrewMomentListWithFile } from '@/features/moment/hook/useCrewMomentListWithFile';
+import { useCrewMomentListWithFile } from '@/features/moment/query/useCrewMomentListWithFile';
 import { useEffect } from 'react';
 import { routePaths } from '@/app/routes/path';
 
