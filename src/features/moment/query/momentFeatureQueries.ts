@@ -7,21 +7,23 @@ import { getMomentPlaces, GetMomentPlacesRequest } from '../api/getMomentPlaces'
 import { getUpcomingMoments, GetUpcomingMomentsRequest } from '../api/getUpcomingMoments';
 
 export const momentFeatureQueries = {
-  crewMomentPagination: ({ page, size, crewId }: GetCrewMomentListRequest) =>
+  allListKeys: [...momentQueries.allKeys, 'list'] as const,
+  allPlacesKeys: [...momentQueries.allKeys, 'place'] as const,
+
+  crewMomentPaginationJSON: ({ page, size, crewId }: GetCrewMomentListRequest) =>
     queryOptions<Pagination<MomentJSONType>>({
-      queryKey: [...momentQueries.allKeys, crewId, page, size],
+      queryKey: [...momentFeatureQueries.allListKeys, crewId, page, size],
       queryFn: () => getCrewMomentList({ crewId, page, size }),
+    }),
+  upcomingMomentsJSON: ({ page, size }: GetUpcomingMomentsRequest) =>
+    queryOptions({
+      queryKey: [...momentFeatureQueries.allListKeys, 'json', page, size],
+      queryFn: () => getUpcomingMoments({ page, size }),
     }),
 
   momentPlaces: ({ momentId }: GetMomentPlacesRequest) =>
     queryOptions({
-      queryKey: [...momentQueries.allKeys, momentId],
+      queryKey: [...momentFeatureQueries.allPlacesKeys, momentId],
       queryFn: () => getMomentPlaces({ momentId }),
-    }),
-
-  upcomingMomentsJSON: ({ page, size }: GetUpcomingMomentsRequest) =>
-    queryOptions({
-      queryKey: [...momentQueries.allKeys, 'json', page, size],
-      queryFn: () => getUpcomingMoments({ page, size }),
     }),
 };

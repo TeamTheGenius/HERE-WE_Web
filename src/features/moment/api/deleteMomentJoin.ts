@@ -5,5 +5,5 @@ interface PostMomentJoinRequest {
 }
 
 export const deleteMomentJoin = async ({ momentId }: PostMomentJoinRequest) => {
-  await privateClient.post(`/moment/${momentId}/join`);
+  await privateClient.delete(`/moment/${momentId}/join`);
 };
