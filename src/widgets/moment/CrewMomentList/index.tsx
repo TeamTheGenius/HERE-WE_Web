@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useCrewMomentListWithFile } from '@/features/moment/query/useCrewMomentListWithFile';
 import { useEffect } from 'react';
 import { routePaths } from '@/app/routes/path';
+import { BadgeProps } from '@/shared/ui/Badge';
 
 function CrewMomentList() {
   const { crewId } = useParams();
@@ -27,20 +28,43 @@ function CrewMomentList() {
   if (!crewMomentListData) return null;
   const { content } = crewMomentListData;
 
-  const statusMap = {
-    참여중: 'primary',
-    참여가능: 'secondary',
-    마감: 'tertiary',
-  } as const;
+  const getTagProps = (isJoined: boolean, isClosed: boolean): BadgeProps => {
+    if (isJoined && isClosed) {
+      return {
+        text: '참여완료',
+        variant: 'tertiary',
+      };
+    }
+
+    if (isJoined && !isClosed) {
+      return {
+        text: '참여중',
+        variant: 'secondary',
+      };
+    }
+
+    if (!isJoined && isClosed) {
+      return {
+        text: '마감',
+        variant: 'tertiary',
+      };
+    }
+
+    return {
+      text: '신청가능',
+      variant: 'primary',
+    };
+  };
 
   return (
     <>
       <GridContainer>
         {content.map((moment) => {
+          const { text: tagText, variant: tagVariant } = getTagProps(moment.isJoined, moment.isClosed);
           return (
             <Card key={moment.momentId} handleClick={() => handleClickCard(moment.momentId)}>
               <Card.Image src={moment.file?.source || temp} alt="크루 썸네일" />
-              <Card.Tag variant={statusMap[moment.status]}>{moment.status}</Card.Tag>
+              <Card.Tag variant={tagVariant}>{tagText}</Card.Tag>
               <Card.Text>
                 <Card.Title>{moment.name}</Card.Title>
                 <Card.Detail>{moment.meetAt}</Card.Detail>

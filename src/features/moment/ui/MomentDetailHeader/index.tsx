@@ -1,4 +1,4 @@
-import Button, { ButtonType } from '@/shared/ui/Button';
+import Button, { ButtonProps } from '@/shared/ui/Button';
 import styles from './index.module.scss';
 import { useParams } from 'react-router-dom';
 import { useMomentDetailWithFile } from '@/entities/moment/query/useMomentDetailWithFile';
@@ -21,18 +21,10 @@ function MomentDetailHeader() {
     await cancelMomentJoin({ momentId: Number(momentId) });
   };
 
-  const getButtonProps = (
-    isJoined: boolean,
-    isClosed: boolean,
-  ): {
-    text: string;
-    variant: ButtonType;
-    onClick?: () => void;
-    disabled: boolean;
-  } => {
+  const getButtonProps = (isJoined: boolean, isClosed: boolean): ButtonProps => {
     if (isJoined && isClosed) {
       return {
-        text: '참여중',
+        text: '참여완료',
         variant: 'secondary',
         disabled: true,
       };
@@ -48,11 +40,11 @@ function MomentDetailHeader() {
     }
 
     if (!isJoined && isClosed) {
-      return { text: '마감', variant: 'primary', disabled: true };
+      return { text: '마감됨', variant: 'secondary', disabled: true };
     }
 
     return {
-      text: '참여',
+      text: '참여하기',
       variant: 'primary',
       onClick: handleClickJoinButton,
       disabled: false,

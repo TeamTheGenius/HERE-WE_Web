@@ -4,7 +4,7 @@ import { cn } from '@/shared/lib/cn';
 import Icon from '../Icon';
 import { PropsWithChildren } from 'react';
 
-type BadgeType = 'primary' | 'secondary' | 'tertiary';
+export type BadgeType = 'primary' | 'secondary' | 'tertiary';
 
 export interface BadgeProps extends PropsWithChildren {
   icon?: IconType;
