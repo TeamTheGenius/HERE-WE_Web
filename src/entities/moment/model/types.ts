@@ -3,7 +3,8 @@ import { FileType } from '@/shared/types/api';
 
 export interface MomentJSONType {
   momentId: number;
-  status: '참여가능' | '참여중' | '마감';
+  isJoined: boolean;
+  isClosed: boolean;
   name: string;
   meetAt: string;
   meetingPlaceName: string;
