@@ -20,10 +20,6 @@
   background-color: var(--surface-brand);
   color: var(--text-default);
   @include disable;
-
-  &:hover {
-    background-color: var(--surface-brand-hover);
-  }
 }
 
 .secondary-button {
@@ -32,7 +28,7 @@
   color: var(--text-tertiary);
   @include disable;
 
-  &:hover {
+  &:not(:disabled):hover {
     background-color: var(--surface-primary);
   }
 }
