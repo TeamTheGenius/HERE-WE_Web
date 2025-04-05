@@ -20,6 +20,10 @@
   background-color: var(--surface-brand);
   color: var(--text-default);
   @include disable;
+
+  &:not(:disabled):hover {
+    background-color: var(--surface-brand-hover);
+  }
 }
 
 .secondary-button {
