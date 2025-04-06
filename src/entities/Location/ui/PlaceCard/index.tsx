@@ -18,8 +18,12 @@ function PlaceTitle({ children }: PropsWithChildren) {
   return <h3 className={styles.title}>{children}</h3>;
 }
 
-function PlaceButton({ children }: PlaceButtonProps) {
-  return <button className={styles.button}>{children}</button>;
+function PlaceButton({ children, handleClick }: PlaceButtonProps) {
+  return (
+    <button className={styles.button} onClick={handleClick}>
+      {children}
+    </button>
+  );
 }
 
 function PlaceBody({ as: Component = 'button', handleClick, children }: PlaceBodyProps) {
