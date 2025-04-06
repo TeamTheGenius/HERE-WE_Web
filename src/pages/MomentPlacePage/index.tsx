@@ -2,6 +2,7 @@ import Map from '@/features/map/ui/Map';
 import styles from './index.module.scss';
 import { useState } from 'react';
 import LocationSearchForm from '@/features/Location/ui/LocationSearchForm';
+import MomentPlaceColumn from '@/features/moment/ui/MomentPlaceColumn';
 
 type Tab = '방문 장소' | '검색';
 
@@ -31,10 +32,13 @@ function MomentPlacePage() {
               <LocationSearchForm
                 keyword={keyword}
                 handleSubmitKeyword={handleSubmitKeyword}
-                handleSelectLocation={() => {}}
+                handleAddLocation={() => {}}
+                handleClickLocation={() => {}}
               />
             )}
-            {currentTab === '방문 장소' && <div>방문 장소</div>}
+            {currentTab === '방문 장소' && (
+              <MomentPlaceColumn handleClickLocation={() => {}} handleDeleteLocation={() => {}} />
+            )}
           </div>
         </div>
         <div className={styles.mapWrapper}>

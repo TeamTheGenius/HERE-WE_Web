@@ -4,16 +4,22 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { locationListQueries } from '../../query/locationListQueries';
 import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll';
 import { TextInput } from '@/shared/ui/TextInput';
-import { Card } from '@/shared/ui/Card';
 import { Location } from '@/entities/Location/model/types';
+import { PlaceCard } from '@/entities/Location/ui/PlaceCard';
 
 export interface LocationSearchFormProps {
-  handleSelectLocation: (location: Location) => void;
+  handleAddLocation: (location: Location) => void;
+  handleClickLocation: (location: Location) => void;
   handleSubmitKeyword: (keyword: string) => void;
   keyword: string;
 }
 
-function LocationSearchForm({ handleSelectLocation, keyword, handleSubmitKeyword }: LocationSearchFormProps) {
+function LocationSearchForm({
+  handleAddLocation,
+  keyword,
+  handleSubmitKeyword,
+  handleClickLocation,
+}: LocationSearchFormProps) {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchResultRef = useRef<HTMLDivElement>(null);
 
@@ -56,20 +62,24 @@ function LocationSearchForm({ handleSelectLocation, keyword, handleSubmitKeyword
             page.content.map((location) => {
               const { placeName, roadAddressName, addressName, phone, id } = location;
               return (
-                <ul key={id}>
-                  <li>
-                    <Card handleClick={() => handleSelectLocation(location)}>
-                      <Card.Detail>{placeName}</Card.Detail>
-                      <Card.Metadata>{roadAddressName}</Card.Metadata>
-                      <Card.Metadata>{addressName}</Card.Metadata>
-                      <Card.Metadata>{phone}</Card.Metadata>
-                    </Card>
-                    <u className={styles.underline} />
-                  </li>
-                </ul>
+                <article key={id}>
+                  <PlaceCard>
+                    <PlaceCard.Header>
+                      <PlaceCard.Title>{placeName}</PlaceCard.Title>
+                      <PlaceCard.Button handleClick={() => handleAddLocation(location)}>추가</PlaceCard.Button>
+                    </PlaceCard.Header>
+                    <PlaceCard.Body handleClick={() => handleClickLocation(location)}>
+                      {roadAddressName && <PlaceCard.Detail>도로명: {roadAddressName}</PlaceCard.Detail>}
+                      {addressName && <PlaceCard.Detail>지번: {addressName}</PlaceCard.Detail>}
+                      {phone && <PlaceCard.Detail>연락처: {phone}</PlaceCard.Detail>}
+                    </PlaceCard.Body>
+                  </PlaceCard>
+                  <u className={styles.underline} />
+                </article>
               );
             }),
           )}
+
         <div style={{ height: '1px' }} ref={observerRef} />
       </div>
     </div>
