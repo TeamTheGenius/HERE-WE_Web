@@ -3,15 +3,26 @@ import styles from './index.module.scss';
 import { useState } from 'react';
 import LocationSearchForm from '@/features/Location/ui/LocationSearchForm';
 import MomentPlaceColumn from '@/features/moment/ui/MomentPlaceColumn';
+import { usePostMomentPlace } from '@/features/moment/query/usePostMomentPlace';
+import { Location } from '@/entities/Location/model/types';
+import { useParams } from 'react-router-dom';
 
 type Tab = '방문 장소' | '검색';
 
 function MomentPlacePage() {
+  const { momentId } = useParams();
+
   const [currentTab, setCurrentTab] = useState<Tab>('검색');
   const [keyword, setKeyword] = useState<string>('');
 
+  const { mutateAsync: addPlace } = usePostMomentPlace();
+
   const handleSubmitKeyword = (keyword: string) => {
     setKeyword(keyword);
+  };
+
+  const handlePlaceAdd = async (place: Location) => {
+    await addPlace({ place, momentId: Number(momentId) });
   };
 
   return (
@@ -32,7 +43,7 @@ function MomentPlacePage() {
               <LocationSearchForm
                 keyword={keyword}
                 handleSubmitKeyword={handleSubmitKeyword}
-                handleAddLocation={() => {}}
+                handleAddLocation={handlePlaceAdd}
                 handleClickLocation={() => {}}
               />
             )}
