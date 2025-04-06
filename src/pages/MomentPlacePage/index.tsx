@@ -6,6 +6,7 @@ import MomentPlaceColumn from '@/features/moment/ui/MomentPlaceColumn';
 import { usePostMomentPlace } from '@/features/moment/query/usePostMomentPlace';
 import { Location } from '@/entities/Location/model/types';
 import { useParams } from 'react-router-dom';
+import { useDeleteMomentPlace } from '@/features/moment/query/useDeleteMomentPlace';
 
 type Tab = '방문 장소' | '검색';
 
@@ -16,6 +17,7 @@ function MomentPlacePage() {
   const [keyword, setKeyword] = useState<string>('');
 
   const { mutateAsync: addPlace } = usePostMomentPlace();
+  const { mutateAsync: deletePlace } = useDeleteMomentPlace();
 
   const handleSubmitKeyword = (keyword: string) => {
     setKeyword(keyword);
@@ -23,6 +25,10 @@ function MomentPlacePage() {
 
   const handlePlaceAdd = async (place: Location) => {
     await addPlace({ place, momentId: Number(momentId) });
+  };
+
+  const handlePlaceDelete = async (index: number) => {
+    await deletePlace({ momentId: Number(momentId), index });
   };
 
   return (
@@ -48,7 +54,7 @@ function MomentPlacePage() {
               />
             )}
             {currentTab === '방문 장소' && (
-              <MomentPlaceColumn handleClickLocation={() => {}} handleDeleteLocation={() => {}} />
+              <MomentPlaceColumn handleClickLocation={() => {}} handleDeleteLocation={handlePlaceDelete} />
             )}
           </div>
         </div>

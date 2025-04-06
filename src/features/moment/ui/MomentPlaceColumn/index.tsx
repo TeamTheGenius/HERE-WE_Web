@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { PlaceCard } from '@/entities/Location/ui/PlaceCard';
 
 interface MomentPlaceColumnProps {
-  handleDeleteLocation: (location: Location) => void;
+  handleDeleteLocation: (index: number) => void;
   handleClickLocation: (location: Location) => void;
 }
 
@@ -18,10 +18,10 @@ function MomentPlaceColumn({ handleDeleteLocation, handleClickLocation }: Moment
 
   return (
     <>
-      {data.places.map((place, index) => {
-        const { placeName, roadAddressName, addressName, phone, id } = place;
+      {data.places.map((place) => {
+        const { placeName, roadAddressName, addressName, phone, id, index } = place;
 
-        const isMeetPlace = index === 0;
+        const isMeetPlace = index === 1;
 
         return (
           <article key={id}>
@@ -32,7 +32,7 @@ function MomentPlaceColumn({ handleDeleteLocation, handleClickLocation }: Moment
                   {placeName}
                 </PlaceCard.Title>
                 {!isMeetPlace && (
-                  <PlaceCard.Button handleClick={() => handleDeleteLocation(place)}>삭제</PlaceCard.Button>
+                  <PlaceCard.Button handleClick={() => handleDeleteLocation(index)}>삭제</PlaceCard.Button>
                 )}
               </PlaceCard.Header>
               <PlaceCard.Body handleClick={() => handleClickLocation(place)}>
