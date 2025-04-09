@@ -17,3 +17,11 @@ export interface MomentJSONType {
 export interface MomentType extends MomentJSONType {
   file?: FileType;
 }
+
+export interface MomentCommonPayload {
+  momentName: string;
+  capacity: number;
+  closedAt: string;
+  meetAt: string;
+  place: Location;
+}

@@ -1,4 +1,3 @@
-import temp from '@/shared/assets/temp.jpg';
 import styles from './index.module.scss';
 import { useMomentDetailWithFile } from '../../query/useMomentDetailWithFile';
 import { useParams } from 'react-router-dom';
@@ -11,7 +10,7 @@ function MomentInformation() {
 
   return (
     <div className={styles.container}>
-      <img className={styles.thumbnail} src={temp} alt="모먼트 썸네일" />
+      <img className={styles.thumbnail} src={momentDetail.file?.source} alt="모먼트 썸네일" />
       <div className={styles.fieldContainer}>
         <div className={styles.field}>
           <h3 className={styles.fieldTitle}>모먼트명</h3>

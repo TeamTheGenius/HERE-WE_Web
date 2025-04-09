@@ -1,9 +1,26 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { type UseFormRegister, type FieldValues, type Path } from 'react-hook-form';
 
-export const useFileInput = <T extends FieldValues>(register: UseFormRegister<T>, fieldName: Path<T>) => {
+export const useFileInput = <T extends FieldValues>(
+  register: UseFormRegister<T>,
+  fieldName: Path<T>,
+  initialFile?: File | undefined,
+) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [previousFile, setPreviousFile] = useState<File>();
+
+  useEffect(() => {
+    if (!initialFile) return;
+
+    const dataTransfer = new DataTransfer();
+    dataTransfer.items.add(initialFile);
+
+    if (inputRef.current) {
+      inputRef.current.files = dataTransfer.files;
+      const event = new Event('change', { bubbles: true });
+      inputRef.current.dispatchEvent(event);
+    }
+  }, [initialFile]);
 
   const mergedRef = (element: HTMLInputElement) => {
     register(fieldName).ref(element);

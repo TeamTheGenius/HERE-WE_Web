@@ -1,8 +1,8 @@
 import { Location, LocationAboutServer } from '@/entities/Location/model/types';
 import { privateClient } from '@/shared/api/config';
 
-export interface PostMomentRequest {
-  crewId: number;
+interface PatchMomentRequest {
+  momentId: number;
   momentName: string;
   meetAt: string;
   place: Location;
@@ -10,7 +10,7 @@ export interface PostMomentRequest {
   closedAt: string;
 }
 
-export const postMoment = async ({ crewId, momentName, meetAt, place, capacity, closedAt }: PostMomentRequest) => {
+export const patchMoment = async ({ momentId, momentName, meetAt, place, capacity, closedAt }: PatchMomentRequest) => {
   const { placeName, placeURL, addressName, roadAddressName, phone, x, y, id } = place;
 
   const formattedPlace: LocationAboutServer = {
@@ -24,19 +24,13 @@ export const postMoment = async ({ crewId, momentName, meetAt, place, capacity, 
     y: y,
   };
 
-  const { data: response } = await privateClient.post(
-    '/moment',
-    {
-      momentName: momentName,
-      meetAt: meetAt,
-      place: formattedPlace,
-      capacity: capacity,
-      closedAt: closedAt,
-    },
-    {
-      params: { crewId },
-    },
-  );
+  const { data: response } = await privateClient.patch(`/moment/${momentId}`, {
+    momentName: momentName,
+    meetAt: meetAt,
+    place: formattedPlace,
+    capacity: capacity,
+    closedAt: closedAt,
+  });
 
   return {
     momentId: response.data.momentId,
