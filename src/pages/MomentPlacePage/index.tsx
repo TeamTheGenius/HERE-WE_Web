@@ -3,32 +3,16 @@ import styles from './index.module.scss';
 import { useState } from 'react';
 import LocationSearchForm from '@/features/Location/ui/LocationSearchForm';
 import MomentPlaceColumn from '@/features/moment/ui/MomentPlaceColumn';
-import { usePostMomentPlace } from '@/features/moment/query/usePostMomentPlace';
-import { Location } from '@/entities/Location/model/types';
-import { useParams } from 'react-router-dom';
-import { useDeleteMomentPlace } from '@/features/moment/query/useDeleteMomentPlace';
+import MomentPlaceAddCard from '@/features/moment/ui/MomentPlaceAddCard';
 
 type Tab = '방문 장소' | '검색';
 
 function MomentPlacePage() {
-  const { momentId } = useParams();
-
   const [currentTab, setCurrentTab] = useState<Tab>('검색');
   const [keyword, setKeyword] = useState<string>('');
 
-  const { mutateAsync: addPlace } = usePostMomentPlace();
-  const { mutateAsync: deletePlace } = useDeleteMomentPlace();
-
   const handleSubmitKeyword = (keyword: string) => {
     setKeyword(keyword);
-  };
-
-  const handlePlaceAdd = async (place: Location) => {
-    await addPlace({ place, momentId: Number(momentId) });
-  };
-
-  const handlePlaceDelete = async (index: number) => {
-    await deletePlace({ momentId: Number(momentId), index });
   };
 
   return (
@@ -46,16 +30,11 @@ function MomentPlacePage() {
           </ul>
           <div className={styles.tabContent}>
             {currentTab === '검색' && (
-              <LocationSearchForm
-                keyword={keyword}
-                handleSubmitKeyword={handleSubmitKeyword}
-                handleAddLocation={handlePlaceAdd}
-                handleClickLocation={() => {}}
-              />
+              <LocationSearchForm keyword={keyword} handleSubmitKeyword={handleSubmitKeyword}>
+                {(location) => <MomentPlaceAddCard handleClickPlace={() => {}} data={location} />}
+              </LocationSearchForm>
             )}
-            {currentTab === '방문 장소' && (
-              <MomentPlaceColumn handleClickLocation={() => {}} handleDeleteLocation={handlePlaceDelete} />
-            )}
+            {currentTab === '방문 장소' && <MomentPlaceColumn handleClickPlace={() => {}} />}
           </div>
         </div>
         <div className={styles.mapWrapper}>

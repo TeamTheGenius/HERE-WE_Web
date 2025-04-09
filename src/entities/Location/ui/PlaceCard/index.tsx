@@ -1,13 +1,9 @@
-import { PropsWithChildren } from 'react';
+import { ButtonHTMLAttributes, PropsWithChildren } from 'react';
 import styles from './index.module.scss';
 
 interface PlaceBodyProps extends PropsWithChildren {
   as?: 'div' | 'button';
   handleClick?: () => void;
-}
-
-interface PlaceButtonProps extends PropsWithChildren {
-  handleClick: () => void;
 }
 
 function PlaceHeader({ children }: PropsWithChildren) {
@@ -18,9 +14,9 @@ function PlaceTitle({ children }: PropsWithChildren) {
   return <h3 className={styles.title}>{children}</h3>;
 }
 
-function PlaceButton({ children, handleClick }: PlaceButtonProps) {
+function PlaceButton({ children, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) {
   return (
-    <button className={styles.button} onClick={handleClick}>
+    <button className={styles.button} {...props}>
       {children}
     </button>
   );

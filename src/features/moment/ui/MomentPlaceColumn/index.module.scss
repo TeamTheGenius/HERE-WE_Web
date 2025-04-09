@@ -1,5 +1,13 @@
-.underline {
-  border: 0.5px solid var(--border-default);
+.insertion-line {
+  border: 0.5px solid;
   width: 100%;
   display: block;
+}
+
+.insertion-line--inactive {
+  border-color: var(--border-default);
+}
+
+.insertion-line--active {
+  border-color: var(--border-brand);
 }
