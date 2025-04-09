@@ -27,7 +27,7 @@ function MomentPlaceEditCard({ data, handleClickPlace, handleGrabPlace }: Moment
         <PlaceCard.Title>{placeName}</PlaceCard.Title>
         <PlaceCard.Buttons>
           <PlaceCard.Button onClick={() => handlePlaceDelete(index)}>삭제</PlaceCard.Button>
-          <button onPointerDown={(e) => handleGrabPlace(e, index)}>
+          <button style={{ touchAction: 'none' }} onPointerDown={(e) => handleGrabPlace(e, index)}>
             <Icon icon="grab" color="text-primary" iconSize="20" />
           </button>
         </PlaceCard.Buttons>

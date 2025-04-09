@@ -42,6 +42,9 @@ function MomentPlaceColumn({ handleClickPlace }: MomentPlaceColumnProps) {
   const dragStartPosRef = useRef({ x: 0, y: 0 });
   const isDraggingRef = useRef(false);
   const itemRefs = useRef<Record<number, HTMLDivElement | null>>({});
+  const scrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const SCROLL_EDGE_THRESHOLD = 40;
+  const SCROLL_SPEED = 10;
 
   useEffect(() => {
     insertionIndexRef.current = insertionIndex;
@@ -92,6 +95,29 @@ function MomentPlaceColumn({ handleClickPlace }: MomentPlaceColumnProps) {
       if (!container) return;
 
       const containerRect = container.getBoundingClientRect();
+      const offsetY = event.clientY - containerRect.top;
+      const distanceToBottom = containerRect.bottom - event.clientY;
+
+      // 자동 스크롤 로직
+      if (offsetY < SCROLL_EDGE_THRESHOLD) {
+        if (!scrollIntervalRef.current) {
+          scrollIntervalRef.current = setInterval(() => {
+            container.scrollTop -= SCROLL_SPEED;
+          }, 16);
+        }
+      } else if (distanceToBottom < SCROLL_EDGE_THRESHOLD) {
+        if (!scrollIntervalRef.current) {
+          scrollIntervalRef.current = setInterval(() => {
+            container.scrollTop += SCROLL_SPEED;
+          }, 16);
+        }
+      } else {
+        if (scrollIntervalRef.current) {
+          clearInterval(scrollIntervalRef.current);
+          scrollIntervalRef.current = null;
+        }
+      }
+
       if (
         event.clientX < containerRect.left ||
         event.clientX > containerRect.right ||
@@ -157,15 +183,21 @@ function MomentPlaceColumn({ handleClickPlace }: MomentPlaceColumnProps) {
       document.body.removeChild(ghostRef.current);
       ghostRef.current = null;
     }
+
+    if (scrollIntervalRef.current) {
+      clearInterval(scrollIntervalRef.current);
+      scrollIntervalRef.current = null;
+    }
   };
 
   const handlePointerDown = (e: PointerEvent, index: number) => {
+    e.preventDefault();
     draggedIdRef.current = index;
     dragStartPosRef.current = { x: e.pageX, y: e.pageY };
   };
 
   return (
-    <div ref={containerRef}>
+    <div ref={containerRef} className={styles.scrollContainer}>
       {items.map((place, i) => {
         // 첫 번째 요소 (만남 장소)
         if (i === 0) {
