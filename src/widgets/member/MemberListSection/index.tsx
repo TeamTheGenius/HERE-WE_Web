@@ -9,12 +9,16 @@ import styles from './index.module.scss';
 import { useDeleteCrewMember } from '@/entities/member/query/useDeleteCrewMember';
 import { useModal } from '@/shared/hooks/useModal';
 import MemberKickModal from '@/features/member/ui/MemberKickModal';
+import { useQuery } from '@tanstack/react-query';
+import { crewFeatureQueries } from '@/features/crew/query/crewFeatureQueries';
 
 function MemberListSection() {
   const { crewId } = useParams();
   const paginationTools = usePagination(1, 1, 7);
   const { currentPage, setMaxPage } = paginationTools;
   const { data: crewMemberList } = useCrewMembersWithFile(currentPage - 1, 12, Number(crewId));
+  const { data: crewProfile } = useQuery({ ...crewFeatureQueries.myCrewProfile({ crewId: Number(crewId) }) });
+
   const { mutateAsync } = useDeleteCrewMember();
   const { isOpen, closeModal, openModal } = useModal();
   const [selectedNickname, setSelectedNickname] = useState('');
@@ -37,7 +41,7 @@ function MemberListSection() {
       date: member.joinedAt,
     })) || [];
 
-  if (!crewMemberList) return null;
+  if (!crewMemberList || !crewProfile) return null;
 
   const handleKick = async () => {
     await mutateAsync({ nickname: selectedNickname, crewId: Number(crewId) });
@@ -47,7 +51,11 @@ function MemberListSection() {
   return (
     <>
       <MemberKickModal isOpen={isOpen} handleClose={closeModal} handleSubmit={handleKick} nickname={selectedNickname} />
-      <MemberList data={[...transformedData]} isCrewLeader={true} handleKick={handleKickModalOpen} />
+      <MemberList
+        data={[...transformedData]}
+        isCrewLeader={crewProfile.role === 'LEADER'}
+        handleKick={handleKickModalOpen}
+      />
       {crewMemberList.page.totalPages > 0 && (
         <div className={styles.pagination}>
           <Pagination paginationTools={paginationTools} />
