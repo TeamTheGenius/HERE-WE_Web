@@ -12,6 +12,10 @@ export const routePaths = {
     path: '/crew/:crewId/moment/create',
     getPath: (crewId: number) => `/crew/${crewId}/moment/create`,
   },
+  momentEdit: {
+    path: '/crew/:crewId/moment/edit/:momentId',
+    getPath: (crewId: number, momentId: number) => `/crew/${crewId}/moment/edit/${momentId}`,
+  },
   momentDetail: {
     path: '/crew/:crewId/moment/:momentId',
     getPath: (crewId: number, momentId: number) => `/crew/${crewId}/moment/${momentId}`,

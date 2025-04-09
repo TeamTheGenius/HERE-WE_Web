@@ -1,68 +1,36 @@
-import { routePaths } from '@/app/routes/path';
-import { useCrewWithFile } from '@/entities/crew/query/useCrewWithFile';
+import { MomentCommonPayload } from '@/entities/moment/model/types';
 import { usePostMoment } from '@/entities/moment/query/usePostMoment';
 import { usePostMomentFile } from '@/entities/moment/query/usePostMomentFile';
-import { useMomentRegister } from '@/features/moment/hook/useMomentRegister';
+import { MomentFormType } from '@/features/moment/model/types';
 import MomentForm from '@/features/moment/ui/MomentForm';
-import { formatLocalDateTime } from '@/shared/lib/dateFormater';
-import { TitledFormLayout } from '@/shared/ui/TitledFormLayout';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 function MomentCreatePage() {
   const { crewId } = useParams();
-  const navigate = useNavigate();
-  const { data: crewData } = useCrewWithFile(Number(crewId));
   const { mutateAsync: postMoment } = usePostMoment();
   const { mutateAsync: postMomentFile } = usePostMomentFile();
-  const { formMethods, handleFileInputClick, mergedRef } = useMomentRegister({
+
+  const initialData: MomentFormType = {
     name: '',
     image: undefined,
     capacity: undefined,
     meetAt: '',
     closedAt: '',
     place: undefined,
-  });
-
-  const { getValues } = formMethods;
-
-  const onSubmit = async () => {
-    const { name, image, capacity, closedAt, meetAt, place } = getValues();
-    if (!crewId || !capacity || !place) return;
-    const files = image ? [...image] : [];
-
-    const closedAtDate = new Date(closedAt);
-    const meetAtDate = new Date(meetAt);
-    const formattedClosedAt = formatLocalDateTime(closedAtDate);
-    const formattedMeetAt = formatLocalDateTime(meetAtDate);
-
-    const { momentId } = await postMoment({
-      crewId: Number(crewId),
-      momentName: name,
-      capacity,
-      closedAt: formattedClosedAt,
-      meetAt: formattedMeetAt,
-      place,
-    });
-
-    await postMomentFile({ momentId, files: files });
-    navigate(routePaths.momentDetail.getPath(Number(crewId), momentId));
   };
 
-  if (!crewData) return null;
+  const handleJSONSubmit = async (data: MomentCommonPayload) => {
+    const { momentId: returnedMomentId } = await postMoment({ crewId: Number(crewId), ...data });
+    return { momentId: returnedMomentId };
+  };
 
   return (
-    <TitledFormLayout handleSubmit={formMethods.handleSubmit(onSubmit)}>
-      <TitledFormLayout.Title>모먼트 생성 페이지</TitledFormLayout.Title>
-      <TitledFormLayout.Form>
-        <MomentForm
-          crewData={crewData}
-          formMethods={formMethods}
-          handleFileInputClick={handleFileInputClick}
-          mergedRef={mergedRef}
-        />
-      </TitledFormLayout.Form>
-      <TitledFormLayout.Button>생성하기</TitledFormLayout.Button>
-    </TitledFormLayout>
+    <MomentForm
+      initialData={initialData}
+      handleJSONSubmit={handleJSONSubmit}
+      handleFIleSUbmit={postMomentFile}
+      submitButtonText="생성하기"
+    />
   );
 }
 

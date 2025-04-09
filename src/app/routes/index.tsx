@@ -18,6 +18,7 @@ import FullLayout from '../layouts/FullLayout';
 import MomentPlacePage from '@/pages/MomentPlacePage';
 import MomentDetailPage from '@/pages/MomentDetailPage';
 import UpcomingMomentsPage from '@/pages/UpcomingMomentsPage';
+import MomentEditPage from '@/pages/MomentEditPage';
 
 export function Routing() {
   return (
@@ -35,6 +36,7 @@ export function Routing() {
           <Route path={routePaths.main} element={<Main />} />
           <Route path={routePaths.createCrew} element={<CrewCreatePage />} />
           <Route path={routePaths.momentCreate.path} element={<MomentCreatePage />} />
+          <Route path={routePaths.momentEdit.path} element={<MomentEditPage />} />
           <Route path={routePaths.momentDetail.path} element={<MomentDetailPage />} />
           <Route path={routePaths.upcomingMoment} element={<UpcomingMomentsPage />} />
         </Route>

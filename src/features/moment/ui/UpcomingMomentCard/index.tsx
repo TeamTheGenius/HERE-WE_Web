@@ -13,7 +13,7 @@ function UpcomingMomentCard({ data, size }: UpcomingMomentCardProps) {
   const navigate = useNavigate();
 
   const handleClickCard = (momentId: number, crewId: number) => {
-    navigate(routePaths.momentDetail.getPath(momentId, crewId));
+    navigate(routePaths.momentDetail.getPath(crewId, momentId));
   };
 
   const dDay = formatDDay(new Date(data.meetAt));

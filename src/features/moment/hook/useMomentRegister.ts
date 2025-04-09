@@ -11,7 +11,7 @@ export const useMomentRegister = (data: MomentFormType) => {
   });
 
   const { register, getValues } = formMethods;
-  const { handleFileInputClick, handleFileChange, mergedRef } = useFileInput(register, 'image');
+  const { handleFileInputClick, handleFileChange, mergedRef } = useFileInput(register, 'image', data?.image?.[0]);
 
   const isAfterNow = (value: string) => {
     const now = new Date();
