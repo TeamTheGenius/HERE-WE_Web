@@ -5,7 +5,7 @@ import MemberJoinedDate from '@/entities/member/ui/MemberJoinedDate';
 import MemberRole from '@/entities/member/ui/MemberRole';
 import Button from '@/shared/ui/Button';
 
-export type CrewMemberRoleType = '크루리더' | '크루원원';
+export type CrewMemberRoleType = '크루리더' | '크루원';
 
 export interface CrewMemberType {
   id: number;
@@ -39,7 +39,7 @@ function MemberList({ data, isCrewLeader, handleKick }: MemberListProps) {
                 <MemberJoinedDate>크루 참여 {el.date}</MemberJoinedDate>
               </div>
             </div>
-            {isCrewLeader && (
+            {isCrewLeader && el.role === '크루원' && (
               <Button variant="secondary" onClick={() => handleKick(el.nickname)}>
                 내보내기
               </Button>
