@@ -3,6 +3,7 @@ import { MomentPlace } from '../../model/types';
 import { useDeleteMomentPlace } from '../../query/useDeleteMomentPlace';
 import { useParams } from 'react-router-dom';
 import { PointerEvent } from 'react';
+import Icon from '@/shared/ui/Icon';
 
 interface MomentPlaceEditCardProps {
   handleClickPlace: (place: MomentPlace) => void;
@@ -24,8 +25,12 @@ function MomentPlaceEditCard({ data, handleClickPlace, handleGrabPlace }: Moment
     <PlaceCard>
       <PlaceCard.Header>
         <PlaceCard.Title>{placeName}</PlaceCard.Title>
-        <PlaceCard.Button onClick={() => handlePlaceDelete(index)}>삭제</PlaceCard.Button>
-        <PlaceCard.Button onPointerDown={(e) => handleGrabPlace(e, index)}>grab</PlaceCard.Button>
+        <PlaceCard.Buttons>
+          <PlaceCard.Button onClick={() => handlePlaceDelete(index)}>삭제</PlaceCard.Button>
+          <button onPointerDown={(e) => handleGrabPlace(e, index)}>
+            <Icon icon="grab" color="text-primary" iconSize="20" />
+          </button>
+        </PlaceCard.Buttons>
       </PlaceCard.Header>
       <PlaceCard.Body handleClick={() => handleClickPlace(data)}>
         {roadAddressName && <PlaceCard.Detail>도로명: {roadAddressName}</PlaceCard.Detail>}

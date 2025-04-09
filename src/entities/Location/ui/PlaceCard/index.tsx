@@ -22,6 +22,10 @@ function PlaceButton({ children, ...props }: ButtonHTMLAttributes<HTMLButtonElem
   );
 }
 
+function PlaceButtons({ children }: PropsWithChildren) {
+  return <div className={styles.buttons}>{children}</div>;
+}
+
 function PlaceBody({ as: Component = 'button', handleClick, children }: PlaceBodyProps) {
   const isButton = Component === 'button';
 
@@ -44,6 +48,7 @@ export const PlaceCard = Object.assign(Main, {
   Header: PlaceHeader,
   Body: PlaceBody,
   Title: PlaceTitle,
+  Buttons: PlaceButtons,
   Button: PlaceButton,
   Detail: PlaceDetail,
 });
