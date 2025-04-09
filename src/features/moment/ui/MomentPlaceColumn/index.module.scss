@@ -11,3 +11,8 @@
 .insertion-line--active {
   border-color: var(--border-brand);
 }
+
+.scroll-container {
+  height: 100%;
+  overflow-y: auto;
+}

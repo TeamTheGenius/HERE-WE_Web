@@ -21,7 +21,7 @@ function MomentPlaceAddCard({ handleClickPlace, data }: MomentPlaceAddCardProps)
     <PlaceCard>
       <PlaceCard.Header>
         <PlaceCard.Title>{placeName}</PlaceCard.Title>
-        <PlaceCard.Button handleClick={() => handlePlaceAdd(data)}>추가</PlaceCard.Button>
+        <PlaceCard.Button onClick={() => handlePlaceAdd(data)}>추가</PlaceCard.Button>
       </PlaceCard.Header>
       <PlaceCard.Body handleClick={() => handleClickPlace(data)}>
         {roadAddressName && <PlaceCard.Detail>도로명: {roadAddressName}</PlaceCard.Detail>}
