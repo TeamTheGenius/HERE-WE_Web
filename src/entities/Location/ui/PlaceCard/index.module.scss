@@ -19,6 +19,11 @@
   color: var(--text-primary);
 }
 
+.buttons {
+  display: flex;
+  gap: $space-xs;
+}
+
 .button {
   border: 1px solid var(--border-strong);
   border-radius: 0.8rem;

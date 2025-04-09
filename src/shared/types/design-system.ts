@@ -35,6 +35,7 @@ export type IconType =
   | 'send'
   | 'alarm'
   | 'arrow'
-  | 'upload';
+  | 'upload'
+  | 'grab';
 export type SocialIconType = 'kakao' | 'naver' | 'google';
 export type IconSizeType = '16' | '20' | '24' | '28';
