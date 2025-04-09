@@ -7,6 +7,7 @@ import MomentPlaceEditCard from '../MomentPlaceEditCard';
 import styles from './index.module.scss';
 import { cn } from '@/shared/lib/cn';
 import { PlaceCard } from '@/entities/Location/ui/PlaceCard';
+import { usePatchMomentPlace } from '../../query/usePatchMomentPlace';
 
 function InsertionLine({ isActive }: { isActive: boolean }) {
   return (
@@ -31,13 +32,13 @@ function MomentPlaceColumn({ handleClickPlace }: MomentPlaceColumnProps) {
   const { data } = useQuery({
     ...momentFeatureQueries.momentPlaces({ momentId: Number(momentId) }),
   });
+  const { mutateAsync: patchMomentPlace } = usePatchMomentPlace();
 
-  const [items, setItems] = useState<MomentPlace[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const [insertionIndex, setInsertionIndex] = useState<number | null>(null);
   const insertionIndexRef = useRef<number | null>(insertionIndex);
 
-  const draggedIdRef = useRef<number | null>(null);
+  const draggedIndexRef = useRef<number | null>(null);
   const ghostRef = useRef<HTMLElement | null>(null);
   const dragStartPosRef = useRef({ x: 0, y: 0 });
   const isDraggingRef = useRef(false);
@@ -51,14 +52,11 @@ function MomentPlaceColumn({ handleClickPlace }: MomentPlaceColumnProps) {
   }, [insertionIndex]);
 
   useEffect(() => {
-    if (data?.places) {
-      setItems(data.places);
-    }
-  }, [data]);
+    const places = data?.places;
+    if (!places) return;
 
-  useEffect(() => {
     const handlePointerMove = (event: globalThis.PointerEvent) => {
-      const draggedId = draggedIdRef.current;
+      const draggedId = draggedIndexRef.current;
       if (!draggedId) return;
 
       if (!isDraggingRef.current) {
@@ -128,42 +126,34 @@ function MomentPlaceColumn({ handleClickPlace }: MomentPlaceColumnProps) {
         return;
       }
 
-      for (let i = 0; i < items.length; i++) {
-        const { index } = items[i];
-        const child = itemRefs.current[index];
+      for (let i = 1; i < places.length; i++) {
+        const place = places[i];
+        const child = itemRefs.current[place.index];
         if (!child) continue;
 
         const rect = child.getBoundingClientRect();
         if (event.clientY < rect.top + rect.height / 2) {
-          setInsertionIndex(i);
+          setInsertionIndex(place.index);
           return;
         }
       }
 
-      setInsertionIndex(items.length);
+      const lastPlace = places[places.length - 1];
+      setInsertionIndex(lastPlace.index + 1);
     };
 
-    const handlePointerUp = () => {
+    const handlePointerUp = async () => {
       if (!isDraggingRef.current) return reset();
 
-      const draggedId = draggedIdRef.current;
-      const index = insertionIndexRef.current;
+      const draggedIndex = draggedIndexRef.current;
+      const insertionIndex = insertionIndexRef.current;
+      if (draggedIndex == null || insertionIndex == null) return reset();
 
-      if (draggedId == null || index == null) return reset();
-
-      const draggedIndex = items.findIndex((item) => item.index === draggedId);
-      if (draggedIndex === -1) return reset();
-
-      const updatedItems = [...items];
-      const [draggedItem] = updatedItems.splice(draggedIndex, 1);
-
-      let targetIndex = index;
-      if (draggedIndex < index) targetIndex--;
-
-      updatedItems.splice(targetIndex, 0, draggedItem);
-      setItems(updatedItems);
+      const newIndex = draggedIndex < insertionIndex ? insertionIndex - 1 : insertionIndex;
+      if (draggedIndex === newIndex) return reset();
 
       reset();
+      await patchMomentPlace({ momentId: Number(momentId), originalIndex: draggedIndex, newIndex: newIndex });
     };
 
     document.addEventListener('pointermove', handlePointerMove);
@@ -172,10 +162,10 @@ function MomentPlaceColumn({ handleClickPlace }: MomentPlaceColumnProps) {
       document.removeEventListener('pointermove', handlePointerMove);
       document.removeEventListener('pointerup', handlePointerUp);
     };
-  }, [items]);
+  }, [data?.places]);
 
   const reset = () => {
-    draggedIdRef.current = null;
+    draggedIndexRef.current = null;
     setInsertionIndex(null);
     isDraggingRef.current = false;
 
@@ -192,13 +182,15 @@ function MomentPlaceColumn({ handleClickPlace }: MomentPlaceColumnProps) {
 
   const handlePointerDown = (e: PointerEvent, index: number) => {
     e.preventDefault();
-    draggedIdRef.current = index;
+    draggedIndexRef.current = index;
     dragStartPosRef.current = { x: e.pageX, y: e.pageY };
   };
 
+  if (!data?.places || data.places.length === 0) return null;
+
   return (
     <div ref={containerRef} className={styles.scrollContainer}>
-      {items.map((place, i) => {
+      {data.places.map((place, i) => {
         // 첫 번째 요소 (만남 장소)
         if (i === 0) {
           return (
@@ -220,12 +212,12 @@ function MomentPlaceColumn({ handleClickPlace }: MomentPlaceColumnProps) {
         // 나머지 요소 (드래그 가능)
         return (
           <Fragment key={place.index}>
-            <InsertionLine isActive={insertionIndex === i} />
+            <InsertionLine isActive={insertionIndex === place.index} />
             <div ref={(el) => (itemRefs.current[place.index] = el)}>
               <MomentPlaceEditCard
                 data={place}
-                handleClickPlace={handleClickPlace}
-                handleGrabPlace={handlePointerDown}
+                handleClickPlace={() => handleClickPlace(place)}
+                handleGrabPlace={(e) => handlePointerDown(e, place.index)}
               />
             </div>
           </Fragment>
@@ -233,7 +225,7 @@ function MomentPlaceColumn({ handleClickPlace }: MomentPlaceColumnProps) {
       })}
 
       {/* 마지막 위치에 삽입선 */}
-      <InsertionLine isActive={insertionIndex === items.length} />
+      <InsertionLine isActive={insertionIndex === data.places[data.places.length - 1].index + 1} />
     </div>
   );
 }
