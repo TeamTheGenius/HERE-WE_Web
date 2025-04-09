@@ -1,25 +1,18 @@
-import { FormEvent, useRef } from 'react';
+import { FormEvent, ReactNode, useRef } from 'react';
 import styles from './index.module.scss';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { locationListQueries } from '../../query/locationListQueries';
 import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll';
 import { TextInput } from '@/shared/ui/TextInput';
 import { Location } from '@/entities/Location/model/types';
-import { PlaceCard } from '@/entities/Location/ui/PlaceCard';
 
 export interface LocationSearchFormProps {
-  handleAddLocation: (location: Location) => void;
-  handleClickLocation: (location: Location) => void;
   handleSubmitKeyword: (keyword: string) => void;
   keyword: string;
+  children: (location: Location) => ReactNode;
 }
 
-function LocationSearchForm({
-  handleAddLocation,
-  keyword,
-  handleSubmitKeyword,
-  handleClickLocation,
-}: LocationSearchFormProps) {
+function LocationSearchForm({ keyword, handleSubmitKeyword, children }: LocationSearchFormProps) {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchResultRef = useRef<HTMLDivElement>(null);
 
@@ -60,22 +53,11 @@ function LocationSearchForm({
         {data &&
           data.pages.map((page) =>
             page.content.map((location) => {
-              const { placeName, roadAddressName, addressName, phone, id } = location;
               return (
-                <article key={id}>
-                  <PlaceCard>
-                    <PlaceCard.Header>
-                      <PlaceCard.Title>{placeName}</PlaceCard.Title>
-                      <PlaceCard.Button handleClick={() => handleAddLocation(location)}>추가</PlaceCard.Button>
-                    </PlaceCard.Header>
-                    <PlaceCard.Body handleClick={() => handleClickLocation(location)}>
-                      {roadAddressName && <PlaceCard.Detail>도로명: {roadAddressName}</PlaceCard.Detail>}
-                      {addressName && <PlaceCard.Detail>지번: {addressName}</PlaceCard.Detail>}
-                      {phone && <PlaceCard.Detail>연락처: {phone}</PlaceCard.Detail>}
-                    </PlaceCard.Body>
-                  </PlaceCard>
+                <>
+                  {children(location)}
                   <u className={styles.underline} />
-                </article>
+                </>
               );
             }),
           )}

@@ -2,6 +2,7 @@ import { Modal } from '@/shared/ui/Modal';
 import { useState } from 'react';
 import { Location } from '@/entities/Location/model/types';
 import LocationSearchForm from '../LocationSearchForm';
+import { Card } from '@/shared/ui/Card';
 
 export interface LocationSelectModalProps {
   isOpen: boolean;
@@ -25,11 +26,23 @@ function LocationSelectModal({ isOpen, closeModal, handleSelectLocation }: Locat
       <Modal.Overlay handleClick={handleCloseModal} />
       <Modal.Title>장소 검색하기</Modal.Title>
       <Modal.Content>
-        <LocationSearchForm
-          keyword={keyword}
-          handleSubmitKeyword={handleSubmitKeyword}
-          handleSelectLocation={handleSelectLocation}
-        />
+        <LocationSearchForm keyword={keyword} handleSubmitKeyword={handleSubmitKeyword}>
+          {(location) => {
+            const { id, placeName, roadAddressName, addressName, phone } = location;
+            return (
+              <article key={id}>
+                <Card handleClick={() => handleSelectLocation(location)}>
+                  <Card.Text>
+                    <Card.Detail>{placeName}</Card.Detail>
+                    <Card.Metadata>도로명: {roadAddressName}</Card.Metadata>
+                    <Card.Metadata>지번: {addressName}</Card.Metadata>
+                    <Card.Metadata>연락처: {phone}</Card.Metadata>
+                  </Card.Text>
+                </Card>
+              </article>
+            );
+          }}
+        </LocationSearchForm>
       </Modal.Content>
       <Modal.RightButton onClick={handleCloseModal}>닫기</Modal.RightButton>
     </Modal>
