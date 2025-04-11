@@ -1,8 +1,8 @@
-import ProfileImage from '@/entities/user/ui/ProfileImage';
 import Icon from '@/shared/ui/Icon';
 import styles from './index.module.scss';
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 import { IMAGE_FORMAT } from '@/shared/constants/fileValidation';
+import ProfileImageBase from '@/entities/user/ui/ProfileImageBase';
 
 export interface ProfileImageInputProps {
   previewImage: string;
@@ -15,7 +15,7 @@ export interface ProfileImageInputProps {
 function ProfileImageInput({ previewImage, handleInputClick, mergedRef, register, error }: ProfileImageInputProps) {
   return (
     <button type="button" onClick={handleInputClick} className={styles.editButton}>
-      <ProfileImage src={previewImage} size="large" />
+      <ProfileImageBase src={previewImage} size="large" />
       <div className={styles.editIcon}>
         <Icon icon="pencil" color="text-secondary" iconSize="20" />
       </div>

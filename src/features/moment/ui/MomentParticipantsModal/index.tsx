@@ -1,11 +1,11 @@
 import { Modal } from '@/shared/ui/Modal';
-import ProfileImage from '@/entities/user/ui/ProfileImage';
 import { ProfileNickname } from '@/entities/user/ui/ProfileNickname';
 import styles from './index.module.scss';
 import { useParams } from 'react-router-dom';
 import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { momentFeatureQueries } from '../../query/momentFeatureQueries';
+import ProfileImageByUserId from '@/entities/user/ui/ProfileImageByUserId';
 interface MomentParticipantsModalProps {
   isOpen: boolean;
   closeModal: () => void;
@@ -36,7 +36,7 @@ function MomentParticipantsModal({ isOpen, closeModal }: MomentParticipantsModal
           {data.pages.map((page) =>
             page.content.map((user) => (
               <li key={user.userId} className={styles.participnatItem}>
-                <ProfileImage size="medium" userId={user.userId} alt="프로필 이미지" />
+                <ProfileImageByUserId size="medium" userId={user.userId} alt="프로필 이미지" />
                 <ProfileNickname size="md">{user.name}</ProfileNickname>
               </li>
             )),
