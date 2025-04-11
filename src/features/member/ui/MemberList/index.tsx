@@ -1,9 +1,9 @@
-import ProfileImage from '@/entities/user/ui/ProfileImage';
 import styles from './index.module.scss';
 import { ProfileNickname } from '@/entities/user/ui/ProfileNickname';
 import MemberJoinedDate from '@/entities/member/ui/MemberJoinedDate';
 import MemberRole from '@/entities/member/ui/MemberRole';
 import Button from '@/shared/ui/Button';
+import ProfileImageBase from '@/entities/user/ui/ProfileImageBase';
 
 export type CrewMemberRoleType = '크루리더' | '크루원';
 
@@ -28,7 +28,7 @@ function MemberList({ data, isCrewLeader, handleKick }: MemberListProps) {
         {data.map((el) => (
           <li className={styles.memberItem} key={el.id}>
             <div className={styles.informationContainer}>
-              <ProfileImage size="medium" src={el.image} />
+              <ProfileImageBase size="medium" src={el.image} />
               <div className={styles.textInformationContainer}>
                 <div className={styles.textCoreInformationContainer}>
                   <ProfileNickname size="md" className={styles.textInformationNickname}>
