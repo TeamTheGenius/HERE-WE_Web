@@ -4,12 +4,15 @@ import { useParams } from 'react-router-dom';
 import { useMomentDetailWithFile } from '@/entities/moment/query/useMomentDetailWithFile';
 import { usePostMomentJoin } from '../../query/usePostmomentJoin';
 import { useDeleteMomentJoin } from '../../query/useDeleteMomentJoin';
+import { useModal } from '@/shared/hooks/useModal';
+import MomentParticipantsModal from '../MomentParticipantsModal';
 
 function MomentDetailHeader() {
   const { momentId } = useParams();
   const { data: momentDetail } = useMomentDetailWithFile(Number(momentId));
   const { mutateAsync: joinMoment } = usePostMomentJoin();
   const { mutateAsync: cancelMomentJoin } = useDeleteMomentJoin();
+  const { isOpen, closeModal, openModal } = useModal();
 
   if (!momentDetail) return null;
 
@@ -54,15 +57,24 @@ function MomentDetailHeader() {
   const buttonProps = getButtonProps(momentDetail.isJoined, momentDetail.isClosed);
 
   return (
-    <div className={styles.container}>
-      <h2 className={styles.title}>{momentDetail.name}</h2>
-      <div className={styles.buttons}>
-        <Button variant="secondary" icon="people-stroke" text={`${momentDetail.participantCount}명`} />
-        <Button variant={buttonProps.variant} onClick={buttonProps?.onClick} disabled={buttonProps?.disabled}>
-          {buttonProps?.text}
-        </Button>
+    <>
+      <MomentParticipantsModal isOpen={isOpen} closeModal={closeModal} />
+
+      <div className={styles.container}>
+        <h2 className={styles.title}>{momentDetail.name}</h2>
+        <div className={styles.buttons}>
+          <Button
+            variant="secondary"
+            icon="people-stroke"
+            onClick={openModal}
+            text={`${momentDetail.participantCount}명`}
+          />
+          <Button variant={buttonProps.variant} onClick={buttonProps?.onClick} disabled={buttonProps?.disabled}>
+            {buttonProps?.text}
+          </Button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

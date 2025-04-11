@@ -1,0 +1,15 @@
+@use '@/shared/styles/global' as *;
+
+.participant-list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+  max-height: 24rem;
+  overflow: auto;
+}
+
+.participnat-item {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+}
