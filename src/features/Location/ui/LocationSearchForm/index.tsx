@@ -14,18 +14,16 @@ export interface LocationSearchFormProps {
 
 function LocationSearchForm({ keyword, handleSubmitKeyword, children }: LocationSearchFormProps) {
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const searchResultRef = useRef<HTMLDivElement>(null);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
     ...locationListQueries.searchLocationWithInfiniteScroll({ page: 0, size: 15, keyword: keyword }),
     enabled: keyword.trim().length > 0,
   });
 
-  const observerRef = useInfiniteScroll({
+  const { rootRef, targetRef } = useInfiniteScroll({
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    root: searchResultRef.current,
   });
 
   const handleSearchLocation = (e: FormEvent<HTMLFormElement>) => {
@@ -49,7 +47,7 @@ function LocationSearchForm({ keyword, handleSubmitKeyword, children }: Location
         </TextInput>
       </form>
 
-      <div className={styles.searchResult} ref={searchResultRef}>
+      <div className={styles.searchResult} ref={rootRef}>
         {data &&
           data.pages.map((page) =>
             page.content.map((location) => {
@@ -62,7 +60,7 @@ function LocationSearchForm({ keyword, handleSubmitKeyword, children }: Location
             }),
           )}
 
-        <div style={{ height: '1px' }} ref={observerRef} />
+        <div style={{ height: '1px' }} ref={targetRef} />
       </div>
     </div>
   );
