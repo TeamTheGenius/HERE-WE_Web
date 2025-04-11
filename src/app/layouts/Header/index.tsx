@@ -1,7 +1,5 @@
 import Logo from '@/shared/ui/Logo';
 import styles from './index.module.scss';
-import ProfileImage from '@/entities/user/ui/ProfileImage';
-import fallbackSource from '@/shared/assets/basic-profile-image-gray.png';
 import Icon from '@/shared/ui/Icon';
 import { useContext } from 'react';
 import { ThemeContext } from '@/shared/contexts/ThemeContext';
@@ -16,9 +14,9 @@ function Header() {
         <button onClick={themeContext?.toggleTheme} className={styles.themeButton}>
           임시 테마 버튼
         </button>
-        <button>
+        {/*         <button>
           <ProfileImage size="small" src={fallbackSource} />
-        </button>
+        </button> */}
         <button>
           <Icon iconSize="28" icon="alarm" color="text-secondary" />
         </button>
