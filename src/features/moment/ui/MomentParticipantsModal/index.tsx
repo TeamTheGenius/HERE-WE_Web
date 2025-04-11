@@ -1,37 +1,47 @@
 import { Modal } from '@/shared/ui/Modal';
-import temp from '@/shared/assets/temp.jpg';
 import ProfileImage from '@/entities/user/ui/ProfileImage';
 import { ProfileNickname } from '@/entities/user/ui/ProfileNickname';
 import styles from './index.module.scss';
+import { useParams } from 'react-router-dom';
+import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { momentFeatureQueries } from '../../query/momentFeatureQueries';
 interface MomentParticipantsModalProps {
   isOpen: boolean;
   closeModal: () => void;
 }
 
-const mock = [
-  {
-    nickname: 'test1',
-    image: temp,
-  },
-  {
-    nickname: 'test2',
-    image: temp,
-  },
-];
-
 function MomentParticipantsModal({ isOpen, closeModal }: MomentParticipantsModalProps) {
+  const { momentId } = useParams();
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
+    ...momentFeatureQueries.participantsInfiniteJSON({ page: 0, size: 6, momentId: Number(momentId) }),
+    enabled: isOpen,
+  });
+
+  const { rootRef, targetRef } = useInfiniteScroll<HTMLUListElement, HTMLDivElement>({
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  });
+
+  if (!data?.pages) return null;
+
   return (
     <Modal isOpen={isOpen}>
       <Modal.Overlay handleClick={closeModal} />
       <Modal.Title>참여자 목록</Modal.Title>
       <Modal.Content>
-        <ul className={styles.participantList}>
-          {mock.map((item, index) => (
-            <li key={index} className={styles.participnatItem}>
-              <ProfileImage size="medium" src={item.image} alt="프로필 이미지" />
-              <ProfileNickname size="md">{item.nickname}</ProfileNickname>
-            </li>
-          ))}
+        <ul className={styles.participantList} ref={rootRef}>
+          {data.pages.map((page) =>
+            page.content.map((user) => (
+              <li key={user.userId} className={styles.participnatItem}>
+                <ProfileImage size="medium" userId={user.userId} alt="프로필 이미지" />
+                <ProfileNickname size="md">{user.name}</ProfileNickname>
+              </li>
+            )),
+          )}
+          <div style={{ height: '1px' }} ref={targetRef} />
         </ul>
       </Modal.Content>
       <Modal.RightButton onClick={closeModal}>확인</Modal.RightButton>
