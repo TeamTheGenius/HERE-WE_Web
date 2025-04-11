@@ -2,43 +2,46 @@ import { useEffect, useRef } from 'react';
 
 interface UseInfiniteScrollProps {
   fetchNextPage: () => void;
-  hasNextPage: boolean;
+  hasNextPage: boolean | undefined;
   isFetchingNextPage: boolean;
-  root?: Element | Document | null;
+  threshold?: number;
+  rootMargin?: string;
 }
 
-export const useInfiniteScroll = ({
-  fetchNextPage,
-  hasNextPage,
-  isFetchingNextPage,
-  root = null,
-}: UseInfiniteScrollProps) => {
-  const observerRef = useRef<HTMLDivElement>(null);
+export function useInfiniteScroll<
+  RootElement extends HTMLElement = HTMLDivElement,
+  TargetElement extends HTMLElement = HTMLDivElement,
+>(props: UseInfiniteScrollProps) {
+  const { fetchNextPage, hasNextPage, isFetchingNextPage, threshold = 0.3, rootMargin = '0px' } = props;
+
+  const rootRef = useRef<RootElement>(null);
+  const targetRef = useRef<TargetElement>(null);
 
   useEffect(() => {
-    const handleObserver = (entries: IntersectionObserverEntry[]) => {
-      const [target] = entries;
-      if (target.isIntersecting && hasNextPage && !isFetchingNextPage) {
-        fetchNextPage();
-      }
-    };
+    const target = targetRef.current;
+    const root = rootRef.current;
 
-    const element = observerRef.current;
-    if (!element) return;
+    if (!target) return;
 
-    const option = {
-      root,
-      rootMargin: '0px',
-      threshold: 0.3,
-    };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
+          fetchNextPage();
+        }
+      },
+      {
+        root,
+        rootMargin,
+        threshold,
+      },
+    );
 
-    const observer = new IntersectionObserver(handleObserver, option);
-    observer.observe(element);
+    observer.observe(target);
 
     return () => {
-      observer.unobserve(element);
+      observer.disconnect();
     };
-  }, [fetchNextPage, hasNextPage, isFetchingNextPage, root]);
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage, threshold, rootMargin]);
 
-  return observerRef;
-};
+  return { rootRef, targetRef };
+}
