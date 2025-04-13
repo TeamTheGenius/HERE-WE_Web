@@ -1,24 +1,16 @@
 @use '@/shared/styles/global.scss' as *;
 
 .navigation-bar {
-  position: fixed;
-  top: $layout-header-height;
-  left: 0;
-  width: $layout-nav-width;
+  width: 8rem;
   height: 100%;
   display: flex;
   flex-direction: column;
   border-right: 1px solid var(--border-default);
   background-color: var(--surface-default);
-  z-index: 10;
 }
 
 @media (max-width: $media-tablet) {
   .navigation-bar {
-    top: auto;
-    bottom: 0;
-    left: 0;
-    right: 0;
     width: 100%;
     height: auto;
     flex-direction: row;

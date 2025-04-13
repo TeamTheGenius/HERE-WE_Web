@@ -1,0 +1,36 @@
+@use '@/shared/styles/global.scss' as *;
+
+.header-layout {
+  display: grid;
+  grid-template-rows: 5.5rem 1fr;
+  height: 100%;
+  overflow: hidden;
+}
+
+.navigation-layout {
+  display: grid;
+  grid-template-columns: 8rem 1fr;
+  grid-template-areas: 'navigation content';
+  overflow: hidden;
+}
+
+.navigation {
+  grid-area: navigation;
+}
+
+.content {
+  grid-area: content;
+  padding: $space-md;
+  overflow-y: auto;
+  height: 100%;
+}
+
+@media (max-width: $media-tablet) {
+  .navigation-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 6rem;
+    grid-template-areas:
+      'content'
+      'navigation';
+  }
+}

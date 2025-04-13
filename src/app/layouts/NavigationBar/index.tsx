@@ -2,8 +2,13 @@ import NavitationItem from '@/app/layouts/NavigationItem';
 import styles from './index.module.scss';
 import { useParams } from 'react-router-dom';
 import { routePaths } from '@/app/routes/path';
+import { cn } from '@/shared/lib/cn';
 
-function NavigationBar() {
+interface NavigationBarProps {
+  className?: string;
+}
+
+function NavigationBar({ className }: NavigationBarProps) {
   const { crewId } = useParams();
 
   const getRoutePath = (url: string) => {
@@ -11,7 +16,7 @@ function NavigationBar() {
   };
 
   return (
-    <nav className={styles.navigationBar}>
+    <nav className={cn(styles.navigationBar, className)}>
       <NavitationItem icon="home" title="홈" to={getRoutePath(routePaths.home)} />
       <NavitationItem icon="people" title="크루원" to={getRoutePath(routePaths.member)} />
       <NavitationItem icon="chat" title="채팅" to={getRoutePath(routePaths.chat)} />
