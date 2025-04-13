@@ -1,13 +1,26 @@
 import clsx from 'clsx';
 import styles from './index.module.scss';
+import { ElementType } from 'react';
 
 interface LogoProps {
   haveIntroduce?: boolean;
   size: 'lg' | 'md';
+  as?: ElementType;
+  handleClick?: () => void;
 }
 
-function Logo({ haveIntroduce = false, size }: LogoProps) {
-  const logo = <h1 className={clsx({ [styles.lgLogo]: size === 'lg', [styles.mdLogo]: size === 'md' })}>HERE:WE</h1>;
+function Logo({ haveIntroduce = false, size, as: Tag = 'h1', handleClick }: LogoProps) {
+  const logo = (
+    <Tag
+      className={clsx({
+        [styles.lgLogo]: size === 'lg',
+        [styles.mdLogo]: size === 'md',
+      })}
+      onClick={handleClick}
+    >
+      HERE:WE
+    </Tag>
+  );
 
   return haveIntroduce ? (
     <hgroup className={styles.wrapper}>
