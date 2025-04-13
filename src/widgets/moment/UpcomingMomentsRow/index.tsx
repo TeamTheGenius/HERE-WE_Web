@@ -9,7 +9,7 @@ function UpcomingMomentsRow() {
 
   return (
     <ScrollableRow>
-      {upcomingMomentsData?.content.map((data) => <UpcomingMomentCard size="md" data={data} />)}
+      {upcomingMomentsData?.content.map((data) => <UpcomingMomentCard key={data.momentId} size="md" data={data} />)}
     </ScrollableRow>
   );
 }

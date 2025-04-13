@@ -26,7 +26,7 @@ function UpcomingMomentsPage() {
           <Pagination.Content>
             <GridContainer>
               {content.map((moment) => (
-                <UpcomingMomentCard size="full" data={moment} />
+                <UpcomingMomentCard key={moment.momentId} size="full" data={moment} />
               ))}
             </GridContainer>
           </Pagination.Content>
