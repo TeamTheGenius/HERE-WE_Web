@@ -3,13 +3,20 @@ import styles from './index.module.scss';
 import Icon from '@/shared/ui/Icon';
 import { useContext } from 'react';
 import { ThemeContext } from '@/shared/contexts/ThemeContext';
+import { useNavigate } from 'react-router-dom';
+import { routePaths } from '@/app/routes/path';
 
 function Header() {
   const themeContext = useContext(ThemeContext);
+  const navigate = useNavigate();
+
+  const handleClickLogo = () => {
+    navigate(routePaths.main);
+  };
 
   return (
     <header className={styles.header}>
-      <Logo size="md" />
+      <Logo as="button" handleClick={handleClickLogo} size="md" />
       <div className={styles.headerUserActions}>
         <button onClick={themeContext?.toggleTheme} className={styles.themeButton}>
           임시 테마 버튼
