@@ -2,10 +2,9 @@ import { useCrewMembersWithFile } from '@/features/member/query/useCrewMembersWi
 import MemberList, { CrewMemberRoleType, CrewMemberType } from '@/features/member/ui/MemberList';
 import temp from '@/shared/assets/temp.jpg';
 import { usePagination } from '@/shared/hooks/usePagination';
-import Pagination from '@/shared/ui/Pagination';
+import { Pagination } from '@/shared/ui/Pagination';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import styles from './index.module.scss';
 import { useDeleteCrewMember } from '@/entities/member/query/useDeleteCrewMember';
 import { useModal } from '@/shared/hooks/useModal';
 import MemberKickModal from '@/features/member/ui/MemberKickModal';
@@ -51,16 +50,16 @@ function MemberListSection() {
   return (
     <>
       <MemberKickModal isOpen={isOpen} handleClose={closeModal} handleSubmit={handleKick} nickname={selectedNickname} />
-      <MemberList
-        data={[...transformedData]}
-        isCrewLeader={crewProfile.role === 'LEADER'}
-        handleKick={handleKickModalOpen}
-      />
-      {crewMemberList.page.totalPages > 0 && (
-        <div className={styles.pagination}>
-          <Pagination paginationTools={paginationTools} />
-        </div>
-      )}
+      <Pagination>
+        <Pagination.Content>
+          <MemberList
+            data={[...transformedData]}
+            isCrewLeader={crewProfile.role === 'LEADER'}
+            handleKick={handleKickModalOpen}
+          />
+        </Pagination.Content>
+        <Pagination.Controller paginationTools={paginationTools} isVisible={crewMemberList.page.totalPages > 0} />
+      </Pagination>
     </>
   );
 }

@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Pagination from '.';
+import { Pagination } from '.';
 import { usePagination } from '@/shared/hooks/usePagination';
 
-const meta: Meta<typeof Pagination> = {
+const meta: Meta<typeof Pagination.Controller> = {
   title: 'shared/Pagination',
-  component: Pagination,
+  component: Pagination.Controller,
   tags: ['autodocs'],
   parameters: {
     docs: {
@@ -49,7 +49,7 @@ const meta: Meta<typeof Pagination> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof Pagination>;
+type Story = StoryObj<typeof Pagination.Controller>;
 
 // 기본 사용 예제
 export const Default: Story = {
@@ -63,7 +63,7 @@ export const Default: Story = {
   render: (args) => {
     const paginationTools = usePagination(1, 22, args.blockSize); // blockSize 반영
 
-    return <Pagination {...args} paginationTools={paginationTools} />;
+    return <Pagination.Controller {...args} paginationTools={paginationTools} />;
   },
 };
 
@@ -79,6 +79,6 @@ export const CustomLabels: Story = {
   render: (args) => {
     const paginationTools = usePagination(1, 25, args.blockSize);
 
-    return <Pagination {...args} paginationTools={paginationTools} />;
+    return <Pagination.Controller {...args} paginationTools={paginationTools} />;
   },
 };

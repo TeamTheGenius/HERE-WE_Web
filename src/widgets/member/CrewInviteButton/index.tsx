@@ -16,6 +16,7 @@ function CrewInviteButton() {
       {crewProfile?.role === 'LEADER' && (
         <>
           <CrewInviteModal handleClose={closeModal} isOpen={isOpen} />
+
           <Button className={styles.inviteButton} onClick={openModal}>
             + 초대
           </Button>

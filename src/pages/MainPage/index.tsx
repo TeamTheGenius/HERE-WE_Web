@@ -11,7 +11,7 @@ function Main() {
         <UpcomingMomentHeader />
         <UpcomingMomentsRow />
       </aside>
-      <main className={styles.container}>
+      <main className={styles.listContainer}>
         <ParticipatingCrewHeader />
         <ParticipatingCrewList />
       </main>

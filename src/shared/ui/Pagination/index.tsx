@@ -3,6 +3,14 @@ import styles from './index.module.scss';
 import { cn } from '@/shared/lib/cn';
 import { PaginationHookReturn } from '@/shared/hooks/usePagination';
 
+function Main({ children }: PropsWithChildren) {
+  return <div className={styles.paginationContainer}>{children}</div>;
+}
+
+function PaginationContent({ children }: PropsWithChildren) {
+  return <div>{children}</div>;
+}
+
 interface PaginationButtonProps extends PropsWithChildren {
   isActive?: boolean;
   isDisAbled?: boolean;
@@ -37,14 +45,16 @@ interface PaginationProps {
   prevPageChar?: string;
   blockSize?: number;
   paginationTools: PaginationHookReturn;
+  isVisible?: boolean;
 }
 
-function Pagination({
+function PaginationController({
   nextBlockChar = '...',
   prevBlockChar = '...',
   nextPageChar = '>',
   prevPageChar = '<',
   paginationTools,
+  isVisible = true,
 }: PaginationProps) {
   const {
     visiblePages,
@@ -58,8 +68,10 @@ function Pagination({
     handleClickPage,
   } = paginationTools;
 
+  if (!isVisible) return null;
+
   return (
-    <ul className={styles.pagination}>
+    <ul className={styles.paginationController}>
       <PaginationButton key="prevPage" isDisAbled={currentPage === minPage} handleClick={handleClickPrevPage}>
         {prevPageChar}
       </PaginationButton>
@@ -92,4 +104,7 @@ function Pagination({
   );
 }
 
-export default Pagination;
+export const Pagination = Object.assign(Main, {
+  Content: PaginationContent,
+  Controller: PaginationController,
+});
