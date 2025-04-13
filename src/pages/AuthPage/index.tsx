@@ -11,7 +11,10 @@ function AuthPage() {
   useEffect(() => {
     const requestAuthorization = async () => {
       if (userId) await postAuth(userId);
-      navigate(routePaths.main);
+      const redirectURL = sessionStorage.getItem('redirectAfterOAuth');
+      sessionStorage.removeItem('redirectAfterOAuth');
+      if (redirectURL) navigate(redirectURL);
+      else navigate(routePaths.main);
     };
     requestAuthorization();
   }, [userId]);
