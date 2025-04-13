@@ -4,12 +4,17 @@ import { useState } from 'react';
 import LocationSearchForm from '@/features/Location/ui/LocationSearchForm';
 import MomentPlaceColumn from '@/features/moment/ui/MomentPlaceColumn';
 import MomentPlaceAddCard from '@/features/moment/ui/MomentPlaceAddCard';
+import { useQuery } from '@tanstack/react-query';
+import { momentQueries } from '@/entities/moment/query/momentQueries';
+import { useParams } from 'react-router-dom';
 
 type Tab = '방문 장소' | '검색';
 
 function MomentPlacePage() {
-  const [currentTab, setCurrentTab] = useState<Tab>('검색');
+  const { momentId } = useParams();
+  const [currentTab, setCurrentTab] = useState<Tab>('방문 장소');
   const [keyword, setKeyword] = useState<string>('');
+  const { data: momentDetail } = useQuery({ ...momentQueries.momentJSON({ momentId: Number(momentId) }) });
 
   const handleSubmitKeyword = (keyword: string) => {
     setKeyword(keyword);
@@ -17,15 +22,15 @@ function MomentPlacePage() {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>피자 먹으러 가자</h2>
+      <h2 className={styles.title}>{momentDetail?.name}</h2>
       <main className={styles.contentContainer}>
         <div className={styles.locationSection}>
           <ul className={styles.tabs}>
-            <li onClick={() => setCurrentTab('검색')} className={styles.tabItem}>
-              <button>검색</button>
-            </li>
             <li className={styles.tabItem}>
               <button onClick={() => setCurrentTab('방문 장소')}>방문 장소</button>
+            </li>
+            <li onClick={() => setCurrentTab('검색')} className={styles.tabItem}>
+              <button>검색</button>
             </li>
           </ul>
           <div className={styles.tabContent}>
