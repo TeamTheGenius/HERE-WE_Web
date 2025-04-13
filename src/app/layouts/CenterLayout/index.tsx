@@ -1,11 +1,10 @@
 import { Outlet } from 'react-router-dom';
-import { cn } from '@/shared/lib/cn';
 import styles from './index.module.scss';
 
 function CenterLayout() {
   return (
-    <div className={cn('flex justify-center items-center', styles.wrapper)}>
-      <div className={cn('w-full p-xs', styles.container)}>
+    <div className={styles.wrapper}>
+      <div className={styles.container}>
         <Outlet />
       </div>
     </div>
