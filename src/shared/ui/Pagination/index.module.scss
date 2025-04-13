@@ -1,8 +1,16 @@
 @use '@/shared/styles/global' as *;
 
-.pagination {
+.pagination-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.pagination__controller {
   display: flex;
   gap: $space-xs;
+  justify-content: center;
 }
 
 .pagination__button {

@@ -2,7 +2,7 @@ import { useUpcomingMomentsWithFile } from '@/features/moment/query/useUpcomingM
 import UpcomingMomentCard from '@/features/moment/ui/UpcomingMomentCard';
 import { usePagination } from '@/shared/hooks/usePagination';
 import GridContainer from '@/shared/ui/GridContainer';
-import Pagination from '@/shared/ui/Pagination';
+import { Pagination } from '@/shared/ui/Pagination';
 import { TitledLayout } from '@/shared/ui/TitledLayout';
 import { useEffect } from 'react';
 
@@ -22,12 +22,19 @@ function UpcomingMomentsPage() {
     <TitledLayout>
       <TitledLayout.Title>다가오는 모먼트</TitledLayout.Title>
       <TitledLayout.Content>
-        <GridContainer>
-          {content.map((moment) => (
-            <UpcomingMomentCard size="full" data={moment} />
-          ))}
-        </GridContainer>
-        {upcomingMomentsData.page.totalPages > 0 && <Pagination paginationTools={paginationTools} />}
+        <Pagination>
+          <Pagination.Content>
+            <GridContainer>
+              {content.map((moment) => (
+                <UpcomingMomentCard size="full" data={moment} />
+              ))}
+            </GridContainer>
+          </Pagination.Content>
+          <Pagination.Controller
+            paginationTools={paginationTools}
+            isVisible={upcomingMomentsData.page.totalPages > 0}
+          ></Pagination.Controller>
+        </Pagination>
       </TitledLayout.Content>
     </TitledLayout>
   );

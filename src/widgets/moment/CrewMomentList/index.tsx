@@ -2,8 +2,7 @@ import temp from '@/shared/assets/temp.jpg';
 import { usePagination } from '@/shared/hooks/usePagination';
 import { Card } from '@/shared/ui/Card';
 import GridContainer from '@/shared/ui/GridContainer';
-import Pagination from '@/shared/ui/Pagination';
-import styles from './index.module.scss';
+import { Pagination } from '@/shared/ui/Pagination';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useCrewMomentListWithFile } from '@/features/moment/query/useCrewMomentListWithFile';
 import { useEffect } from 'react';
@@ -57,33 +56,31 @@ function CrewMomentList() {
   };
 
   return (
-    <>
-      <GridContainer>
-        {content.map((moment) => {
-          const { text: tagText, variant: tagVariant } = getTagProps(moment.isJoined, moment.isClosed);
-          return (
-            <Card key={moment.momentId} handleClick={() => handleClickCard(moment.momentId)}>
-              <Card.Image src={moment.file?.source || temp} alt="크루 썸네일" />
-              <Card.Tag variant={tagVariant}>{tagText}</Card.Tag>
-              <Card.Text>
-                <Card.Title>{moment.name}</Card.Title>
-                <Card.Detail>{moment.meetAt}</Card.Detail>
-                <Card.Detail>{moment.meetingPlaceName}</Card.Detail>
-                <Card.Metadata>
-                  참여 {moment.participantCount}/{moment.capacity}명
-                </Card.Metadata>
-                <Card.Metadata>마감 {moment.closedAt}</Card.Metadata>
-              </Card.Text>
-            </Card>
-          );
-        })}
-      </GridContainer>
-      {crewMomentListData.page.totalPages > 0 && (
-        <div className={styles.pagination}>
-          <Pagination paginationTools={paginationTools} />
-        </div>
-      )}
-    </>
+    <Pagination>
+      <Pagination.Content>
+        <GridContainer>
+          {content.map((moment) => {
+            const { text: tagText, variant: tagVariant } = getTagProps(moment.isJoined, moment.isClosed);
+            return (
+              <Card key={moment.momentId} handleClick={() => handleClickCard(moment.momentId)}>
+                <Card.Image src={moment.file?.source || temp} alt="크루 썸네일" />
+                <Card.Tag variant={tagVariant}>{tagText}</Card.Tag>
+                <Card.Text>
+                  <Card.Title>{moment.name}</Card.Title>
+                  <Card.Detail>{moment.meetAt}</Card.Detail>
+                  <Card.Detail>{moment.meetingPlaceName}</Card.Detail>
+                  <Card.Metadata>
+                    참여 {moment.participantCount}/{moment.capacity}명
+                  </Card.Metadata>
+                  <Card.Metadata>마감 {moment.closedAt}</Card.Metadata>
+                </Card.Text>
+              </Card>
+            );
+          })}
+        </GridContainer>
+      </Pagination.Content>
+      <Pagination.Controller paginationTools={paginationTools} isVisible={crewMomentListData.page.totalPages > 0} />
+    </Pagination>
   );
 }
 

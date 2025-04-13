@@ -1,7 +1,6 @@
 import { Card } from '@/shared/ui/Card';
 import { usePagination } from '@/shared/hooks/usePagination';
-import Pagination from '@/shared/ui/Pagination';
-import styles from './index.module.scss';
+import { Pagination } from '@/shared/ui/Pagination';
 import GridContainer from '@/shared/ui/GridContainer';
 import { useEffect } from 'react';
 import { useMyCrewsWithFile } from '@/features/crew/hook/useMyCrewsWithFile';
@@ -26,26 +25,24 @@ function ParticipatingCrewList() {
   const { content } = crewListData;
 
   return (
-    <div className={styles.crewList}>
-      <GridContainer>
-        {content.map((crew) => {
-          return (
-            <Card key={crew.crewId} handleClick={() => handleClickCard(crew.crewId)}>
-              <Card.Image src={crew.file?.source || temp} alt="크루 썸네일" />
-              <Card.Text>
-                <Card.Title>{crew.name}</Card.Title>
-                <Card.Detail>크루원 {crew.participantCount}</Card.Detail>
-              </Card.Text>
-            </Card>
-          );
-        })}
-      </GridContainer>
-      {crewListData.page.totalPages > 0 && (
-        <div className={styles.crewListPagination}>
-          <Pagination paginationTools={paginationTools} />
-        </div>
-      )}
-    </div>
+    <Pagination>
+      <Pagination.Content>
+        <GridContainer>
+          {content.map((crew) => {
+            return (
+              <Card key={crew.crewId} handleClick={() => handleClickCard(crew.crewId)}>
+                <Card.Image src={crew.file?.source || temp} alt="크루 썸네일" />
+                <Card.Text>
+                  <Card.Title>{crew.name}</Card.Title>
+                  <Card.Detail>크루원 {crew.participantCount}</Card.Detail>
+                </Card.Text>
+              </Card>
+            );
+          })}
+        </GridContainer>
+      </Pagination.Content>
+      <Pagination.Controller paginationTools={paginationTools} isVisible={crewListData.page.totalPages > 0} />
+    </Pagination>
   );
 }
 

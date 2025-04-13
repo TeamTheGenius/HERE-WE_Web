@@ -1,14 +1,17 @@
 import BaseCrewHeader from '@/widgets/crew/BaseCrewHeader';
 import MemberListSection from '@/widgets/member/MemberListSection';
 import CrewInviteButton from '@/widgets/member/CrewInviteButton';
+import styles from './index.module.scss';
 
 function CrewMembersPage() {
   return (
-    <>
+    <div className={styles.wapper}>
       <BaseCrewHeader />
-      <CrewInviteButton />
+      <div>
+        <CrewInviteButton />
+      </div>
       <MemberListSection />
-    </>
+    </div>
   );
 }
 

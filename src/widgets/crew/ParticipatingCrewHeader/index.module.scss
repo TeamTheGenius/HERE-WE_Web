@@ -2,7 +2,6 @@
 
 .container {
   @include flex-row(between, center);
-  margin-bottom: $space-md;
 }
 
 .title {
