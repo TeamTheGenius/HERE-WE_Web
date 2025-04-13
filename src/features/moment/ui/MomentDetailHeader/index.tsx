@@ -1,18 +1,20 @@
 import Button, { ButtonProps } from '@/shared/ui/Button';
 import styles from './index.module.scss';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useMomentDetailWithFile } from '@/entities/moment/query/useMomentDetailWithFile';
 import { usePostMomentJoin } from '../../query/usePostmomentJoin';
 import { useDeleteMomentJoin } from '../../query/useDeleteMomentJoin';
 import { useModal } from '@/shared/hooks/useModal';
 import MomentParticipantsModal from '../MomentParticipantsModal';
+import { routePaths } from '@/app/routes/path';
 
 function MomentDetailHeader() {
-  const { momentId } = useParams();
+  const { momentId, crewId } = useParams();
   const { data: momentDetail } = useMomentDetailWithFile(Number(momentId));
   const { mutateAsync: joinMoment } = usePostMomentJoin();
   const { mutateAsync: cancelMomentJoin } = useDeleteMomentJoin();
   const { isOpen, closeModal, openModal } = useModal();
+  const navigate = useNavigate();
 
   if (!momentDetail) return null;
 
@@ -56,12 +58,16 @@ function MomentDetailHeader() {
 
   const buttonProps = getButtonProps(momentDetail.isJoined, momentDetail.isClosed);
 
+  const handleClickEditButton = () => {
+    navigate(routePaths.momentEdit.getPath(Number(crewId), Number(momentId)));
+  };
+
   return (
     <>
       <MomentParticipantsModal isOpen={isOpen} closeModal={closeModal} />
 
       <div className={styles.container}>
-        <h2 className={styles.title}>{momentDetail.name}</h2>
+        <h2 className={styles.title}>모먼트 정보</h2>
         <div className={styles.buttons}>
           <Button
             variant="secondary"
@@ -72,6 +78,11 @@ function MomentDetailHeader() {
           <Button variant={buttonProps.variant} onClick={buttonProps?.onClick} disabled={buttonProps?.disabled}>
             {buttonProps?.text}
           </Button>
+          {momentDetail.isJoined && (
+            <Button onClick={handleClickEditButton} variant="primary">
+              수정
+            </Button>
+          )}
         </div>
       </div>
     </>

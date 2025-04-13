@@ -9,7 +9,6 @@
 .title {
   @include font-text(heading-large);
   color: var(--text-primary);
-  @include util-text-overflow-ellipsis;
 }
 
 .buttons {
