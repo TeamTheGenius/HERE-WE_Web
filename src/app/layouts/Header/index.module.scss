@@ -1,16 +1,9 @@
 @use '@/shared/styles/global.scss' as *;
 
 .header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: $layout-header-height;
   @include flex-row(between, center);
   padding: 0 $space-md;
-  background-color: var(--surface-default);
   border-bottom: 1px solid var(--border-default);
-  z-index: 10;
 }
 
 .header__user-actions {

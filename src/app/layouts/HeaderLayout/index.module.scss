@@ -1,7 +1,17 @@
-@use '@/shared/styles/global.scss' as *;
+@use '@/shared/styles/global' as *;
+
+.layout {
+  display: grid;
+  grid-template-rows: 5.5rem 1fr;
+  height: 100%;
+  overflow: hidden;
+}
 
 .content {
-  padding: ($layout-header-height + $space-md) $space-md $space-md $space-md;
+  width: 100%;
   max-width: $media-desktop;
   margin: 0 auto;
+  overflow-y: auto;
+  height: 100%;
+  padding: $space-md;
 }

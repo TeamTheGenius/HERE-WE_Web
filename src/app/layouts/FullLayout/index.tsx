@@ -4,12 +4,12 @@ import styles from './index.module.scss';
 
 function FullLayout() {
   return (
-    <>
+    <div className={styles.layout}>
       <Header />
       <div className={styles.content}>
         <Outlet />
       </div>
-    </>
+    </div>
   );
 }
 

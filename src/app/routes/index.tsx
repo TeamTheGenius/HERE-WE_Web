@@ -5,7 +5,6 @@ import { routePaths } from './path';
 import CenterLayout from '../layouts/CenterLayout';
 import Main from '@/pages/MainPage';
 import HeaderLayout from '../layouts/HeaderLayout';
-import NavigationLayout from '../layouts/NavigationLayout';
 import MemberPage from '@/pages/MemberPage';
 import HomePage from '@/pages/HomePage';
 import ChatPage from '@/pages/ChatPage';
@@ -19,6 +18,7 @@ import MomentPlacePage from '@/pages/MomentPlacePage';
 import MomentDetailPage from '@/pages/MomentDetailPage';
 import UpcomingMomentsPage from '@/pages/UpcomingMomentsPage';
 import MomentEditPage from '@/pages/MomentEditPage';
+import HeaderWithNavigationLayout from '../layouts/HeaderWithNavigationLayout';
 
 export function Routing() {
   return (
@@ -41,7 +41,7 @@ export function Routing() {
           <Route path={routePaths.upcomingMoment} element={<UpcomingMomentsPage />} />
         </Route>
 
-        <Route element={<NavigationLayout />}>
+        <Route element={<HeaderWithNavigationLayout />}>
           <Route path={routePaths.member} element={<MemberPage />} />
           <Route path={routePaths.home} element={<HomePage />} />
           <Route path={routePaths.chat} element={<ChatPage />} />
