@@ -17,7 +17,7 @@ function Map() {
       center: position,
       level: 3,
     };
-    const map = new kakao.maps.Map(container.current, options);
+    new kakao.maps.Map(container.current, options);
   }, []);
   return <div className={styles.map} ref={container}></div>;
 }

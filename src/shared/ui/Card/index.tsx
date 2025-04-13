@@ -12,7 +12,7 @@ interface CardImageProps {
 interface MainProps extends PropsWithChildren {
   size?: 'full' | 'md';
   classNames?: string;
-  handleClick: () => void;
+  handleClick?: () => void;
   border?: boolean;
 }
 

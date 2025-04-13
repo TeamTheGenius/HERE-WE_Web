@@ -29,12 +29,9 @@ function ProfileNicknameInput({
         onInvalid={(e) => e.preventDefault()}
         hasError={!!error}
       />
-      <TextInput.Button
-        text="중복 확인"
-        onClick={handleDupllicateCheck}
-        disabled={watchedNickname === initialNickname}
-        type="button"
-      />
+      <TextInput.Button onClick={handleDupllicateCheck} disabled={watchedNickname === initialNickname} type="button">
+        중복 확인
+      </TextInput.Button>
       {error ? (
         <TextInput.Message variant="warning">{error.message}</TextInput.Message>
       ) : isUnique ? (
