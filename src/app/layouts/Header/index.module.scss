@@ -11,7 +11,8 @@
   gap: $space-xs;
 }
 
-.theme-button {
-  @include font-text(body-medium);
-  color: var(--text-primary);
+.icon-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
