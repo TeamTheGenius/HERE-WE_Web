@@ -7,12 +7,10 @@ import MomentPlaceAddCard from '@/features/moment/ui/MomentPlaceAddCard';
 import { useQuery } from '@tanstack/react-query';
 import { momentQueries } from '@/entities/moment/query/momentQueries';
 import { useParams } from 'react-router-dom';
-
-type Tab = '방문 장소' | '검색';
+import { Tab } from '@/shared/ui/Tab';
 
 function MomentPlacePage() {
   const { momentId } = useParams();
-  const [currentTab, setCurrentTab] = useState<Tab>('방문 장소');
   const [keyword, setKeyword] = useState<string>('');
   const { data: momentDetail } = useQuery({ ...momentQueries.momentJSON({ momentId: Number(momentId) }) });
 
@@ -24,27 +22,25 @@ function MomentPlacePage() {
     <div className={styles.container}>
       <h2 className={styles.title}>{momentDetail?.name}</h2>
       <main className={styles.contentContainer}>
-        <div className={styles.locationSection}>
-          <ul className={styles.tabs}>
-            <li className={styles.tabItem}>
-              <button onClick={() => setCurrentTab('방문 장소')}>방문 장소</button>
-            </li>
-            <li onClick={() => setCurrentTab('검색')} className={styles.tabItem}>
-              <button>검색</button>
-            </li>
-          </ul>
-          <div className={styles.tabContent}>
-            {currentTab === '검색' && (
+        <section className={styles.locationSection}>
+          <Tab>
+            <Tab.TriggerList>
+              <Tab.Trigger index={0}>방문 장소</Tab.Trigger>
+              <Tab.Trigger index={1}>검색</Tab.Trigger>
+            </Tab.TriggerList>
+            <Tab.Panel index={0}>
+              <MomentPlaceColumn handleClickPlace={() => {}} />
+            </Tab.Panel>
+            <Tab.Panel index={1}>
               <LocationSearchForm keyword={keyword} handleSubmitKeyword={handleSubmitKeyword}>
                 {(location) => <MomentPlaceAddCard handleClickPlace={() => {}} data={location} />}
               </LocationSearchForm>
-            )}
-            {currentTab === '방문 장소' && <MomentPlaceColumn handleClickPlace={() => {}} />}
-          </div>
-        </div>
-        <div className={styles.mapWrapper}>
+            </Tab.Panel>
+          </Tab>
+        </section>
+        <section className={styles.mapWrapper}>
           <Map />
-        </div>
+        </section>
       </main>
     </div>
   );
