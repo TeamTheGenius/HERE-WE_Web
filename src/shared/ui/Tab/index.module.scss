@@ -1,0 +1,24 @@
+@use '@/shared/styles/global' as *;
+
+.tab-list {
+  display: flex;
+}
+
+.tab-trigger {
+  flex: 1;
+  padding: $space-xs;
+  border-bottom: 2px solid var(--border-strong);
+  @include font-text(label-medium);
+  color: var(--text-tertiary);
+  transition: all 0.3s ease;
+
+  &:hover {
+    color: var(--text-primary);
+    border-bottom-color: var(--border-hover);
+  }
+
+  &.active {
+    color: var(--text-primary);
+    border-bottom-color: var(--border-brand);
+  }
+}
