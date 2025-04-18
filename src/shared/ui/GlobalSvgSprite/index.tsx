@@ -129,6 +129,13 @@ const svgSpriteCode = (
         clipRule="evenodd"
       />
     </symbol>
+    <symbol id="search" viewBox="0 0 20 20">
+      <path
+        fill-rule="evenodd"
+        d="M11.987 12.872a5.625 5.625 0 1 1 .884-.884l4.296 4.296a.625.625 0 1 1-.883.883l-4.297-4.295zM5.382 11.57a4.375 4.375 0 1 1 6.192-.004l-.004.004-.004.003a4.375 4.375 0 0 1-6.184-.003z"
+        clip-rule="evenodd"
+      />
+    </symbol>
   </svg>
 );
 
