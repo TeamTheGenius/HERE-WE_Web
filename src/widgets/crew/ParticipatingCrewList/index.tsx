@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { useMyCrewsWithFile } from '@/features/crew/hook/useMyCrewsWithFile';
 import temp from '@/shared/assets/temp.jpg';
 import { useNavigate } from 'react-router-dom';
+import { EmptyState } from '@/shared/ui/EmptyState';
 
 function ParticipatingCrewList() {
   const navigate = useNavigate();
@@ -21,14 +22,20 @@ function ParticipatingCrewList() {
     navigate(`/home/${crewId}`);
   };
 
-  if (!crewListData) return null;
-  const { content } = crewListData;
+  if (!crewListData?.content.length)
+    return (
+      <EmptyState>
+        <EmptyState.Icon icon="people" iconSize="80" />
+        <EmptyState.Description>참여중인 크루가 없습니다</EmptyState.Description>
+        <EmptyState.Description>크루를 생성하거나 초대받아 크루에 참여할 수 있어요</EmptyState.Description>
+      </EmptyState>
+    );
 
   return (
     <Pagination>
       <Pagination.Content>
         <GridContainer>
-          {content.map((crew) => {
+          {crewListData?.content.map((crew) => {
             return (
               <Card key={crew.crewId} handleClick={() => handleClickCard(crew.crewId)}>
                 <Card.Image src={crew.file?.source || temp} alt="크루 썸네일" />
