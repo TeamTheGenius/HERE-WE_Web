@@ -8,6 +8,7 @@ import { useCrewMomentListWithFile } from '@/features/moment/query/useCrewMoment
 import { useEffect } from 'react';
 import { routePaths } from '@/app/routes/path';
 import { BadgeProps } from '@/shared/ui/Badge';
+import { EmptyState } from '@/shared/ui/EmptyState';
 
 function CrewMomentList() {
   const { crewId } = useParams();
@@ -24,8 +25,14 @@ function CrewMomentList() {
     navigate(routePaths.momentDetail.getPath(Number(crewId), momentId));
   };
 
-  if (!crewMomentListData) return null;
-  const { content } = crewMomentListData;
+  if (!crewMomentListData?.content?.length)
+    return (
+      <EmptyState>
+        <EmptyState.Icon icon="calendar" iconSize="80" />
+        <EmptyState.Description>아직 모먼트가 없습니다</EmptyState.Description>
+        <EmptyState.Description>첫 모먼트를 만들어보세요!</EmptyState.Description>
+      </EmptyState>
+    );
 
   const getTagProps = (isJoined: boolean, isClosed: boolean): BadgeProps => {
     if (isJoined && isClosed) {
@@ -59,7 +66,7 @@ function CrewMomentList() {
     <Pagination>
       <Pagination.Content>
         <GridContainer>
-          {content.map((moment) => {
+          {crewMomentListData?.content?.map((moment) => {
             const { text: tagText, variant: tagVariant } = getTagProps(moment.isJoined, moment.isClosed);
             return (
               <Card key={moment.momentId} handleClick={() => handleClickCard(moment.momentId)}>
