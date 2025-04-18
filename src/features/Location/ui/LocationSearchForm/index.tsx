@@ -5,6 +5,7 @@ import { locationListQueries } from '../../query/locationListQueries';
 import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll';
 import { TextInput } from '@/shared/ui/TextInput';
 import { Location } from '@/entities/Location/model/types';
+import { EmptyState } from '@/shared/ui/EmptyState';
 
 export interface LocationSearchFormProps {
   handleSubmitKeyword: (keyword: string) => void;
@@ -46,6 +47,13 @@ function LocationSearchForm({ keyword, handleSubmitKeyword, children }: Location
           />
         </TextInput>
       </form>
+
+      {!data?.pages[0]?.content?.length && (
+        <EmptyState>
+          <EmptyState.Icon icon="search" iconSize="40" />
+          <EmptyState.Description>검색 결과가 없습니다</EmptyState.Description>
+        </EmptyState>
+      )}
 
       <div className={styles.searchResult} ref={rootRef}>
         {data &&
