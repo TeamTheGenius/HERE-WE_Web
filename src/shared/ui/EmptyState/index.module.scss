@@ -1,0 +1,17 @@
+@use '@/shared/styles/global' as *;
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+  text-align: center;
+  color: var(--text-secondary);
+  gap: $space-xs;
+
+  .description {
+    @include font-text(body-large);
+    color: var(--text-tertiary);
+  }
+}

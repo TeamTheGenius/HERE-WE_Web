@@ -2,7 +2,7 @@ import { cn } from '@/shared/lib/cn';
 import { type IconType, IconSizeType, TextColorType } from '../../types/design-system';
 import styles from './index.module.scss';
 
-interface IconProps {
+export interface IconProps {
   icon: IconType;
   color: TextColorType;
   iconSize: IconSizeType;
