@@ -17,7 +17,7 @@ function NavigationBar({ className }: NavigationBarProps) {
 
   return (
     <nav className={cn(styles.navigationBar, className)}>
-      <NavitationItem icon="home" title="홈" to={getRoutePath(routePaths.home)} />
+      <NavitationItem icon="home" title="홈" to={getRoutePath(routePaths.home.path)} />
       <NavitationItem icon="people" title="크루원" to={getRoutePath(routePaths.member)} />
       <NavitationItem icon="chat" title="채팅" to={getRoutePath(routePaths.chat)} />
       <NavitationItem icon="pencil" title="모먼트" to={getRoutePath(routePaths.moment)} />

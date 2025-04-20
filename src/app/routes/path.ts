@@ -6,7 +6,10 @@ export const routePaths = {
   createCrew: '/crew/create',
   member: '/member/:crewId',
   memberJoin: '/invite',
-  home: '/home/:crewId',
+  home: {
+    path: '/home/:crewId',
+    getPath: (crewId: number) => `/home/${crewId}`,
+  },
   moment: '/moment/:crewId',
   momentCreate: {
     path: '/crew/:crewId/moment/create',
