@@ -30,7 +30,8 @@ function CrewCreatePage() {
 
     const { crewId } = await postCrew({ name: crewName, introduce: crewIntroduce });
     if (files.length > 0) await postCrewFile({ crewId, files });
-    navigate(routePaths.main);
+
+    navigate(routePaths.home.getPath(crewId));
   };
 
   return (

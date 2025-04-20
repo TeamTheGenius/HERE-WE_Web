@@ -5,6 +5,7 @@ import { usePostCrewInvite } from '../../query/usePostCrewInvite';
 import { useCrewInviteRegister } from '../../hooks/useCrewInviteRegister';
 import { AxiosError } from 'axios';
 import MemberInviteNicknameInput from '../MemberInviteNicknameInput';
+import { useAddToast } from '@/shared/hooks/useToast';
 
 interface MemberInviteModalProps {
   handleClose: () => void;
@@ -17,6 +18,7 @@ function MemberInviteModal({ handleClose, isOpen }: MemberInviteModalProps) {
   const { mutateAsync } = usePostCrewInvite();
   const { formMethods, handleApiError } = useCrewInviteRegister();
   const { reset, handleSubmit, getValues } = formMethods;
+  const addToast = useAddToast();
 
   useEffect(() => {
     reset();
@@ -28,7 +30,10 @@ function MemberInviteModal({ handleClose, isOpen }: MemberInviteModalProps) {
     try {
       await mutateAsync({ crewId: Number(crewId), nickname });
       reset();
-      // 성공 토스트 메시지 띄우기
+      addToast({
+        type: 'success',
+        message: `'${nickname}'님을 초대했어요`,
+      });
     } catch (error) {
       if (!(error instanceof AxiosError)) throw error;
       const errorCode = error.response?.data?.code;

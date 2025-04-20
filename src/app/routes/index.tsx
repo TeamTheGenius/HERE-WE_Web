@@ -43,7 +43,7 @@ export function Routing() {
 
         <Route element={<HeaderWithNavigationLayout />}>
           <Route path={routePaths.member} element={<MemberPage />} />
-          <Route path={routePaths.home} element={<HomePage />} />
+          <Route path={routePaths.home.path} element={<HomePage />} />
           <Route path={routePaths.chat} element={<ChatPage />} />
           <Route path={routePaths.moment} element={<MomentPage />} />
         </Route>
