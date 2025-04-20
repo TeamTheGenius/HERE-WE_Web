@@ -8,7 +8,7 @@ import { EmptyState } from './index';
  * 빈 상태 UI를 일관되게 표현하기 위한 복합 컴포넌트 패턴을 사용합니다.
  */
 const meta: Meta<typeof EmptyState> = {
-  title: 'UI/EmptyState',
+  title: 'shared/EmptyState',
   component: EmptyState,
   parameters: {
     layout: 'centered',
