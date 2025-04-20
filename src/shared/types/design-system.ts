@@ -8,7 +8,10 @@ export type TextColorType =
   | 'text-brand'
   | 'text-link'
   | 'text-link-hover'
-  | 'text-notice';
+  | 'text-notice'
+  | 'text-success'
+  | 'text-warning'
+  | 'text-error';
 export type FontType =
   | 'display-large'
   | 'display-small'
@@ -38,6 +41,10 @@ export type IconType =
   | 'upload'
   | 'grab'
   | 'theme'
-  | 'search';
+  | 'search'
+  | 'cross'
+  | 'error'
+  | 'warning'
+  | 'success';
 export type SocialIconType = 'kakao' | 'naver' | 'google';
 export type IconSizeType = '16' | '20' | '24' | '28' | '40' | '80';

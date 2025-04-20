@@ -1,0 +1,77 @@
+@use '@/shared/styles/global' as *;
+
+.toast {
+  display: flex;
+  align-items: center;
+  padding: $space-sm;
+  gap: $space-sm;
+  width: 100%;
+  background-color: var(--surface-default);
+  box-shadow: 0 2px 8px var(--surface-tertiary);
+  position: relative;
+  min-height: 5rem;
+}
+
+.toast__content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: $space-xs;
+}
+
+.toast-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0.4rem;
+
+  &--success {
+    background-color: var(--text-success);
+  }
+
+  &--error {
+    background-color: var(--text-error);
+  }
+
+  &--warning {
+    background-color: var(--text-warning);
+  }
+  &--action {
+    background-color: var(--text-primary);
+  }
+}
+
+.toast__icon {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toast__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: $space-xxs;
+}
+
+.toast__title {
+  @include font-text(heading-small);
+  color: var(--text-secondary);
+}
+
+.toast__message {
+  @include font-text(body-medium);
+  color: var(--text-secondary);
+}
+
+.toast__footer {
+  flex-shrink: 0;
+}
+
+.toast__action-button {
+  @include font-text(label-medium);
+  color: var(--text-brand);
+  text-align: center;
+}
