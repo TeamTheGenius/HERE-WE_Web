@@ -3,6 +3,10 @@ import { useFileInput } from '@/shared/hooks/useFileInput';
 import { validateFileSize } from '@/shared/lib/fileValidation';
 import { REGEX, VALIDATION_MESSAGES } from '../constant/momentValidation';
 import { MomentFormType } from '../model/types';
+import { isAxiosError } from 'axios';
+import { API_ERRORS } from '@/shared/api/errorMap.type';
+import { ERROR_CODES } from '@/shared/api/error.constant';
+import { useState } from 'react';
 
 export const useMomentRegister = (data: MomentFormType) => {
   const formMethods = useForm<MomentFormType>({
@@ -10,13 +14,47 @@ export const useMomentRegister = (data: MomentFormType) => {
     mode: 'onBlur',
   });
 
-  const { register, getValues } = formMethods;
+  const { register, getValues, setError } = formMethods;
   const { handleFileInputClick, handleFileChange, mergedRef } = useFileInput(register, 'image', data?.image?.[0]);
+
+  const [uncaughtError, setUncaughtError] = useState<unknown>();
+
+  if (uncaughtError) throw uncaughtError;
 
   const isAfterNow = (value: string) => {
     const now = new Date();
     const selectedDate = new Date(value);
     return selectedDate > now;
+  };
+
+  const handleApiError = (error: unknown) => {
+    if (!isAxiosError(error)) {
+      setUncaughtError(error);
+      return;
+    }
+
+    const errorCode = error.response?.data.code;
+    const errorInfo = API_ERRORS[errorCode];
+
+    switch (errorCode) {
+      case ERROR_CODES.INVALID_MOMENT_CAPACITY:
+        setError('capacity', {
+          message: errorInfo.message,
+        });
+        break;
+
+      case ERROR_CODES.INVALID_MOMENT_DATE:
+        setError('closedAt', {
+          message: errorInfo.message,
+        });
+        setError('meetAt', {
+          message: errorInfo.message,
+        });
+        break;
+
+      default:
+        setUncaughtError(error);
+    }
   };
 
   register('name', {
@@ -82,5 +120,5 @@ export const useMomentRegister = (data: MomentFormType) => {
     required: VALIDATION_MESSAGES.place.required,
   });
 
-  return { formMethods, handleFileChange, mergedRef, handleFileInputClick };
+  return { formMethods, handleFileChange, mergedRef, handleFileInputClick, handleApiError };
 };

@@ -6,6 +6,8 @@ import { isAxiosError } from 'axios';
 import { useProfileSubmitValidation } from './useProfileSubmitValidation';
 import { useFileInput } from '@/shared/hooks/useFileInput';
 import { validateFileSize } from '@/shared/lib/fileValidation';
+import { API_ERRORS } from '@/shared/api/errorMap.type';
+import { ERROR_CODES } from '@/shared/api/error.constant';
 
 export const useProfileRegister = (data: UserInfoType) => {
   const formMethods = useForm<UserInfoType>({
@@ -60,14 +62,26 @@ export const useProfileRegister = (data: UserInfoType) => {
       }
     } catch (error) {
       if (!isAxiosError(error)) throw error;
-      if (error.response?.data?.code === 'NICKNAME_DUPLICATED') {
-        setError('nickname', {
-          message: VALIDATION_MESSAGES.nickname.duplicate,
-        });
-        updateNicknameUniqueness(false);
-        return;
+      const errorCode = error?.response?.data?.code;
+      const errorInfo = API_ERRORS[errorCode];
+
+      switch (errorCode) {
+        case ERROR_CODES.NICKNAME_DUPLICATED:
+          setError('nickname', {
+            message: errorInfo.message,
+          });
+          updateNicknameUniqueness(false);
+          break;
+
+        case ERROR_CODES.INVALID_NICKNAME:
+          setError('nickname', {
+            message: errorInfo.message,
+          });
+          break;
+
+        default:
+          throw error;
       }
-      throw error;
     }
   };
 
