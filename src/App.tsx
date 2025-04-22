@@ -8,6 +8,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { BrowserRouter } from 'react-router-dom';
 import { MutationErrorFallback } from './shared/ui/MutationErrorFallback';
 import { ErrorBoundaryWithChildren } from './shared/ui/ErrorBoundaryWithChildren';
+import GlobalErrorBoundary from './shared/ui/GlobalErrorBoundary';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,16 +28,18 @@ function App() {
       <GlobalSvgSprite />
       <BrowserRouter>
         <QueryClientProvider client={queryClient}>
-          <QueryErrorResetBoundary>
-            {({ reset }) => (
-              <ErrorBoundaryWithChildren onReset={reset} FallbackComponent={MutationErrorFallback}>
-                <ErrorBoundary onReset={reset} FallbackComponent={QueryErrorFallback}>
-                  <Routing />
-                  <ToastList />
-                </ErrorBoundary>
-              </ErrorBoundaryWithChildren>
-            )}
-          </QueryErrorResetBoundary>
+          <ErrorBoundary FallbackComponent={GlobalErrorBoundary}>
+            <QueryErrorResetBoundary>
+              {({ reset }) => (
+                <ErrorBoundaryWithChildren onReset={reset} FallbackComponent={MutationErrorFallback}>
+                  <ErrorBoundary onReset={reset} FallbackComponent={QueryErrorFallback}>
+                    <Routing />
+                    <ToastList />
+                  </ErrorBoundary>
+                </ErrorBoundaryWithChildren>
+              )}
+            </QueryErrorResetBoundary>
+          </ErrorBoundary>
         </QueryClientProvider>
       </BrowserRouter>
     </ThemeProvider>
