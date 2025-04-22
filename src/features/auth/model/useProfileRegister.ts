@@ -2,7 +2,7 @@ import { UserInfoType } from '@/entities/user/model/types';
 import { useForm } from 'react-hook-form';
 import { REGEX, VALIDATION_MESSAGES } from '@/shared/constants/userValidation';
 import { getAuthCheckNickname } from '../api/getAuthCheckNickname';
-import { AxiosError } from 'axios';
+import { isAxiosError } from 'axios';
 import { useProfileSubmitValidation } from './useProfileSubmitValidation';
 import { useFileInput } from '@/shared/hooks/useFileInput';
 import { validateFileSize } from '@/shared/lib/fileValidation';
@@ -58,15 +58,14 @@ export const useProfileRegister = (data: UserInfoType) => {
       if (isAvailable) {
         updateNicknameUniqueness(true);
       }
-    } catch (error: unknown) {
-      if (error instanceof AxiosError) {
-        if (error.response?.data?.code === 'NICKNAME_DUPLICATED') {
-          setError('nickname', {
-            message: VALIDATION_MESSAGES.nickname.duplicate,
-          });
-          updateNicknameUniqueness(false);
-          return;
-        }
+    } catch (error) {
+      if (!isAxiosError(error)) throw error;
+      if (error.response?.data?.code === 'NICKNAME_DUPLICATED') {
+        setError('nickname', {
+          message: VALIDATION_MESSAGES.nickname.duplicate,
+        });
+        updateNicknameUniqueness(false);
+        return;
       }
       throw error;
     }
