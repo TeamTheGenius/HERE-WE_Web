@@ -2,6 +2,8 @@ import { routePaths } from '@/app/routes/path';
 import { ERROR_CODES } from './error.constant';
 import { ApiErrorMap } from './error.type';
 import { HTTP_STATUS } from './status.type';
+import { VALIDATION_MESSAGES as USER_VALIDATION_MESSAGE } from '../constants/userValidation';
+import { VALIDATION_MESSAGES as MOMENT_VALIDATION_MESSAGE } from '@/features/moment/constant/momentValidation';
 
 /**
  * API 에러 맵 정의
@@ -66,17 +68,17 @@ export const API_ERRORS: ApiErrorMap = {
 
   // 사용자 관련 에러
   [ERROR_CODES.MEMBER_NOT_FOUND]: {
-    message: 'NOT FOUND',
+    message: '사용자를 찾을 수 없습니다.',
     statusCode: HTTP_STATUS.NOT_FOUND,
     uiType: 'ui',
   },
   [ERROR_CODES.NICKNAME_DUPLICATED]: {
-    message: '이미 사용 중인 닉네임입니다. 다른 닉네임을 입력해 주세요.',
+    message: '이미 사용 중인 닉네임입니다.',
     statusCode: HTTP_STATUS.CONFLICT,
     uiType: 'form',
   },
   [ERROR_CODES.INVALID_NICKNAME]: {
-    message: '닉네임은 한글, 영문, 숫자만 사용할 수 있으며 2자 이상 20자 이하로 입력해 주세요.',
+    message: USER_VALIDATION_MESSAGE.nickname.invalid,
     statusCode: HTTP_STATUS.BAD_REQUEST,
     uiType: 'form',
   },
@@ -103,7 +105,7 @@ export const API_ERRORS: ApiErrorMap = {
     uiType: 'ui',
   },
   [ERROR_CODES.ALREADY_JOINED_CREW]: {
-    message: '이미 이 크루에 참여 중입니다.',
+    message: '이미 참여중입니다.',
     statusCode: HTTP_STATUS.BAD_REQUEST,
     uiType: 'form',
   },
@@ -142,12 +144,12 @@ export const API_ERRORS: ApiErrorMap = {
     uiType: 'ui',
   },
   [ERROR_CODES.INVALID_MOMENT_CAPACITY]: {
-    message: '모먼트의 참여 인원은 2명 이상, 500명 이하로 설정해 주세요.',
+    message: MOMENT_VALIDATION_MESSAGE.capacity.invalid,
     statusCode: HTTP_STATUS.BAD_REQUEST,
     uiType: 'form',
   },
   [ERROR_CODES.INVALID_MOMENT_DATE]: {
-    message: '만남일자와 마감일은 오늘 이후여야 하며, 만남일자는 마감일보다 더 늦어야 합니다.',
+    message: '만남일자와 마감일은 오늘 이후여야 하며, 만남일자는 마감일보다 이후여야 합니다.',
     statusCode: HTTP_STATUS.BAD_REQUEST,
     uiType: 'form',
   },

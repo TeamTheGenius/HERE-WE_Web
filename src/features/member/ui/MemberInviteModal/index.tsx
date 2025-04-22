@@ -3,7 +3,6 @@ import { useEffect, useId } from 'react';
 import { useParams } from 'react-router-dom';
 import { usePostCrewInvite } from '../../query/usePostCrewInvite';
 import { useCrewInviteRegister } from '../../hooks/useCrewInviteRegister';
-import { AxiosError } from 'axios';
 import MemberInviteNicknameInput from '../MemberInviteNicknameInput';
 import { useAddToast } from '@/shared/hooks/useToast';
 
@@ -15,8 +14,8 @@ interface MemberInviteModalProps {
 function MemberInviteModal({ handleClose, isOpen }: MemberInviteModalProps) {
   const formId = useId();
   const { crewId } = useParams();
-  const { mutateAsync } = usePostCrewInvite();
   const { formMethods, handleApiError } = useCrewInviteRegister();
+  const { mutateAsync } = usePostCrewInvite({ onError: (error: unknown) => handleApiError(error) });
   const { reset, handleSubmit, getValues } = formMethods;
   const addToast = useAddToast();
 
@@ -27,19 +26,13 @@ function MemberInviteModal({ handleClose, isOpen }: MemberInviteModalProps) {
   const onSubmit = async () => {
     if (!crewId) return;
     const nickname = getValues('nickname');
-    try {
-      await mutateAsync({ crewId: Number(crewId), nickname });
-      reset();
-      addToast({
-        type: 'success',
-        message: `'${nickname}'님을 초대했어요`,
-      });
-    } catch (error) {
-      if (!(error instanceof AxiosError)) throw error;
-      const errorCode = error.response?.data?.code;
-      handleApiError(errorCode);
-      throw error;
-    }
+
+    await mutateAsync({ crewId: Number(crewId), nickname });
+    reset();
+    addToast({
+      type: 'success',
+      message: `'${nickname}'님을 초대했어요`,
+    });
   };
 
   return (

@@ -30,13 +30,12 @@ function MomentForm({ initialData, handleJSONSubmit, handleFIleSUbmit, submitBut
   const navigate = useNavigate();
 
   const { data: crewData } = useCrewWithFile(Number(crewId));
-  const { formMethods, handleFileInputClick, mergedRef } = useMomentRegister(initialData);
+  const { formMethods, handleFileInputClick, mergedRef, handleApiError } = useMomentRegister(initialData);
 
   const {
     formState: { errors },
     control,
     register,
-    getValues,
     setValue,
   } = formMethods;
 
@@ -54,8 +53,8 @@ function MomentForm({ initialData, handleJSONSubmit, handleFIleSUbmit, submitBut
     setValue('place', location);
   };
 
-  const onSubmit = async () => {
-    const { name, image, capacity, closedAt, meetAt, place } = getValues();
+  const onSubmit = async (data: MomentFormType) => {
+    const { name, image, capacity, closedAt, meetAt, place } = data;
     if (!crewId || !capacity || !place) return;
     const files = image ? [...image] : [];
 
@@ -64,16 +63,20 @@ function MomentForm({ initialData, handleJSONSubmit, handleFIleSUbmit, submitBut
     const formattedClosedAt = formatLocalDateTime(closedAtDate);
     const formattedMeetAt = formatLocalDateTime(meetAtDate);
 
-    const { momentId } = await handleJSONSubmit({
-      momentName: name,
-      capacity,
-      closedAt: formattedClosedAt,
-      meetAt: formattedMeetAt,
-      place,
-    });
+    try {
+      const { momentId } = await handleJSONSubmit({
+        momentName: name,
+        capacity,
+        closedAt: formattedClosedAt,
+        meetAt: formattedMeetAt,
+        place,
+      });
 
-    await handleFIleSUbmit({ momentId, files: files });
-    navigate(routePaths.momentDetail.getPath(Number(crewId), momentId));
+      await handleFIleSUbmit({ momentId, files: files });
+      navigate(routePaths.momentDetail.getPath(Number(crewId), momentId));
+    } catch (error) {
+      handleApiError(error);
+    }
   };
 
   return (
@@ -159,7 +162,7 @@ function MomentForm({ initialData, handleJSONSubmit, handleFIleSUbmit, submitBut
               placeholder="신청 마감 인원을 작성해주세요"
               hasError={!!errors.capacity}
               min={2}
-              max={1000}
+              max={500}
               type="number"
             />
             {errors.capacity && <TextInput.Message variant="warning">{errors.capacity.message}</TextInput.Message>}

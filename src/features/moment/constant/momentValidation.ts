@@ -1,6 +1,6 @@
 export const REGEX = {
   name: /^(?!\s*$).{2,20}$/,
-  capacity: /^([2-9]|[1-9][0-9]|[1-9][0-9][0-9]|1000)$/,
+  capacity: /^([2-9]|[1-9][0-9]|[1-4][0-9]{2}|500)$/, // 2~500
 };
 
 export const VALIDATION_MESSAGES = {
@@ -10,7 +10,7 @@ export const VALIDATION_MESSAGES = {
   },
   capacity: {
     required: '신청 마감 인원을 입력해주세요',
-    invalid: '2~1000명으로 입력해주세요',
+    invalid: '2~500명으로 입력해주세요',
   },
   image: {
     required: '썸네일을 업로드해주세요',
