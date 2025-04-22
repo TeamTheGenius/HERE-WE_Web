@@ -1,4 +1,3 @@
-import temp from '@/shared/assets/temp.jpg';
 import { usePagination } from '@/shared/hooks/usePagination';
 import { Card } from '@/shared/ui/Card';
 import GridContainer from '@/shared/ui/GridContainer';
@@ -70,7 +69,7 @@ function CrewMomentList() {
             const { text: tagText, variant: tagVariant } = getTagProps(moment.isJoined, moment.isClosed);
             return (
               <Card key={moment.momentId} handleClick={() => handleClickCard(moment.momentId)}>
-                <Card.Image src={moment.file?.source || temp} alt="크루 썸네일" />
+                <Card.Image src={moment.file?.source || ''} alt="크루 썸네일" />
                 <Card.Tag variant={tagVariant}>{tagText}</Card.Tag>
                 <Card.Text>
                   <Card.Title>{moment.name}</Card.Title>

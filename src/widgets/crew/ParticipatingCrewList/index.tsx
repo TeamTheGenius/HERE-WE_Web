@@ -4,7 +4,6 @@ import { Pagination } from '@/shared/ui/Pagination';
 import GridContainer from '@/shared/ui/GridContainer';
 import { useEffect } from 'react';
 import { useMyCrewsWithFile } from '@/features/crew/hook/useMyCrewsWithFile';
-import temp from '@/shared/assets/temp.jpg';
 import { useNavigate } from 'react-router-dom';
 import { EmptyState } from '@/shared/ui/EmptyState';
 
@@ -38,7 +37,7 @@ function ParticipatingCrewList() {
           {crewListData?.content.map((crew) => {
             return (
               <Card key={crew.crewId} handleClick={() => handleClickCard(crew.crewId)}>
-                <Card.Image src={crew.file?.source || temp} alt="크루 썸네일" />
+                <Card.Image src={crew.file?.source || ''} alt="크루 썸네일" />
                 <Card.Text>
                   <Card.Title>{crew.name}</Card.Title>
                   <Card.Detail>크루원 {crew.participantCount}</Card.Detail>
