@@ -24,10 +24,18 @@ export function MutationErrorFallback({ error, resetErrorBoundary, children }: M
   const modalHandler = useHandleModalError(resetErrorBoundary, errorInfo);
 
   useEffect(() => {
+    const statusCode = error?.response?.status;
+    if (!statusCode) return;
+
     // 인증 관련 에러 시 로그인 페이지로 리다이렉트
-    if (error?.response?.status === HTTP_STATUS.UNAUTHORIZED) {
+    if (statusCode === HTTP_STATUS.UNAUTHORIZED) {
       resetErrorBoundary();
       navigate(routePaths.signIn);
+    }
+
+    if (statusCode >= 500 && statusCode < 600) {
+      addToast({ type: 'error', message: '서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.' });
+      resetErrorBoundary();
     }
   }, [error, navigate, resetErrorBoundary]);
 
