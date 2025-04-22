@@ -31,9 +31,9 @@ export const API_ERRORS: ApiErrorMap = {
     uiType: 'modal',
     title: '계정 확인',
     label: '로그인하기',
-    actionType: 'NAVIGATE',
-    actionParams: { path: routePaths.signIn },
+    actionType: 'LOGIN',
   },
+
   [ERROR_CODES.JWT_NOT_VALID]: {
     message: 'JWT가 유효하지 않습니다.',
     statusCode: HTTP_STATUS.UNAUTHORIZED,
@@ -105,16 +105,17 @@ export const API_ERRORS: ApiErrorMap = {
   [ERROR_CODES.ALREADY_JOINED_CREW]: {
     message: '이미 이 크루에 참여 중입니다.',
     statusCode: HTTP_STATUS.BAD_REQUEST,
-    uiType: 'toast',
+    uiType: 'form',
   },
   [ERROR_CODES.CREW_MEMBERSHIP_REQUIRED]: {
-    message: '크루 멤버에게만 허용된 작업입니다. 크루에 참여한 후 이용해 주세요.',
+    message: '크루 멤버에게만 허용된 작업입니다. 크루에 참여하시겠습니까?',
     statusCode: HTTP_STATUS.FORBIDDEN,
     uiType: 'modal',
-    title: '크루 멤버십 필요',
-    label: '크루 참여하기',
+    title: '권한이 없어요',
+    label: '참여',
     actionType: 'JOIN_CREW',
   },
+
   [ERROR_CODES.INVALID_CREW_CAPACITY]: {
     message: '크루는 최대 500명까지 참여할 수 있습니다.',
     statusCode: HTTP_STATUS.BAD_REQUEST,
@@ -134,6 +135,7 @@ export const API_ERRORS: ApiErrorMap = {
   },
 
   // 모먼트 관련 에러
+  // 모먼트 참가 안했을 때 모먼트 수정 시 권한 에러 필요
   [ERROR_CODES.MOMENT_NOT_FOUND]: {
     message: 'NOT FOUND',
     statusCode: HTTP_STATUS.NOT_FOUND,

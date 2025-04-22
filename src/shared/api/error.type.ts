@@ -8,9 +8,9 @@ import { HttpStatusCode } from './status.type';
 export type ApiErrorUIType = 'toast' | 'form' | 'modal' | 'ui' | 'redirect';
 
 /**
- * 모달 버튼 클릭 시 실행할 액션 타입
+ * 모달 또는 토스트 버튼 클릭 시 실행할 액션 타입
  */
-export type ActionType = 'NAVIGATE' | 'JOIN_CREW' | 'LOGIN' | 'RETRY_REQUEST' | 'JOIN_MOMENT' | 'CLOSE_MODAL';
+export type ActionType = 'JOIN_CREW' | 'LOGIN' | 'RETRY_REQUEST' | 'JOIN_MOMENT';
 
 /**
  * 기본 API 에러 인터페이스
@@ -27,6 +27,7 @@ export interface BaseApiError {
 export interface ToastUI extends BaseApiError {
   uiType: 'toast';
   title?: string;
+  actionType?: ActionType;
 }
 
 /**
@@ -44,7 +45,6 @@ export interface ModalUI extends BaseApiError {
   title: string;
   label: string;
   actionType: ActionType;
-  actionParams?: Record<string, any>;
 }
 
 /**
