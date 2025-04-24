@@ -3,7 +3,6 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  gap: $space-xs;
   padding: $space-xs;
 }
 
@@ -17,6 +16,9 @@
 .title {
   @include font-text(body-large);
   color: var(--text-primary);
+  padding-bottom: $space-xs;
+  flex-grow: 1;
+  text-align: left;
 }
 
 .buttons {
@@ -29,7 +31,8 @@
   border-radius: 0.8rem;
   padding: $space-xxs;
   width: 5rem;
-  @include font-text(caption-medium);
+  @include font-text(caption-small);
+  color: var(--text-primary);
   flex-shrink: 0;
 
   &:hover {

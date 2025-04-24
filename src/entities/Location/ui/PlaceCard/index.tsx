@@ -6,12 +6,23 @@ interface PlaceBodyProps extends PropsWithChildren {
   handleClick?: () => void;
 }
 
+interface PlaceTitleProps extends PropsWithChildren {
+  as?: 'h3' | 'button';
+  handleClick?: () => void;
+}
+
 function PlaceHeader({ children }: PropsWithChildren) {
   return <div className={styles.header}>{children}</div>;
 }
 
-function PlaceTitle({ children }: PropsWithChildren) {
-  return <h3 className={styles.title}>{children}</h3>;
+function PlaceTitle({ as: Component = 'button', handleClick, children }: PlaceTitleProps) {
+  const isButton = Component === 'button';
+
+  return (
+    <Component className={styles.title} {...(isButton && handleClick ? { onClick: handleClick } : {})}>
+      {children}
+    </Component>
+  );
 }
 
 function PlaceButton({ children, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) {
