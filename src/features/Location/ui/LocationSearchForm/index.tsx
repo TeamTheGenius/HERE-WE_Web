@@ -1,19 +1,21 @@
-import { FormEvent, ReactNode, useRef } from 'react';
+import { FormEvent, Fragment, ReactNode, useEffect, useRef } from 'react';
 import styles from './index.module.scss';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { InfiniteData, useInfiniteQuery } from '@tanstack/react-query';
 import { locationListQueries } from '../../query/locationListQueries';
 import { useInfiniteScroll } from '@/shared/hooks/useInfiniteScroll';
 import { TextInput } from '@/shared/ui/TextInput';
 import { Location } from '@/entities/Location/model/types';
 import { EmptyState } from '@/shared/ui/EmptyState';
+import { InfiniteScroll } from '@/shared/types/api';
 
 export interface LocationSearchFormProps {
   handleSubmitKeyword: (keyword: string) => void;
   keyword: string;
   children: (location: Location) => ReactNode;
+  handleSearchPlace?: (places: InfiniteData<InfiniteScroll<Location>>) => void;
 }
 
-function LocationSearchForm({ keyword, handleSubmitKeyword, children }: LocationSearchFormProps) {
+function LocationSearchForm({ keyword, handleSubmitKeyword, children, handleSearchPlace }: LocationSearchFormProps) {
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
@@ -33,6 +35,11 @@ function LocationSearchForm({ keyword, handleSubmitKeyword, children }: Location
     if (!keyword) return;
     handleSubmitKeyword(keyword);
   };
+
+  useEffect(() => {
+    if (!data) return;
+    if (handleSearchPlace) handleSearchPlace(data);
+  }, [data]);
 
   return (
     <div className={styles.container}>
@@ -60,10 +67,10 @@ function LocationSearchForm({ keyword, handleSubmitKeyword, children }: Location
           data.pages.map((page) =>
             page.content.map((location) => {
               return (
-                <>
+                <Fragment key={location.id}>
                   {children(location)}
                   <u className={styles.underline} />
-                </>
+                </Fragment>
               );
             }),
           )}

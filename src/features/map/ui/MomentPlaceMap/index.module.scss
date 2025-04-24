@@ -1,0 +1,34 @@
+@use '@/shared/styles/global' as *;
+
+.map {
+  width: 100%;
+  height: 100%;
+}
+
+.infoWindow {
+  padding: $space-md;
+  background-color: var(--surface-default);
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  gap: $space-md;
+  border: 2px solid var(--border-default);
+  box-shadow: none;
+}
+
+.infoWindow__title {
+  @include font-text(body-medium);
+  color: var(--text-primary);
+}
+
+.infoWindow__button {
+  padding: $space-xxs;
+  background-color: var(--surface-brand);
+  color: var(--text-default);
+  @include font-text(label-small);
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: var(--surface-brand-hover);
+  }
+}
