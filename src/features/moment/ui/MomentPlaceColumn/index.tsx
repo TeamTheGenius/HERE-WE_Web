@@ -1,6 +1,4 @@
 import { useParams } from 'react-router-dom';
-import { momentFeatureQueries } from '../../query/momentFeatureQueries';
-import { useQuery } from '@tanstack/react-query';
 import { Fragment, PointerEvent, useEffect, useRef, useState } from 'react';
 import { MomentPlace } from '../../model/types';
 import MomentPlaceEditCard from '../MomentPlaceEditCard';
@@ -8,6 +6,7 @@ import styles from './index.module.scss';
 import { cn } from '@/shared/lib/cn';
 import { PlaceCard } from '@/entities/Location/ui/PlaceCard';
 import { usePatchMomentPlace } from '../../query/usePatchMomentPlace';
+import { Location } from '@/entities/Location/model/types';
 
 function InsertionLine({ isActive }: { isActive: boolean }) {
   return (
@@ -24,14 +23,13 @@ function InsertionLine({ isActive }: { isActive: boolean }) {
 }
 
 interface MomentPlaceColumnProps {
-  handleClickPlace: (location: MomentPlace) => void;
+  handleClickPlace: (place: Location) => void;
+  places: MomentPlace[];
 }
 
-function MomentPlaceColumn({ handleClickPlace }: MomentPlaceColumnProps) {
+function MomentPlaceColumn({ handleClickPlace, places }: MomentPlaceColumnProps) {
   const { momentId } = useParams();
-  const { data } = useQuery({
-    ...momentFeatureQueries.momentPlaces({ momentId: Number(momentId) }),
-  });
+
   const { mutateAsync: patchMomentPlace } = usePatchMomentPlace();
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -52,7 +50,6 @@ function MomentPlaceColumn({ handleClickPlace }: MomentPlaceColumnProps) {
   }, [insertionIndex]);
 
   useEffect(() => {
-    const places = data?.places;
     if (!places) return;
 
     const handlePointerMove = (event: globalThis.PointerEvent) => {
@@ -162,7 +159,7 @@ function MomentPlaceColumn({ handleClickPlace }: MomentPlaceColumnProps) {
       document.removeEventListener('pointermove', handlePointerMove);
       document.removeEventListener('pointerup', handlePointerUp);
     };
-  }, [data?.places]);
+  }, [places]);
 
   const reset = () => {
     draggedIndexRef.current = null;
@@ -186,18 +183,20 @@ function MomentPlaceColumn({ handleClickPlace }: MomentPlaceColumnProps) {
     dragStartPosRef.current = { x: e.pageX, y: e.pageY };
   };
 
-  if (!data?.places || data.places.length === 0) return null;
+  if (!places || places.length === 0) return null;
 
   return (
     <div ref={containerRef} className={styles.scrollContainer}>
-      {data.places.map((place, i) => {
+      {places.map((place, i) => {
         // 첫 번째 요소 (만남 장소)
         if (i === 0) {
           return (
             <article key={place.index}>
               <PlaceCard>
                 <PlaceCard.Header>
-                  <PlaceCard.Title>만남 장소: {place.placeName}</PlaceCard.Title>
+                  <PlaceCard.Title handleClick={() => handleClickPlace(place)}>
+                    {place.index}. 만남 장소: {place.placeName}
+                  </PlaceCard.Title>
                 </PlaceCard.Header>
                 <PlaceCard.Body handleClick={() => handleClickPlace(place)}>
                   {place.roadAddressName && <PlaceCard.Detail>도로명: {place.roadAddressName}</PlaceCard.Detail>}
@@ -225,7 +224,7 @@ function MomentPlaceColumn({ handleClickPlace }: MomentPlaceColumnProps) {
       })}
 
       {/* 마지막 위치에 삽입선 */}
-      <InsertionLine isActive={insertionIndex === data.places[data.places.length - 1].index + 1} />
+      <InsertionLine isActive={insertionIndex === places[places.length - 1].index + 1} />
     </div>
   );
 }

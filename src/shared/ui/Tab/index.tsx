@@ -4,6 +4,7 @@ import { cn } from '@/shared/lib/cn';
 
 interface MainProps extends PropsWithChildren {
   initialIndex?: number;
+  handleTabChange?: (index: number) => void;
 }
 
 interface TabTriggerProps extends PropsWithChildren {
@@ -21,11 +22,12 @@ interface TabContextProps {
 
 const TabContext = createContext<TabContextProps | undefined>(undefined);
 
-function Main({ children, initialIndex = 0 }: MainProps) {
+function Main({ children, initialIndex = 0, handleTabChange }: MainProps) {
   const [activeIndex, setActiveIndex] = useState(initialIndex);
 
   const goToTab = (index: number) => {
     setActiveIndex(index);
+    if (handleTabChange) handleTabChange(index);
   };
 
   return <TabContext.Provider value={{ activeIndex, goToTab }}>{children}</TabContext.Provider>;

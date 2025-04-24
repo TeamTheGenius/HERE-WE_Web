@@ -1,6 +1,6 @@
 export const routePaths = {
   auth: '/auth',
-  signIn: '/signin',
+  signIn: '/',
   signUp: '/signup',
   main: '/main',
   createCrew: '/crew/create',

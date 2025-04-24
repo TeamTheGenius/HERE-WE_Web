@@ -1,7 +1,5 @@
 import { PlaceCard } from '@/entities/Location/ui/PlaceCard';
 import { MomentPlace } from '../../model/types';
-import { useDeleteMomentPlace } from '../../query/useDeleteMomentPlace';
-import { useParams } from 'react-router-dom';
 import { PointerEvent } from 'react';
 import Icon from '@/shared/ui/Icon';
 
@@ -13,20 +11,13 @@ interface MomentPlaceEditCardProps {
 
 function MomentPlaceEditCard({ data, handleClickPlace, handleGrabPlace }: MomentPlaceEditCardProps) {
   const { placeName, index, roadAddressName, addressName, phone } = data;
-
-  const { mutateAsync: deletePlace } = useDeleteMomentPlace();
-  const { momentId } = useParams();
-
-  const handlePlaceDelete = async (index: number) => {
-    await deletePlace({ momentId: Number(momentId), index });
-  };
-
   return (
     <PlaceCard>
       <PlaceCard.Header>
-        <PlaceCard.Title>{placeName}</PlaceCard.Title>
+        <PlaceCard.Title handleClick={() => handleClickPlace(data)}>
+          {index}. {placeName}
+        </PlaceCard.Title>
         <PlaceCard.Buttons>
-          <PlaceCard.Button onClick={() => handlePlaceDelete(index)}>삭제</PlaceCard.Button>
           <button style={{ touchAction: 'none' }} onPointerDown={(e) => handleGrabPlace(e, index)}>
             <Icon icon="grab" color="text-primary" iconSize="20" />
           </button>
