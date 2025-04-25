@@ -1,5 +1,55 @@
+import { crewQueries } from '@/entities/crew/query/crewQueries';
+import Button from '@/shared/ui/Button';
+import Icon from '@/shared/ui/Icon';
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
+import styles from './index.module.scss';
+import { cn } from '@/shared/lib/cn';
+
 function HomePage() {
-  return <div>home</div>;
+  const { crewId } = useParams();
+
+  const { data: crewDetailJSON } = useQuery({ ...crewQueries.crewJSON({ crewId: Number(crewId) }) });
+  const { data: crewDetailImage } = useQuery({ ...crewQueries.crewFile({ crewId: Number(crewId) }) });
+
+  return (
+    <main className={styles.crewInformation}>
+      <div className={styles.overlayImageWrapper}>
+        <div className={styles.overlay} />
+        <div className={styles.imageWrapper}>
+          <img className={styles.image} src={crewDetailImage?.source} alt="크루 썸네일" />
+
+          <div className={styles.overlayContent}>
+            <h2 className={styles.name}>{crewDetailJSON?.name}</h2>
+            <div className={styles.metaList}>
+              <div className={styles.metaItem}>
+                <Icon icon="crown" iconSize="20" color="text-white" />
+                <p className={styles.metaText}>{crewDetailJSON?.leaderNickname}</p>
+              </div>
+              <div className={styles.metaItem}>
+                <Icon icon="people-stroke" iconSize="20" color="text-white" />
+                <p className={styles.metaText}> {crewDetailJSON?.participantCount}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.detailContent}>
+        <div className={styles.buttons}>
+          <Button>수정</Button>
+          <Button text="탈퇴" icon="leave" variant="secondary" />
+        </div>
+
+        <div className={styles.sectionList}>
+          <div className={styles.section}>
+            <h3 className={styles.sectionTitle}>소개</h3>
+            <p className={cn(styles.introduce, styles.sectionContent)}>{crewDetailJSON?.introduce}</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  );
 }
 
 export default HomePage;
