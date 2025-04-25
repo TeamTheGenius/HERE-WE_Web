@@ -1,16 +1,15 @@
-import { Location, LocationAboutServer } from '@/entities/Location/model/types';
+import { LocationAboutServer } from '@/entities/Location/model/types';
 import { privateClient } from '@/shared/api/config';
+import { MomentJSONMutationRequest } from '../model/types';
 
-export interface PostMomentRequest {
-  crewId: number;
-  momentName: string;
-  meetAt: string;
-  place: Location;
-  capacity: number;
-  closedAt: string;
-}
-
-export const postMoment = async ({ crewId, momentName, meetAt, place, capacity, closedAt }: PostMomentRequest) => {
+export const postMoment = async ({
+  crewId,
+  momentName,
+  meetAt,
+  place,
+  capacity,
+  closedAt,
+}: MomentJSONMutationRequest) => {
   const { placeName, placeURL, addressName, roadAddressName, phone, x, y, id } = place;
 
   const formattedPlace: LocationAboutServer = {

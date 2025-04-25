@@ -1,4 +1,4 @@
-import { MomentCommonPayload } from '@/entities/moment/model/types';
+import { MomentJSONMutationRequest } from '@/entities/moment/model/types';
 import { usePostMoment } from '@/entities/moment/query/usePostMoment';
 import { usePostMomentFile } from '@/entities/moment/query/usePostMomentFile';
 import { MomentFormType } from '@/features/moment/model/types';
@@ -19,7 +19,7 @@ function MomentCreatePage() {
     place: undefined,
   };
 
-  const handleJSONSubmit = async (data: MomentCommonPayload) => {
+  const handleJSONSubmit = async (data: MomentJSONMutationRequest) => {
     const { momentId: returnedMomentId } = await postMoment({ crewId: Number(crewId), ...data });
     return { momentId: returnedMomentId };
   };
@@ -29,7 +29,7 @@ function MomentCreatePage() {
       initialData={initialData}
       handleJSONSubmit={handleJSONSubmit}
       handleFIleSUbmit={postMomentFile}
-      submitButtonText="생성하기"
+      submitType="생성"
     />
   );
 }

@@ -1,7 +1,7 @@
 import { InfiniteScroll, Pagination } from '@/shared/types/api';
 import { getCrewMomentList, GetCrewMomentListRequest } from '../api/getCrewMomentList';
 import { infiniteQueryOptions, QueryFunctionContext, queryOptions } from '@tanstack/react-query';
-import { MomentJSONType } from '@/entities/moment/model/types';
+import { MomentJSONQueryResponse } from '@/entities/moment/model/types';
 import { momentQueries } from '@/entities/moment/query/momentQueries';
 import { getMomentPlaces, GetMomentPlacesRequest } from '../api/getMomentPlaces';
 import { getUpcomingMoments, GetUpcomingMomentsRequest } from '../api/getUpcomingMoments';
@@ -25,7 +25,7 @@ export const momentFeatureQueries = {
     }),
 
   crewMomentPaginationJSON: ({ page, size, crewId }: GetCrewMomentListRequest) =>
-    queryOptions<Pagination<MomentJSONType>>({
+    queryOptions<Pagination<MomentJSONQueryResponse>>({
       queryKey: [...momentFeatureQueries.allListKeys, crewId, page, size],
       queryFn: () => getCrewMomentList({ crewId, page, size }),
     }),

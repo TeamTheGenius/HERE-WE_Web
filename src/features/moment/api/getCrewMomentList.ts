@@ -1,4 +1,4 @@
-import { MomentJSONType } from '@/entities/moment/model/types';
+import { MomentJSONQueryResponse } from '@/entities/moment/model/types';
 import { privateClient } from '@/shared/api/config';
 import { Pagination } from '@/shared/types/api';
 
@@ -12,7 +12,7 @@ export const getCrewMomentList = async ({
   crewId,
   page,
   size,
-}: GetCrewMomentListRequest): Promise<Pagination<MomentJSONType>> => {
+}: GetCrewMomentListRequest): Promise<Pagination<MomentJSONQueryResponse>> => {
   const { data: response } = await privateClient.get(`/moment/crew/${crewId}`, {
     params: {
       page: page,

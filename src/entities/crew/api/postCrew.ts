@@ -1,17 +1,7 @@
 import { privateClient } from '@/shared/api/config';
+import { CrewJSONMutationRequest, CrewJSONMutationResponse } from '../model/types';
 
-export interface PostCrewRequest {
-  name: string;
-  introduce: string;
-}
-
-export interface PostCrewResponse {
-  crewId: number;
-  name: string;
-  participantCount: number;
-}
-
-export const postCrew = async ({ name, introduce }: PostCrewRequest): Promise<PostCrewResponse> => {
+export const postCrew = async ({ name, introduce }: CrewJSONMutationRequest): Promise<CrewJSONMutationResponse> => {
   const { data: response } = await privateClient.post('/crew', {
     name,
     introduce,

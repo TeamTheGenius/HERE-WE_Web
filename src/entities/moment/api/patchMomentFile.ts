@@ -1,13 +1,8 @@
 import { privateClient } from '@/shared/api/config';
 import { formatImageSource } from '@/shared/helper/formatImageSource';
-import { FileType } from '@/shared/types/api';
+import { FileMutationRequest, FileType } from '@/shared/types/api';
 
-export interface PostMomentFileRequest {
-  momentId: number;
-  files: File[];
-}
-
-export const patchMomentFile = async ({ momentId, files }: PostMomentFileRequest): Promise<FileType> => {
+export const patchMomentFile = async ({ id: momentId, files }: FileMutationRequest): Promise<FileType> => {
   const formData = new FormData();
   files.forEach((file) => formData.append('files', file));
 

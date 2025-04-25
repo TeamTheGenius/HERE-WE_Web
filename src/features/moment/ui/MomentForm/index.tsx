@@ -12,19 +12,18 @@ import { useCrewWithFile } from '@/entities/crew/query/useCrewWithFile';
 import { useNavigate, useParams } from 'react-router-dom';
 import { formatLocalDateTime } from '@/shared/lib/dateFormater';
 import { routePaths } from '@/app/routes/path';
-import { PostMomentFileRequest } from '@/entities/moment/api/postMomentFile';
 import { TitledFormLayout } from '@/shared/ui/TitledFormLayout';
-import { FileType } from '@/shared/types/api';
-import { MomentCommonPayload } from '@/entities/moment/model/types';
+import { FileMutationRequest, FileType } from '@/shared/types/api';
+import { MomentJSONMutationRequest } from '@/entities/moment/model/types';
 
 interface MomentFormProps {
   initialData: MomentFormType;
-  handleJSONSubmit: (payload: MomentCommonPayload) => Promise<{ momentId: number }>;
-  handleFIleSUbmit: (payload: PostMomentFileRequest) => Promise<FileType>;
-  submitButtonText: string;
+  handleJSONSubmit: (payload: MomentJSONMutationRequest) => Promise<{ momentId: number }>;
+  handleFIleSUbmit: (payload: FileMutationRequest) => Promise<FileType>;
+  submitType: '생성' | '수정';
 }
 
-function MomentForm({ initialData, handleJSONSubmit, handleFIleSUbmit, submitButtonText }: MomentFormProps) {
+function MomentForm({ initialData, handleJSONSubmit, handleFIleSUbmit, submitType }: MomentFormProps) {
   const { crewId } = useParams();
 
   const navigate = useNavigate();
@@ -72,7 +71,7 @@ function MomentForm({ initialData, handleJSONSubmit, handleFIleSUbmit, submitBut
         place,
       });
 
-      await handleFIleSUbmit({ momentId, files: files });
+      await handleFIleSUbmit({ id: momentId, files: files });
       navigate(routePaths.momentDetail.getPath(Number(crewId), momentId));
     } catch (error) {
       handleApiError(error);
@@ -82,7 +81,7 @@ function MomentForm({ initialData, handleJSONSubmit, handleFIleSUbmit, submitBut
   return (
     <>
       <TitledFormLayout handleSubmit={formMethods.handleSubmit(onSubmit)}>
-        <TitledFormLayout.Title>모먼트 생성 페이지</TitledFormLayout.Title>
+        <TitledFormLayout.Title>모먼트 {submitType} 페이지</TitledFormLayout.Title>
         <TitledFormLayout.Form>
           <LocationSelectModal isOpen={isOpen} closeModal={closeModal} handleSelectLocation={handleSelectLocation} />
 
@@ -179,7 +178,7 @@ function MomentForm({ initialData, handleJSONSubmit, handleFIleSUbmit, submitBut
             {errors.closedAt && <TextInput.Message variant="warning">{errors.closedAt.message}</TextInput.Message>}
           </TextInput>
         </TitledFormLayout.Form>
-        <TitledFormLayout.Button>{submitButtonText}</TitledFormLayout.Button>
+        <TitledFormLayout.Button>{submitType}하기</TitledFormLayout.Button>
       </TitledFormLayout>
     </>
   );

@@ -1,12 +1,12 @@
 import { Location } from '@/entities/Location/model/types';
 import { privateClient } from '@/shared/api/config';
-import { MomentJSONType } from '../model/types';
+import { MomentJSONQueryResponse } from '../model/types';
 
 export interface GetMomentRequest {
   momentId: number;
 }
 
-export const getMoment = async ({ momentId }: GetMomentRequest): Promise<MomentJSONType> => {
+export const getMoment = async ({ momentId }: GetMomentRequest): Promise<MomentJSONQueryResponse> => {
   const { data: response } = await privateClient.get(`/moment/${momentId}`);
   const { place_name, id, x, y, address_name, road_address_name, place_url, phone } = response.data.place;
 

@@ -1,7 +1,7 @@
 import { Location } from '@/entities/Location/model/types';
 import { FileType } from '@/shared/types/api';
 
-export interface MomentJSONType {
+export interface MomentJSONQueryResponse {
   momentId: number;
   isJoined: boolean;
   isClosed: boolean;
@@ -14,14 +14,15 @@ export interface MomentJSONType {
   place: Location;
 }
 
-export interface MomentType extends MomentJSONType {
+export interface MomentType extends MomentJSONQueryResponse {
   file?: FileType;
 }
 
-export interface MomentCommonPayload {
+export interface MomentJSONMutationRequest {
+  crewId?: number;
   momentName: string;
-  capacity: number;
-  closedAt: string;
   meetAt: string;
   place: Location;
+  capacity: number;
+  closedAt: string;
 }
