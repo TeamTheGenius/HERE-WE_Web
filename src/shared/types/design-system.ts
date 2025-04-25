@@ -1,5 +1,5 @@
 export type TextColorType =
-  | 'text-default'
+  | 'text-white'
   | 'text-primary'
   | 'text-secondary'
   | 'text-tertiary'
@@ -45,6 +45,7 @@ export type IconType =
   | 'cross'
   | 'error'
   | 'warning'
-  | 'success';
+  | 'success'
+  | 'leave';
 export type SocialIconType = 'kakao' | 'naver' | 'google';
 export type IconSizeType = '16' | '20' | '24' | '28' | '40' | '80';

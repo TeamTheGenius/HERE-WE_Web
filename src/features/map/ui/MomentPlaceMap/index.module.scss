@@ -24,7 +24,7 @@
 .infoWindow__button {
   padding: $space-xxs;
   background-color: var(--surface-brand);
-  color: var(--text-default);
+  color: var(--text-white);
   @include font-text(label-small);
   transition: background-color 0.2s ease;
 

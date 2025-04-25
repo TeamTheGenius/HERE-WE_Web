@@ -15,8 +15,8 @@ export interface BadgeProps extends PropsWithChildren {
 
 function Badge({ icon, text, variant = 'primary', className, children }: BadgeProps) {
   const iconColorMap: Record<BadgeType, TextColorType> = {
-    primary: 'text-default',
-    secondary: 'text-default',
+    primary: 'text-white',
+    secondary: 'text-white',
     tertiary: 'text-tertiary',
   };
   return (

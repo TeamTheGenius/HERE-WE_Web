@@ -47,7 +47,7 @@ const meta: Meta<typeof Button> = {
       description: '버튼 아이콘 색상',
       table: {
         type: { summary: 'TextColorType' },
-        defaultValue: { summary: '"text-default" (primary) | "text-secondary" (secondary)' },
+        defaultValue: { summary: '"text-white" (primary) | "text-secondary" (secondary)' },
       },
     },
     onClick: {
