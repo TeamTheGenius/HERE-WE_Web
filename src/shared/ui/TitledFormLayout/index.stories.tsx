@@ -2,7 +2,8 @@ import { Meta, StoryObj } from '@storybook/react';
 import { FormEvent } from 'react';
 import { TitledFormLayout } from '.';
 import { useCrewRegister } from '@/features/crew/model/useCrewRegister';
-import CrewForm from '@/features/crew/ui/CrewForm';
+import { TextArea } from '../TextArea';
+import { TextInput } from '../TextInput';
 
 const meta: Meta<typeof TitledFormLayout> = {
   title: 'shared/TitledFormLayout',
@@ -50,7 +51,7 @@ export const Default: Story = {
 export const Playground: Story = {
   args: {},
   render: () => {
-    const { formMethods, handleFileInputClick, mergedRef } = useCrewRegister({
+    const { formMethods } = useCrewRegister({
       image: undefined,
       title: '',
       introduce: '',
@@ -64,7 +65,24 @@ export const Playground: Story = {
       <TitledFormLayout handleSubmit={handleSubmit}>
         <TitledFormLayout.Title>크루 생성 페이지</TitledFormLayout.Title>
         <TitledFormLayout.Form>
-          <CrewForm formMethods={formMethods} handleFileInputClick={handleFileInputClick} mergedRef={mergedRef} />
+          <TextInput>
+            <TextInput.Label isRequired={true}>크루명</TextInput.Label>
+            <TextInput.Input
+              minLength={2}
+              maxLength={20}
+              hasError={false}
+              placeholder="크루명을 2자~20자 입력해주세요"
+            />
+          </TextInput>
+          <TextArea>
+            <TextArea.Label>소개</TextArea.Label>
+            <TextArea.Area
+              placeholder="크루를 0~1000자로 소개해주세요"
+              hasError={false}
+              minLength={0}
+              maxLength={1000}
+            />
+          </TextArea>
         </TitledFormLayout.Form>
         <TitledFormLayout.Button>생성하기</TitledFormLayout.Button>
       </TitledFormLayout>
