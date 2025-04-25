@@ -12,3 +12,15 @@ export interface CrewJSONType {
 export interface CrewType extends CrewJSONType {
   file?: FileType;
 }
+
+export interface CrewJSONMutationRequest {
+  crewId?: number;
+  name: string;
+  introduce: string;
+}
+
+export interface CrewJSONMutationResponse {
+  crewId: number;
+  name: string;
+  participantCount: number;
+}

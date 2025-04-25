@@ -1,4 +1,4 @@
-import { MomentCommonPayload } from '@/entities/moment/model/types';
+import { MomentJSONMutationRequest } from '@/entities/moment/model/types';
 import { useMomentDetailWithFile } from '@/entities/moment/query/useMomentDetailWithFile';
 import { usePatchMoment } from '@/entities/moment/query/usePatchMoment';
 import { usePatchMomentFile } from '@/entities/moment/query/usePatchMomentFile';
@@ -39,7 +39,7 @@ function MomentEditPage() {
     image: initialFileList,
   };
 
-  const handleJSONSubmit = async (data: MomentCommonPayload) => {
+  const handleJSONSubmit = async (data: MomentJSONMutationRequest) => {
     await patchMoment({ momentId: Number(momentId), ...data });
     return { momentId: Number(momentId) };
   };
@@ -49,7 +49,7 @@ function MomentEditPage() {
       initialData={initialData}
       handleJSONSubmit={handleJSONSubmit}
       handleFIleSUbmit={patchMomentFile}
-      submitButtonText="수정하기"
+      submitType="수정"
     />
   );
 }

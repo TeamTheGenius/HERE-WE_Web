@@ -6,6 +6,11 @@ export interface FileType {
   fileEnv: FileEnvType;
 }
 
+export interface FileMutationRequest {
+  files: File[];
+  id: number;
+}
+
 export interface InfiniteScroll<T> {
   content: T[];
   empty: boolean;
