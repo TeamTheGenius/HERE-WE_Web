@@ -2,15 +2,21 @@ import { crewQueries } from '@/entities/crew/query/crewQueries';
 import Button from '@/shared/ui/Button';
 import Icon from '@/shared/ui/Icon';
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styles from './index.module.scss';
 import { cn } from '@/shared/lib/cn';
+import { routePaths } from '@/app/routes/path';
 
 function HomePage() {
   const { crewId } = useParams();
+  const navigate = useNavigate();
 
   const { data: crewDetailJSON } = useQuery({ ...crewQueries.crewJSON({ crewId: Number(crewId) }) });
   const { data: crewDetailImage } = useQuery({ ...crewQueries.crewFile({ crewId: Number(crewId) }) });
+
+  const handleClickEdit = () => {
+    navigate(routePaths.crewEdit(Number(crewId)));
+  };
 
   return (
     <main className={styles.crewInformation}>
@@ -37,8 +43,7 @@ function HomePage() {
 
       <div className={styles.detailContent}>
         <div className={styles.buttons}>
-          <Button>수정</Button>
-          <Button text="탈퇴" icon="leave" variant="secondary" />
+          <Button onClick={handleClickEdit}>수정</Button>
         </div>
 
         <div className={styles.sectionList}>
