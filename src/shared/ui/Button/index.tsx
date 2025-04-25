@@ -27,7 +27,7 @@ function Button({
   children,
   ...rest
 }: ButtonProps) {
-  const computedIconColor: TextColorType = iconColor ?? (variant === 'primary' ? 'text-default' : 'text-secondary');
+  const computedIconColor: TextColorType = iconColor ?? (variant === 'primary' ? 'text-white' : 'text-secondary');
 
   return (
     <button
