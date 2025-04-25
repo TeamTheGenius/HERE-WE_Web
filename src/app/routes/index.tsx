@@ -19,6 +19,7 @@ import MomentDetailPage from '@/pages/MomentDetailPage';
 import UpcomingMomentsPage from '@/pages/UpcomingMomentsPage';
 import MomentEditPage from '@/pages/MomentEditPage';
 import HeaderWithNavigationLayout from '../layouts/HeaderWithNavigationLayout';
+import CrewEditPage from '@/pages/CrewEditPage';
 
 export function Routing() {
   return (
@@ -34,6 +35,7 @@ export function Routing() {
       <Route element={<HeaderLayout />}>
         <Route path={routePaths.main} element={<Main />} />
         <Route path={routePaths.createCrew} element={<CrewCreatePage />} />
+        <Route path={routePaths.crewEdit()} element={<CrewEditPage />} />
         <Route path={routePaths.momentCreate.path} element={<MomentCreatePage />} />
         <Route path={routePaths.momentEdit.path} element={<MomentEditPage />} />
         <Route path={routePaths.momentDetail.path} element={<MomentDetailPage />} />
