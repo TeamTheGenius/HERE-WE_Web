@@ -1,0 +1,7 @@
+export const LOCAL_STORAGE_KEY = {
+  USER_STORAGE: 'HW_USER_STORAGE',
+} as const;
+
+export const SESSION_STORAGE_KEY = {
+  REDIRECT_AFTER_OAUTH: 'HW_REDIRECT_AFTER_OAUTH',
+} as const;
