@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { postAuth } from '../../api/postAuth';
 import { routePaths } from '@/app/routes/path';
 import { FormEvent } from 'react';
+import useUserStore from '@/shared/store/userStore';
 
 interface SignUpForm extends UserInfoType {
   token: string;
@@ -28,6 +29,7 @@ function SignUpForm({ nickname, image, token }: SignUpForm) {
     handleNicknameDuplicateCheck,
   } = useProfileRegister({ nickname, image });
   const navigate = useNavigate();
+  const updateUser = useUserStore((state) => state.update);
 
   const watchedFile = useWatch({ control, name: 'image' });
   const watchedNickname = useWatch({ control, name: 'nickname' });
@@ -39,7 +41,8 @@ function SignUpForm({ nickname, image, token }: SignUpForm) {
     if (!canSubmit) return;
     const nickname = getValues('nickname');
     const { userId } = await postAuthSignup(token, nickname);
-    await postAuth(userId);
+    const { profileImage } = await postAuth(userId);
+    updateUser({ nickname, profileImage });
     navigate(routePaths.main);
   };
 
