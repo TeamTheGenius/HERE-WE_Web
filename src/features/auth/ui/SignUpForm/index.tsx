@@ -41,7 +41,7 @@ function SignUpForm({ nickname, image, token }: SignUpForm) {
     if (!canSubmit) return;
     const nickname = getValues('nickname');
     const { userId } = await postAuthSignup(token, nickname);
-    const { profileImage } = await postAuth(userId);
+    const { profileImage } = await postAuth(userId, token);
     updateUser({ nickname, profileImage });
     navigate(routePaths.main);
   };
