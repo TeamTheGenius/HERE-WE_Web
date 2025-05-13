@@ -20,6 +20,7 @@ import UpcomingMomentsPage from '@/pages/UpcomingMomentsPage';
 import MomentEditPage from '@/pages/MomentEditPage';
 import HeaderWithNavigationLayout from '../layouts/HeaderWithNavigationLayout';
 import CrewEditPage from '@/pages/CrewEditPage';
+import PrivatePage from '@/pages/PrivatePage';
 
 export function Routing() {
   return (
@@ -32,25 +33,27 @@ export function Routing() {
       <Route path={routePaths.auth} element={<AuthPage />} />
       <Route path={routePaths.memberJoin} element={<MemberJoinPage />} />
 
-      <Route element={<HeaderLayout />}>
-        <Route path={routePaths.main} element={<Main />} />
-        <Route path={routePaths.createCrew} element={<CrewCreatePage />} />
-        <Route path={routePaths.crewEdit()} element={<CrewEditPage />} />
-        <Route path={routePaths.momentCreate.path} element={<MomentCreatePage />} />
-        <Route path={routePaths.momentEdit.path} element={<MomentEditPage />} />
-        <Route path={routePaths.momentDetail.path} element={<MomentDetailPage />} />
-        <Route path={routePaths.upcomingMoment} element={<UpcomingMomentsPage />} />
-      </Route>
+      <Route element={<PrivatePage />}>
+        <Route element={<HeaderLayout />}>
+          <Route path={routePaths.main} element={<Main />} />
+          <Route path={routePaths.createCrew} element={<CrewCreatePage />} />
+          <Route path={routePaths.crewEdit()} element={<CrewEditPage />} />
+          <Route path={routePaths.momentCreate.path} element={<MomentCreatePage />} />
+          <Route path={routePaths.momentEdit.path} element={<MomentEditPage />} />
+          <Route path={routePaths.momentDetail.path} element={<MomentDetailPage />} />
+          <Route path={routePaths.upcomingMoment} element={<UpcomingMomentsPage />} />
+        </Route>
 
-      <Route element={<HeaderWithNavigationLayout />}>
-        <Route path={routePaths.member} element={<MemberPage />} />
-        <Route path={routePaths.home.path} element={<HomePage />} />
-        <Route path={routePaths.chat} element={<ChatPage />} />
-        <Route path={routePaths.moment} element={<MomentPage />} />
-      </Route>
+        <Route element={<HeaderWithNavigationLayout />}>
+          <Route path={routePaths.member} element={<MemberPage />} />
+          <Route path={routePaths.home.path} element={<HomePage />} />
+          <Route path={routePaths.chat} element={<ChatPage />} />
+          <Route path={routePaths.moment} element={<MomentPage />} />
+        </Route>
 
-      <Route element={<FullLayout />}>
-        <Route path={routePaths.momentPlace.path} element={<MomentPlacePage />} />
+        <Route element={<FullLayout />}>
+          <Route path={routePaths.momentPlace.path} element={<MomentPlacePage />} />
+        </Route>
       </Route>
     </Routes>
   );
