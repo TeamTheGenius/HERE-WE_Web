@@ -9,11 +9,11 @@ interface ScrollableRowProps extends PropsWithChildren {
 }
 
 function ScrollableRow({ className, children }: ScrollableRowProps) {
-  const { scrollLeft, scrollRef, scrollRight, hasLeftButton, hasRightButton, handleScroll } = useHorizontalScroll();
+  const { scrollLeft, scrollRef, scrollRight, hasLeftButton, hasRightButton } = useHorizontalScroll();
 
   return (
     <div className={styles.container}>
-      <div ref={scrollRef} className={cn(styles.scrollableContainer, className)} onScroll={handleScroll}>
+      <div ref={scrollRef} className={cn(styles.scrollableContainer, className)}>
         {children}
       </div>
 
