@@ -44,6 +44,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-dom", "virtual:b2b9b682f39c027039400b469dfad7a3c44993a42f31b20c5024fff07698297028ac6d474ed7fb4f7a66b501306244af1438406714bb2de85b691d99e9344a51#npm:18.3.5"],\
           ["@vitejs/plugin-react", "virtual:b2b9b682f39c027039400b469dfad7a3c44993a42f31b20c5024fff07698297028ac6d474ed7fb4f7a66b501306244af1438406714bb2de85b691d99e9344a51#npm:4.3.4"],\
           ["axios", "npm:1.7.9"],\
+          ["chromatic", "virtual:b2b9b682f39c027039400b469dfad7a3c44993a42f31b20c5024fff07698297028ac6d474ed7fb4f7a66b501306244af1438406714bb2de85b691d99e9344a51#npm:13.1.0"],\
           ["clsx", "npm:2.1.1"],\
           ["eslint", "virtual:b2b9b682f39c027039400b469dfad7a3c44993a42f31b20c5024fff07698297028ac6d474ed7fb4f7a66b501306244af1438406714bb2de85b691d99e9344a51#npm:9.19.0"],\
           ["eslint-config-prettier", "virtual:b2b9b682f39c027039400b469dfad7a3c44993a42f31b20c5024fff07698297028ac6d474ed7fb4f7a66b501306244af1438406714bb2de85b691d99e9344a51#npm:10.0.1"],\
@@ -3771,10 +3772,34 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
+      ["npm:13.1.0", {\
+        "packageLocation": "./.yarn/cache/chromatic-npm-13.1.0-90bb5fe334-ec23095e0a.zip/node_modules/chromatic/",\
+        "packageDependencies": [\
+          ["chromatic", "npm:13.1.0"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
       ["virtual:3d053c6f8cd6e00d8005a6a2c86c614cee25acedb03724c7f35de7a7a4c1265e1a5fc0d2d8501078ebbb1eacb9808a09b9a32ab9da598ca8e079975253f4288c#npm:11.25.2", {\
         "packageLocation": "./.yarn/__virtual__/chromatic-virtual-232eef65cc/0/cache/chromatic-npm-11.25.2-17137a2626-2cb4bb40a0.zip/node_modules/chromatic/",\
         "packageDependencies": [\
           ["chromatic", "virtual:3d053c6f8cd6e00d8005a6a2c86c614cee25acedb03724c7f35de7a7a4c1265e1a5fc0d2d8501078ebbb1eacb9808a09b9a32ab9da598ca8e079975253f4288c#npm:11.25.2"],\
+          ["@chromatic-com/cypress", null],\
+          ["@chromatic-com/playwright", null],\
+          ["@types/chromatic-com__cypress", null],\
+          ["@types/chromatic-com__playwright", null]\
+        ],\
+        "packagePeers": [\
+          "@chromatic-com/cypress",\
+          "@chromatic-com/playwright",\
+          "@types/chromatic-com__cypress",\
+          "@types/chromatic-com__playwright"\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["virtual:b2b9b682f39c027039400b469dfad7a3c44993a42f31b20c5024fff07698297028ac6d474ed7fb4f7a66b501306244af1438406714bb2de85b691d99e9344a51#npm:13.1.0", {\
+        "packageLocation": "./.yarn/__virtual__/chromatic-virtual-4348f06181/0/cache/chromatic-npm-13.1.0-90bb5fe334-ec23095e0a.zip/node_modules/chromatic/",\
+        "packageDependencies": [\
+          ["chromatic", "virtual:b2b9b682f39c027039400b469dfad7a3c44993a42f31b20c5024fff07698297028ac6d474ed7fb4f7a66b501306244af1438406714bb2de85b691d99e9344a51#npm:13.1.0"],\
           ["@chromatic-com/cypress", null],\
           ["@chromatic-com/playwright", null],\
           ["@types/chromatic-com__cypress", null],\
@@ -5353,6 +5378,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-dom", "virtual:b2b9b682f39c027039400b469dfad7a3c44993a42f31b20c5024fff07698297028ac6d474ed7fb4f7a66b501306244af1438406714bb2de85b691d99e9344a51#npm:18.3.5"],\
           ["@vitejs/plugin-react", "virtual:b2b9b682f39c027039400b469dfad7a3c44993a42f31b20c5024fff07698297028ac6d474ed7fb4f7a66b501306244af1438406714bb2de85b691d99e9344a51#npm:4.3.4"],\
           ["axios", "npm:1.7.9"],\
+          ["chromatic", "virtual:b2b9b682f39c027039400b469dfad7a3c44993a42f31b20c5024fff07698297028ac6d474ed7fb4f7a66b501306244af1438406714bb2de85b691d99e9344a51#npm:13.1.0"],\
           ["clsx", "npm:2.1.1"],\
           ["eslint", "virtual:b2b9b682f39c027039400b469dfad7a3c44993a42f31b20c5024fff07698297028ac6d474ed7fb4f7a66b501306244af1438406714bb2de85b691d99e9344a51#npm:9.19.0"],\
           ["eslint-config-prettier", "virtual:b2b9b682f39c027039400b469dfad7a3c44993a42f31b20c5024fff07698297028ac6d474ed7fb4f7a66b501306244af1438406714bb2de85b691d99e9344a51#npm:10.0.1"],\
