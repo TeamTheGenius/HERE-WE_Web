@@ -30,6 +30,44 @@ HERE:WE는 정기적인 소모임을 갖는 사람들이 **모임 계획**부터
 
 # 기술적 도전 
 
+## 🎨 디자인 시스템 구축 및 UI 일관성 개선 
+
+> "일관된 UI를 위한 체계적인 접근, 어떻게 해결했을까?"
+
+Sass Map과 Function을 활용한 색상/타이포그래피 토큰화부터 라이트/다크 모드까지. 
+<br/> 
+CSS 변수가 아닌 Sass 맵 구조를 선택한 이유와 모듈화(@use, @forward)를 통한 확장성 있는 디자인 시스템 구축 경험을 공유합니다.
+
+[🔗 자세히 보기](https://here-we.gitbook.io/here-we/frontend/ui)
+
+<br />
+
+## 🧩 합성 컴포넌트로 해결한 Props 폭발 문제
+
+> "Modal 하나에 10개의 props? 더 나은 방법이 있다!"
+
+Props Explosion을 겪고 나서 도입한 합성 컴포넌트 패턴. 
+<br />
+Children API와 React.isValidElement를 활용한 자동 레이아웃 구성부터 확장성과 유연성 사이의 균형점까지, 실제 적용하면서 마주친 트레이드오프를 솔직하게 담았습니다.
+
+
+[🔗 자세히 보기](https://here-we.gitbook.io/here-we/frontend/ui-1)
+
+<br />
+
+## 📱 크로스 플랫폼 드래그 앤 드롭 완전 정복기
+
+> "HTML5 Drag API는 모바일에서 작동하지 않는다!"
+
+DragEvent API 학습부터 MouseEvent, TouchEvent, PointerEvent까지. 
+<br />
+서드파티 라이브러리 없이 데스크탑과 모바일 모두에서 작동하는 드래그 앤 드롭을 구현했습니다. 자동 스크롤, 고스트 이미지, requestAnimationFrame 최적화까지 포함된 완전한 구현기입니다.
+
+
+[🔗 자세히 보기](https://here-we.gitbook.io/here-we/frontend/3)
+
+<br />
+
 # 주요 기능 
 
 # 기술 스택
