@@ -1,0 +1,75 @@
+// widgets/MomentInformationSkeleton/index.module.scss
+@use '@/shared/styles/global' as *;
+
+.container {
+  display: flex;
+  gap: $space-md;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: $space-md;
+
+  @media (max-width: $media-tablet) {
+    flex-direction: column;
+    align-items: center;
+    gap: $space-lg;
+    padding: $space-sm;
+  }
+}
+
+.thumbnail {
+  width: 100%;
+  max-width: 32rem;
+  aspect-ratio: 16/9;
+  border-radius: 0.8rem;
+
+  @media (max-width: $media-mobile) {
+    max-width: 100%;
+    border-radius: 0.6rem;
+  }
+}
+
+.field-container {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  max-width: 32rem;
+  width: 100%;
+
+  @media (max-width: $media-mobile) {
+    gap: $space-sm;
+    max-width: 100%;
+  }
+}
+
+.field {
+  display: flex;
+  width: 100%;
+  gap: $space-md;
+
+  @media (max-width: $media-mobile) {
+    flex-direction: column;
+    gap: $space-xs;
+  }
+}
+
+.field-title {
+  min-width: 10rem;
+  flex-shrink: 0;
+
+  @media (max-width: $media-tablet) {
+    min-width: 8rem;
+  }
+
+  @media (max-width: $media-mobile) {
+    min-width: auto;
+  }
+}
+
+.field-content {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+  flex: 1;
+  min-width: 0;
+}
