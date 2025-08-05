@@ -31,14 +31,14 @@ type Story = StoryObj<typeof TitledFormLayout>;
 export const Default: Story = {
   args: {},
   render: () => (
-    <TitledFormLayout
-      handleSubmit={(e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        alert('Form submitted!');
-      }}
-    >
+    <TitledFormLayout>
       <TitledFormLayout.Title>Form Title</TitledFormLayout.Title>
-      <TitledFormLayout.Form>
+      <TitledFormLayout.Form
+        handleSubmit={(e: FormEvent<HTMLFormElement>) => {
+          e.preventDefault();
+          alert('Form submitted!');
+        }}
+      >
         <input type="text" placeholder="Enter something..." />
         <input type="text" placeholder="Enter something..." />
         <input type="text" placeholder="Enter something..." />
@@ -62,9 +62,9 @@ export const Playground: Story = {
       formMethods.trigger();
     };
     return (
-      <TitledFormLayout handleSubmit={handleSubmit}>
+      <TitledFormLayout>
         <TitledFormLayout.Title>크루 생성 페이지</TitledFormLayout.Title>
-        <TitledFormLayout.Form>
+        <TitledFormLayout.Form handleSubmit={handleSubmit}>
           <TextInput>
             <TextInput.Label isRequired={true}>크루명</TextInput.Label>
             <TextInput.Input
