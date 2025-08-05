@@ -1,0 +1,40 @@
+@use '@/shared/styles/global' as *;
+
+.image {
+  position: absolute;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.overlayContent {
+  position: absolute;
+  z-index: 3;
+  color: var(--text-white);
+  bottom: 8%;
+  left: 4%;
+}
+
+.meta-list {
+  display: flex;
+  gap: $space-md;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: $space-xxs;
+}
+
+.name {
+  @include font-text(display-small);
+  color: var(--text-white);
+  margin-bottom: $space-sm;
+}
+
+.meta-text {
+  @include font-text(body-medium);
+  color: var(--text-white);
+}
