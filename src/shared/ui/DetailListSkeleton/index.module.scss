@@ -1,0 +1,13 @@
+@use '@/shared/styles/global' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xl;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
