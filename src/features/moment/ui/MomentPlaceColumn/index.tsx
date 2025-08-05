@@ -1,6 +1,4 @@
-import { useParams } from 'react-router-dom';
-import { Fragment, useRef } from 'react';
-import { MomentPlace } from '../../model/types';
+import { Fragment, useEffect, useRef } from 'react';
 import MomentPlaceEditCard from '../MomentPlaceEditCard';
 import styles from './index.module.scss';
 import { cn } from '@/shared/lib/cn';
@@ -8,6 +6,9 @@ import { PlaceCard } from '@/entities/Location/ui/PlaceCard';
 import { usePatchMomentPlace } from '../../query/usePatchMomentPlace';
 import { Location } from '@/entities/Location/model/types';
 import { useDragAndDrop } from '@/shared/hooks/useDragAndDrop';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { momentFeatureQueries } from '../../query/momentFeatureQueries';
+import { MomentPlaces } from '../../model/types';
 
 function InsertionLine({ isActive }: { isActive: boolean }) {
   return (
@@ -24,13 +25,15 @@ function InsertionLine({ isActive }: { isActive: boolean }) {
 }
 
 interface MomentPlaceColumnProps {
+  momentId: number;
   handleClickPlace: (place: Location) => void;
-  places: MomentPlace[];
+  handleLoadMomentPlaces: (momentPlaces: MomentPlaces) => void;
 }
 
-function MomentPlaceColumn({ handleClickPlace, places }: MomentPlaceColumnProps) {
-  const { momentId } = useParams();
-
+function MomentPlaceColumn({ handleClickPlace, momentId, handleLoadMomentPlaces }: MomentPlaceColumnProps) {
+  const { data: places } = useSuspenseQuery({
+    ...momentFeatureQueries.momentPlaces({ momentId }),
+  });
   const { mutateAsync: patchMomentPlace } = usePatchMomentPlace();
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -44,16 +47,20 @@ function MomentPlaceColumn({ handleClickPlace, places }: MomentPlaceColumnProps)
   };
 
   const { insertionIndex, handlePointerDown, getItemRef } = useDragAndDrop({
-    items: places,
+    items: places.places,
     onDrop: handleDrop,
     scrollContainerRef: containerRef,
   });
 
-  if (!places || places.length === 0) return null;
+  useEffect(() => {
+    handleLoadMomentPlaces(places);
+  }, [places]);
+
+  if (!places || places.places.length === 0) return null;
 
   return (
     <div ref={containerRef} className={styles.scrollContainer}>
-      {places.map((place, i) => {
+      {places.places.map((place, i) => {
         // 첫 번째 요소 (만남 장소)
         if (i === 0) {
           return (
@@ -90,7 +97,7 @@ function MomentPlaceColumn({ handleClickPlace, places }: MomentPlaceColumnProps)
       })}
 
       {/* 마지막 위치에 삽입선 */}
-      <InsertionLine isActive={insertionIndex === places[places.length - 1].index + 1} />
+      <InsertionLine isActive={insertionIndex === places.places[places.places.length - 1].index + 1} />
     </div>
   );
 }
