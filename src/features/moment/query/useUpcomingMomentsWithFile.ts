@@ -1,15 +1,15 @@
-import { useQueries, useQuery } from '@tanstack/react-query';
+import { useSuspenseQueries, useSuspenseQuery } from '@tanstack/react-query';
 import { momentFeatureQueries } from './momentFeatureQueries';
 import { momentQueries } from '@/entities/moment/query/momentQueries';
 import { FileType } from '@/shared/types/api';
 
 // 모먼트와 이미지를 합병하는 커스텀 훅
 export const useUpcomingMomentsWithFile = (page: number, size: number) => {
-  const { data: momentListData } = useQuery({
+  const { data: momentListData } = useSuspenseQuery({
     ...momentFeatureQueries.upcomingMomentsJSON({ page, size }),
   });
 
-  const fileQueries = useQueries({
+  const fileQueries = useSuspenseQueries({
     queries: (momentListData?.content || []).map((crew) => ({
       ...momentQueries.momentFile({ momentId: crew.momentId }),
     })),

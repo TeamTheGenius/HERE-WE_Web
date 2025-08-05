@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { MomentType } from '../model/types';
 import { momentQueries } from './momentQueries';
 
@@ -8,13 +8,12 @@ interface UseMomentDetailWithFileReturn {
 
 // 모먼트와 이미지를 합병하는 커스텀 훅
 export const useMomentDetailWithFile = (momentId: number): UseMomentDetailWithFileReturn => {
-  const { data: momentData } = useQuery({
+  const { data: momentData } = useSuspenseQuery({
     ...momentQueries.momentJSON({ momentId }),
   });
 
-  const { data: fileData } = useQuery({
+  const { data: fileData } = useSuspenseQuery({
     ...momentQueries.momentFile({ momentId }),
-    enabled: !!momentData,
   });
 
   return {
