@@ -1,13 +1,13 @@
 import Icon from '@/shared/ui/Icon';
 import styles from './index.module.scss';
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { crewQueries } from '@/entities/crew/query/crewQueries';
 import { useParams } from 'react-router-dom';
 
 function BaseCrewHeader() {
   const { crewId } = useParams();
 
-  const { data: crewData } = useQuery({
+  const { data: crewData } = useSuspenseQuery({
     ...crewQueries.crewJSON({ crewId: Number(crewId) }),
   });
 
