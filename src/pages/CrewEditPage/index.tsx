@@ -1,49 +1,49 @@
-import { CrewJSONMutationRequest } from '@/entities/crew/model/types';
-import { useCrewWithFile } from '@/entities/crew/query/useCrewWithFile';
-import { usePostCrew } from '@/entities/crew/query/usePostCrew';
-import { usePostCrewFile } from '@/entities/crew/query/usePostCrewFile';
-import CrewForm from '@/features/crew/ui/CrewForm';
-import { makeSourceToFileList } from '@/shared/helper/sourceToFileList';
-import { FileMutationRequest } from '@/shared/types/api';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { routePaths } from '@/app/routes/path';
+import { usePatchCrew } from '@/entities/crew/query/usePatchCrew';
+import { usePatchCrewFile } from '@/entities/crew/query/usePatchCrewFile';
+import CrewEditContent from '@/entities/crew/ui/CrewEditContent';
+import { CrewFormType } from '@/features/crew/model/types';
+import { useCrewRegister } from '@/features/crew/model/useCrewRegister';
+import DetailListSkeleton from '@/shared/ui/DetailListSkeleton';
+import { TitledFormLayout } from '@/shared/ui/TitledFormLayout';
+import { Suspense } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function CrewEditPage() {
   const { crewId } = useParams();
-  const [initialFileList, setInitialFileList] = useState<FileList>();
-  const { mutateAsync: patchCrew } = usePostCrew();
-  const { mutateAsync: patchCrewFile } = usePostCrewFile();
+  const navigate = useNavigate();
 
-  const handleJSONSubmit = async (data: CrewJSONMutationRequest) => {
-    const { crewId: returnedMomentId } = await patchCrew({ ...data });
-    return { crewId: returnedMomentId };
+  const { mutateAsync: patchCrew } = usePatchCrew();
+  const { mutateAsync: patchCrewFile } = usePatchCrewFile();
+
+  const handleSubmit = async (data: CrewFormType) => {
+    const { title, introduce, image } = data;
+    const files = image ? [...image] : [];
+
+    await Promise.all([
+      patchCrew({ name: title, introduce: introduce, crewId: Number(crewId) }),
+      patchCrewFile({ id: Number(crewId), files: files }),
+    ]);
+
+    navigate(routePaths.home.getPath(Number(crewId)));
   };
 
-  const handleFileSubmit = async (data: FileMutationRequest) => {
-    await patchCrewFile({ ...data });
-  };
-  const { data: crewDetail } = useCrewWithFile(Number(crewId));
-
-  useEffect(() => {
-    const file = crewDetail?.file;
-    if (!file) return;
-
-    const fetchData = async () => {
-      const fileList = await makeSourceToFileList(file.source, 'crew-image', file.fileEnv);
-      if (fileList) setInitialFileList(fileList);
-    };
-    fetchData();
-  }, [crewDetail?.file]);
-
-  if (!crewDetail || !initialFileList) return null;
+  const crewRegister = useCrewRegister({
+    image: undefined,
+    introduce: '',
+    title: '',
+  });
 
   return (
-    <CrewForm
-      initialData={{ image: initialFileList, introduce: crewDetail?.introduce || '', title: crewDetail?.name || '' }}
-      handleJSONSubmit={handleJSONSubmit}
-      handleFIleSubmit={handleFileSubmit}
-      submitType="수정"
-    />
+    <TitledFormLayout>
+      <TitledFormLayout.Title>크루 수정 페이지</TitledFormLayout.Title>
+      <TitledFormLayout.Form handleSubmit={crewRegister.formMethods.handleSubmit(handleSubmit)}>
+        <Suspense fallback={<DetailListSkeleton itemCount={6} titleWidth="12rem" contentHeight="6rem" />}>
+          <CrewEditContent crewId={Number(crewId)} crewRegister={crewRegister} />
+        </Suspense>
+        <TitledFormLayout.Button>수정하기</TitledFormLayout.Button>
+      </TitledFormLayout.Form>
+    </TitledFormLayout>
   );
 }
 
