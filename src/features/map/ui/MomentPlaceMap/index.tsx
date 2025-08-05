@@ -70,11 +70,6 @@ declare namespace Kakao {
 // 상수 정의
 const MARKER_SIZE = { width: 36, height: 48 };
 const MARKER_OFFSET = { x: 18, y: 48 };
-const Z_INDEX = {
-  SEARCH_RESULT: 10,
-  MOMENT_PLACE: 20,
-  FOCUS: 30,
-};
 
 const { kakao } = window;
 
@@ -89,8 +84,10 @@ function MomentPlaceMap({ searchPlaces, momentPlaces, focus }: MapProps) {
   const mapRef = useRef<Kakao.Maps.Map | null>(null);
   const focusMarkerRef = useRef<Kakao.Maps.Marker | null>(null);
   const infoWindowRef = useRef<Kakao.Maps.InfoWindow | null>(null);
-  const momentPlacesMarkerRef = useRef<Kakao.Maps.Marker[]>([]);
-  const searchResultMarkerRef = useRef<Kakao.Maps.Marker[]>([]);
+
+  // 각각 따로 Map으로 관리
+  const searchMarkersRef = useRef<Map<string, Kakao.Maps.Marker>>(new Map());
+  const momentMarkersRef = useRef<Map<string, Kakao.Maps.Marker>>(new Map());
 
   const { mutateAsync: deletePlace } = useDeleteMomentPlace();
   const { momentId } = useParams();
@@ -129,7 +126,7 @@ function MomentPlaceMap({ searchPlaces, momentPlaces, focus }: MapProps) {
 
   // 지도 초기화
   useEffect(() => {
-    if (!container.current) return;
+    if (!container.current || !momentPlaces[0]) return;
 
     const defaultCenter = momentPlaces[0];
     const centerPosition = new kakao.maps.LatLng(defaultCenter.y, defaultCenter.x);
@@ -140,18 +137,18 @@ function MomentPlaceMap({ searchPlaces, momentPlaces, focus }: MapProps) {
     });
 
     mapRef.current = map;
-  }, []);
+  }, [momentPlaces]);
 
   // 모멘트 장소 마커 관리
   useEffect(() => {
     if (!mapRef.current) return;
 
     // 기존 마커 제거
-    momentPlacesMarkerRef.current.forEach((marker) => marker.setMap(null));
-    momentPlacesMarkerRef.current = [];
+    const momentMarker = momentMarkersRef.current;
+    momentMarker.forEach((marker) => marker.setMap(null));
+    momentMarker.clear();
 
     // 새 마커 생성
-    const markers: Kakao.Maps.Marker[] = [];
     momentPlaces.forEach((place) => {
       const imageSize = new kakao.maps.Size(MARKER_SIZE.width, MARKER_SIZE.height);
       const imageOption = { offset: new kakao.maps.Point(MARKER_OFFSET.x, MARKER_OFFSET.y) };
@@ -160,13 +157,10 @@ function MomentPlaceMap({ searchPlaces, momentPlaces, focus }: MapProps) {
       const marker = new kakao.maps.Marker({
         position: markerPosition,
         image: markerImage,
-        zIndex: Z_INDEX.MOMENT_PLACE,
       });
       marker.setMap(mapRef.current);
-      markers.push(marker);
+      momentMarker.set(String(place.id), marker);
     });
-
-    momentPlacesMarkerRef.current = markers;
   }, [momentPlaces]);
 
   // 검색 결과 마커 관리
@@ -174,29 +168,27 @@ function MomentPlaceMap({ searchPlaces, momentPlaces, focus }: MapProps) {
     if (!mapRef.current) return;
 
     // 기존 마커 제거
-    searchResultMarkerRef.current.forEach((marker) => marker.setMap(null));
-    searchResultMarkerRef.current = [];
+    const searchResultMarker = searchMarkersRef.current;
+    searchResultMarker.forEach((marker) => marker.setMap(null));
+    searchResultMarker.clear();
 
     // 새 마커 생성
-    const markers: Kakao.Maps.Marker[] = [];
     searchPlaces?.pages?.forEach((page) => {
       page.content.forEach((place) => {
         const imageSize = new kakao.maps.Size(MARKER_SIZE.width, MARKER_SIZE.height);
+        const markerColor = momentMarkersRef.current.has(String(place.id)) ? blueMarker : orangeMarker;
         const imageOption = { offset: new kakao.maps.Point(MARKER_OFFSET.x, MARKER_OFFSET.y) };
-        const markerImage = new kakao.maps.MarkerImage(orangeMarker, imageSize, imageOption);
+        const markerImage = new kakao.maps.MarkerImage(markerColor, imageSize, imageOption);
         const markerPosition = new kakao.maps.LatLng(place.y, place.x);
         const marker = new kakao.maps.Marker({
           position: markerPosition,
           image: markerImage,
-          zIndex: Z_INDEX.SEARCH_RESULT,
         });
         marker.setMap(mapRef.current);
-        markers.push(marker);
+        searchResultMarker.set(String(place.id), marker);
       });
     });
-
-    searchResultMarkerRef.current = markers;
-  }, [searchPlaces]);
+  }, [searchPlaces, momentPlaces]);
 
   useEffect(() => {
     if (!mapRef.current || !focus) return;
@@ -207,14 +199,6 @@ function MomentPlaceMap({ searchPlaces, momentPlaces, focus }: MapProps) {
     // 지도 중심 변경
     const focusPosition = new kakao.maps.LatLng(focus.y, focus.x);
     mapRef.current.setCenter(focusPosition);
-
-    // 포커스 마커 생성
-    const imageSize = new kakao.maps.Size(MARKER_SIZE.width, MARKER_SIZE.height);
-    const imageOption = { offset: new kakao.maps.Point(MARKER_OFFSET.x, MARKER_OFFSET.y) };
-    const markerImage = new kakao.maps.MarkerImage(blueMarker, imageSize, imageOption);
-    const focusMarker = new kakao.maps.Marker({ position: focusPosition, image: markerImage });
-    focusMarker.setMap(mapRef.current);
-    focusMarkerRef.current = focusMarker;
 
     // 인포 윈도우 UI 반환 함수
     const getMomentPlaceInfoWindow = (place: MomentPlace) => `
@@ -239,9 +223,15 @@ function MomentPlaceMap({ searchPlaces, momentPlaces, focus }: MapProps) {
         `;
 
     // 인포 윈도우 생성
+    let targetMarker = null;
+    if (momentMarkersRef.current.has(String(focus.id))) targetMarker = momentMarkersRef.current.get(String(focus.id));
+    else if (searchMarkersRef.current.has(String(focus.id)))
+      targetMarker = searchMarkersRef.current.get(String(focus.id));
+    else return;
+
     const content = checkMomentPlace(focus) ? getMomentPlaceInfoWindow(focus) : getSearchPlaceInfoWindow(focus);
-    const infoWindow = new kakao.maps.InfoWindow({ position: focusMarker, content, zIndex: Z_INDEX.FOCUS });
-    infoWindow.open(mapRef.current, focusMarker);
+    const infoWindow = new kakao.maps.InfoWindow({ position: targetMarker, content });
+    infoWindow.open(mapRef.current, targetMarker);
     infoWindowRef.current = infoWindow;
 
     // 이벤트 부착

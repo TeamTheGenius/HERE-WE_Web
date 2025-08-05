@@ -1,38 +1,41 @@
 import MomentPlaceMap from '@/features/map/ui/MomentPlaceMap';
 import styles from './index.module.scss';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import LocationSearchForm from '@/features/Location/ui/LocationSearchForm';
 import MomentPlaceColumn from '@/features/moment/ui/MomentPlaceColumn';
 import MomentPlaceAddCard from '@/features/moment/ui/MomentPlaceAddCard';
-import { InfiniteData, useQuery } from '@tanstack/react-query';
-import { momentQueries } from '@/entities/moment/query/momentQueries';
+import { InfiniteData } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { Tab } from '@/shared/ui/Tab';
-import { momentFeatureQueries } from '@/features/moment/query/momentFeatureQueries';
 import { Location } from '@/entities/Location/model/types';
-import { MomentPlace } from '@/features/moment/model/types';
+import { MomentPlace, MomentPlaces } from '@/features/moment/model/types';
 import { InfiniteScroll } from '@/shared/types/api';
+import MomentPlaceTitle from '@/entities/moment/ui/MomentPlaceTitle';
+import Skeleton from '@/shared/ui/Skeleton';
+import CardListSkeleton from '@/shared/ui/CardListSkeleton';
 
 function MomentPlacePage() {
   const { momentId } = useParams();
+
   const [keyword, setKeyword] = useState<string>('');
-  const { data: momentDetail } = useQuery({ ...momentQueries.momentJSON({ momentId: Number(momentId) }) });
-  const { data: momentPlaces } = useQuery({
-    ...momentFeatureQueries.momentPlaces({ momentId: Number(momentId) }),
-  });
+  const [momentPlaces, setMomentPlaces] = useState<MomentPlaces>();
   const [searchResult, setSearchResult] = useState<InfiniteData<InfiniteScroll<Location>>>();
   const [focus, setFocus] = useState<Location | MomentPlace | undefined>(momentPlaces?.places?.[0]);
   const firstSearchResult = searchResult?.pages[0].content[0];
 
-  const handleSubmitKeyword = (keyword: string) => {
+  const submitKeyword = (keyword: string) => {
     setKeyword(keyword);
   };
 
-  const handleSearchPlace = (places: InfiniteData<InfiniteScroll<Location>>) => {
+  const searchPlace = (places: InfiniteData<InfiniteScroll<Location>>) => {
     setSearchResult(places);
   };
 
-  const handleFocusPlace = (place: Location | MomentPlace) => {
+  const updateMomentPlaces = (momentPlaces: MomentPlaces) => {
+    setMomentPlaces(momentPlaces);
+  };
+
+  const focusPlace = (place: Location | MomentPlace) => {
     setFocus(place);
   };
 
@@ -53,11 +56,13 @@ function MomentPlacePage() {
     if (firstSearchResult) setFocus(firstSearchResult);
   }, [firstSearchResult]);
 
-  if (!momentPlaces) return;
-
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>{momentDetail?.name}</h2>
+      <div className={styles.title}>
+        <Suspense fallback={<Skeleton variant="rect" width="16rem" height="1.6rem" />}>
+          <MomentPlaceTitle momentId={Number(momentId)} />
+        </Suspense>
+      </div>
       <main className={styles.contentContainer}>
         <section className={styles.locationSection}>
           <Tab handleTabChange={handleTabChange}>
@@ -66,21 +71,23 @@ function MomentPlacePage() {
               <Tab.Trigger index={1}>검색</Tab.Trigger>
             </Tab.TriggerList>
             <Tab.Panel index={0}>
-              <MomentPlaceColumn handleClickPlace={handleFocusPlace} places={momentPlaces?.places || []} />
+              <Suspense fallback={<CardListSkeleton direction="vertical" />}>
+                <MomentPlaceColumn
+                  momentId={Number(momentId)}
+                  handleClickPlace={focusPlace}
+                  handleLoadMomentPlaces={updateMomentPlaces}
+                />
+              </Suspense>
             </Tab.Panel>
             <Tab.Panel index={1}>
-              <LocationSearchForm
-                keyword={keyword}
-                handleSubmitKeyword={handleSubmitKeyword}
-                handleSearchPlace={handleSearchPlace}
-              >
-                {(location) => <MomentPlaceAddCard handleClickPlace={handleFocusPlace} data={location} />}
+              <LocationSearchForm keyword={keyword} handleSubmitKeyword={submitKeyword} handleSearchPlace={searchPlace}>
+                {(location) => <MomentPlaceAddCard handleClickPlace={focusPlace} data={location} />}
               </LocationSearchForm>
             </Tab.Panel>
           </Tab>
         </section>
         <section className={styles.mapWrapper}>
-          <MomentPlaceMap searchPlaces={searchResult} momentPlaces={momentPlaces.places} focus={focus} />
+          <MomentPlaceMap searchPlaces={searchResult} momentPlaces={momentPlaces?.places || []} focus={focus} />
         </section>
       </main>
     </div>

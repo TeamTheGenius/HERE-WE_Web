@@ -24,7 +24,8 @@ function CrewMomentList() {
     navigate(routePaths.momentDetail.getPath(Number(crewId), momentId));
   };
 
-  if (!crewMomentListData?.content?.length)
+  if (!crewMomentListData) return null;
+  if (crewMomentListData && crewMomentListData.content?.length === 0)
     return (
       <EmptyState>
         <EmptyState.Icon icon="calendar" iconSize="80" />

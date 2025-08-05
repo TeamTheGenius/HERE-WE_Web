@@ -1,15 +1,13 @@
 @use '@/shared/styles/global.scss' as *;
 
-.title {
-  @include font-text(heading-small);
-  color: var(--text-primary);
-  padding: $space-sm;
-}
-
 .container {
   display: flex;
   flex-direction: column;
   height: 100%;
+}
+
+.title {
+  padding: $space-sm;
 }
 
 .content-container {

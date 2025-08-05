@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 import { useDeleteCrewMember } from '@/entities/member/query/useDeleteCrewMember';
 import { useModal } from '@/shared/hooks/useModal';
 import MemberKickModal from '@/features/member/ui/MemberKickModal';
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { crewFeatureQueries } from '@/features/crew/query/crewFeatureQueries';
 
 function MemberListSection() {
@@ -15,7 +15,7 @@ function MemberListSection() {
   const paginationTools = usePagination(1, 1, 7);
   const { currentPage, setMaxPage } = paginationTools;
   const { data: crewMemberList } = useCrewMembersWithFile(currentPage - 1, 12, Number(crewId));
-  const { data: crewProfile } = useQuery({ ...crewFeatureQueries.myCrewProfile({ crewId: Number(crewId) }) });
+  const { data: crewProfile } = useSuspenseQuery({ ...crewFeatureQueries.myCrewProfile({ crewId: Number(crewId) }) });
 
   const { mutateAsync } = useDeleteCrewMember();
   const { isOpen, closeModal, openModal } = useModal();
