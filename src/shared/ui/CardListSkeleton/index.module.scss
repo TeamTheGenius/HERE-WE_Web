@@ -1,0 +1,36 @@
+@use '@/shared/styles/global' as *;
+
+.full-card {
+  width: 100%;
+}
+
+.md-card {
+  width: 24rem;
+}
+
+.image-container {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.content {
+  padding: $space-xs;
+  @include flex-column;
+  gap: $space-xs;
+  align-items: flex-start;
+}
+
+.detail-container {
+  width: 100%;
+  @include flex-column;
+  gap: $space-xxs;
+  align-items: flex-start;
+}
+
+.direction--vertical {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+  overflow: auto;
+}
