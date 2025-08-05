@@ -15,7 +15,10 @@ export const useMomentRegister = (data: MomentFormType) => {
   });
 
   const { register, getValues, setError } = formMethods;
-  const { handleFileInputClick, handleFileChange, mergedRef } = useFileInput(register, 'image', data?.image?.[0]);
+
+  const currentFiles = formMethods.watch('image')?.[0];
+
+  const { handleFileInputClick, handleFileChange, mergedRef } = useFileInput(register, 'image', currentFiles);
 
   const [uncaughtError, setUncaughtError] = useState<unknown>();
 
