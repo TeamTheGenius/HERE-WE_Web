@@ -8,7 +8,7 @@ function Main({ children }: PropsWithChildren) {
 }
 
 function PaginationContent({ children }: PropsWithChildren) {
-  return <div>{children}</div>;
+  return <>{children}</>;
 }
 
 interface PaginationButtonProps extends PropsWithChildren {
