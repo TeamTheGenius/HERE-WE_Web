@@ -1,0 +1,12 @@
+@use '@/shared/styles/global.scss' as *;
+
+.container {
+  width: 100%;
+  @include flex-row(between, center);
+  margin-bottom: $space-md;
+}
+
+.title {
+  @include font-text(heading-large);
+  color: var(--text-primary);
+}
