@@ -1,0 +1,32 @@
+@use '@/shared/styles/global.scss' as *;
+
+.memberListSkeleton {
+  display: flex;
+  flex-direction: column;
+  gap: $space-lg;
+}
+
+.memberItem {
+  display: flex;
+  align-items: flex-start;
+}
+
+.profileInfo {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-sm;
+  width: 100%;
+}
+
+.textInfo {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+  flex: 1;
+}
+
+.nameRow {
+  display: flex;
+  align-items: center;
+  gap: $space-xs;
+}
