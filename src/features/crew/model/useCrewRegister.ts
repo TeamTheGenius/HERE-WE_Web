@@ -12,7 +12,9 @@ export const useCrewRegister = (data: CrewFormType) => {
 
   const { register } = formMethods;
 
-  const { handleFileInputClick, handleFileChange, mergedRef } = useFileInput(register, 'image');
+  const currentFiles = formMethods.watch('image')?.[0];
+
+  const { handleFileInputClick, handleFileChange, mergedRef } = useFileInput(register, 'image', currentFiles);
 
   register('title', {
     pattern: {

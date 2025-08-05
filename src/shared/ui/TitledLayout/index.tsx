@@ -10,7 +10,7 @@ function TitledLayoutTitle({ children }: PropsWithChildren) {
 }
 
 function TitledLayoutContent({ children }: PropsWithChildren) {
-  return <>{children}</>;
+  return <div className={styles.content}>{children}</div>;
 }
 
 export const TitledLayout = Object.assign(Main, {
