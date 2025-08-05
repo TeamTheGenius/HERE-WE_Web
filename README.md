@@ -16,7 +16,7 @@
   <br>
   <a href="https://herewe.co.kr/">배포 링크</a>
   &nbsp; | &nbsp; 
-  <a href="https://686612406a1162af8de27174-ihlwasgjhb.chromatic.com/">Storybook</a>
+  <a href="https://main--686612406a1162af8de27174.chromatic.com/">Storybook</a>
 </p>
 
 </div>
