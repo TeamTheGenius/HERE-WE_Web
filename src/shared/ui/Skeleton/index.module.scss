@@ -1,0 +1,79 @@
+@use '@/shared/styles/global' as *;
+
+.skeleton {
+  background-color: var(--surface-tertiary);
+  display: inline-block;
+
+  opacity: 0;
+  animation: fadeIn 0.3s ease-in-out var(--skeleton-delay) forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.skeleton-circle {
+  border-radius: 50%;
+}
+
+.skeleton-square {
+  border-radius: 0;
+}
+
+.skeleton-rounded {
+  border-radius: 0.8rem;
+}
+
+@keyframes skeleton-pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes skeleton-wave {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.skeleton-pulse {
+  animation: skeleton-pulse 1.5s ease-in-out 0.5s infinite;
+}
+
+.skeleton-wave {
+  overflow: hidden;
+  position: relative;
+
+  &::after {
+    animation: skeleton-wave 1.6s linear 0.5s infinite;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    content: '';
+    position: absolute;
+    transform: translateX(-100%);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+}
+
+.skeleton-none {
+  animation: none;
+}
