@@ -17,22 +17,25 @@ interface MainProps extends PropsWithChildren {
 }
 
 function Main({ children, size = 'full', classNames, handleClick, border }: MainProps) {
+  const className = cn(
+    styles.wrapper,
+    {
+      [styles.fullCard]: size === 'full',
+      [styles.mdCard]: size === 'md',
+      [styles.wrapperBorder]: border === true,
+    },
+    classNames,
+  );
+
   return (
     <article>
-      <button
-        onClick={handleClick}
-        className={cn(
-          styles.wrapper,
-          {
-            [styles.fullCard]: size === 'full',
-            [styles.mdCard]: size === 'md',
-            [styles.wrapperBorder]: border === true,
-          },
-          classNames,
-        )}
-      >
-        {children}
-      </button>
+      {handleClick ? (
+        <button onClick={handleClick} className={className}>
+          {children}
+        </button>
+      ) : (
+        <div className={className}>{children}</div>
+      )}
     </article>
   );
 }

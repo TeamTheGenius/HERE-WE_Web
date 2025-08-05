@@ -1,7 +1,6 @@
 @use '@/shared/styles/global' as *;
 
 .wapper {
-  height: 100%;
   display: flex;
   flex-direction: column;
   gap: $space-md;
