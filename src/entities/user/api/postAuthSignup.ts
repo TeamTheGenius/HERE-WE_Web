@@ -7,5 +7,6 @@ export const postAuthSignup = async (token: string, nickname: string) => {
   });
   return {
     userId: response.data.userId,
+    token: response.data.token,
   };
 };
