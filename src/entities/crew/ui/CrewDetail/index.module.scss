@@ -1,0 +1,20 @@
+@use '@/shared/styles/global' as *;
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: $space-md;
+}
+
+.section-title {
+  @include font-text(heading-large);
+  color: var(--text-primary);
+}
+
+.section-content {
+  background-color: var(--surface-primary);
+  padding: $space-md;
+  border-radius: 0.8rem;
+  @include font-text(body-large);
+  color: var(--text-primary);
+}

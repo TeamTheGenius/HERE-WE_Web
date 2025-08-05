@@ -30,45 +30,6 @@
     margin: 0 auto;
   }
 
-  .image {
-    position: absolute;
-    z-index: 1;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
-
-  .overlayContent {
-    position: absolute;
-    z-index: 3;
-    color: var(--text-white);
-    bottom: 8%;
-    left: 4%;
-  }
-
-  .meta-list {
-    display: flex;
-    gap: $space-md;
-  }
-
-  .meta-item {
-    display: flex;
-    align-items: center;
-    gap: $space-xxs;
-  }
-
-  .name {
-    @include font-text(display-small);
-    color: var(--text-white);
-    margin-bottom: $space-sm;
-  }
-
-  .meta-text {
-    @include font-text(body-medium);
-    color: var(--text-white);
-  }
-
   .detail-content {
     width: 100%;
     margin: 0 auto;
@@ -82,24 +43,5 @@
     display: flex;
     justify-content: end;
     gap: $space-xs;
-  }
-
-  .section {
-    display: flex;
-    flex-direction: column;
-    gap: $space-md;
-  }
-
-  .section-title {
-    @include font-text(heading-large);
-    color: var(--text-primary);
-  }
-
-  .section-content {
-    background-color: var(--surface-primary);
-    padding: $space-md;
-    border-radius: 0.8rem;
-    @include font-text(body-large);
-    color: var(--text-primary);
   }
 }
