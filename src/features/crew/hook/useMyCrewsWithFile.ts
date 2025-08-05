@@ -1,15 +1,15 @@
-import { useQueries, useQuery } from '@tanstack/react-query';
+import { useSuspenseQueries, useSuspenseQuery } from '@tanstack/react-query';
 import { crewQueries } from '../../../entities/crew/query/crewQueries';
 import { FileType } from '@/shared/types/api';
 import { crewFeatureQueries } from '../query/crewFeatureQueries';
 
 // 크루와 이미지를 합병하는 커스텀 훅
 export const useMyCrewsWithFile = (page: number, size: number) => {
-  const { data: crewListData } = useQuery({
+  const { data: crewListData } = useSuspenseQuery({
     ...crewFeatureQueries.myCrewsPagination({ page, size }),
   });
 
-  const fileQueries = useQueries({
+  const fileQueries = useSuspenseQueries({
     queries: (crewListData?.content || []).map((crew) => ({
       ...crewQueries.crewFile({ crewId: crew.crewId }),
     })),
